@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="533.0" prefWidth="803.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="icet.edu.drm.controller.LogInFormController">
+   <children>
+      <ImageView fitHeight="553.0" fitWidth="417.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Rectangle%201.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="487.0" fitWidth="364.0" layoutX="26.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Group%206.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="533.0" layoutX="417.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="387.0" />
+      <ImageView fitHeight="49.0" fitWidth="120.0" layoutX="547.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/LogIn.png" />
+         </image>
+      </ImageView>
+      <JFXTextField alignment="TOP_LEFT" focusColor="#34495e" layoutX="498.0" layoutY="191.0" prefHeight="35.0" prefWidth="246.0" promptText="Enter your Email">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField alignment="TOP_LEFT" focusColor="#34495e" layoutX="498.0" layoutY="263.0" prefHeight="25.0" prefWidth="246.0" promptText="Enter your password">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXButton layoutX="543.0" layoutY="386.0" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="644.0" layoutY="313.0" text="Forgot password?" textFill="#0070ff" />
+      <Label layoutX="545.0" layoutY="492.0" text="\@2024 DilshanPadukka" />
+      <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="461.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Letter.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="461.0" layoutY="272.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Eye.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
