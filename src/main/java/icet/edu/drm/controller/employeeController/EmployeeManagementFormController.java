@@ -65,7 +65,11 @@ public class EmployeeManagementFormController implements Initializable {
         currentPage=pageViewOrders;
         currentPage.setVisible(true);
     }
-
+    public void btnViewOrderOnAction2(MouseEvent mouseEvent) {
+        currentPage.setVisible(false);
+        currentPage=pageViewOrders;
+        currentPage.setVisible(true);
+    }
     public void btnLogOutOnAction(MouseEvent mouseEvent) {
         Stage stage = new Stage();
         try {
