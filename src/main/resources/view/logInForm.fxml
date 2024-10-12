@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="533.0" prefWidth="803.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="icet.edu.drm.controller.LogInFormController">
+<AnchorPane prefHeight="533.0" prefWidth="803.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="icet.edu.drm.controller.logInController.LogInFormController">
    <children>
       <ImageView fitHeight="553.0" fitWidth="417.0" pickOnBounds="true" preserveRatio="true">
          <image>
