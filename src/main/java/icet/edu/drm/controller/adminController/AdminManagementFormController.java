@@ -65,6 +65,7 @@ public class AdminManagementFormController implements Initializable {
     }
 
     public void btnEmployeeManagementOnAction(ActionEvent event) {
+        lblEmployeeId.setText(employeeServiceImpl.generateEmployeeId());
         currentPage.setVisible(false);
         currentPage = pageEmployee;
         currentPage.setVisible(true);
@@ -107,12 +108,13 @@ public class AdminManagementFormController implements Initializable {
 
         Employee employee = new Employee(
                 lblEmployeeId.getText(),
+                txtEmployeeAddress.getText(),
+                txtContact.getText(),
+                txtEmployeeEmail.getText(),
                 txtEmployeeName.getText(),
                 txtEmployeeNic.getText(),
-                password,
-                txtEmployeeAddress.getText(),
-                txtEmployeeEmail.getText(),
-                txtContact.getText()
+                password
+
         );
         if (!txtEmployeeName.getText().equals("") && employeeServiceImpl.isValidEmail(txtEmployeeEmail.getText()) && !txtEmployeeAddress.getText().equals("")) {
 

@@ -325,7 +325,7 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="pageEmployee" layoutX="2.0">
+                  <AnchorPane fx:id="pageEmployee" layoutX="2.0" visible="false">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#33485cd5" height="683.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="879.0" />
                         <ImageView fitHeight="53.0" fitWidth="346.0" layoutX="30.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -367,7 +367,7 @@
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <Label fx:id="lblEmployeeId" alignment="CENTER" layoutX="40.0" layoutY="95.0" prefHeight="33.0" prefWidth="102.0" style="-fx-background-color: #7f8c8d;" text="E001" textFill="WHITE">
+                        <Label fx:id="lblEmployeeId" alignment="CENTER" layoutX="40.0" layoutY="95.0" prefHeight="33.0" prefWidth="102.0" style="-fx-background-color: #7f8c8d;" text="E0001" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
