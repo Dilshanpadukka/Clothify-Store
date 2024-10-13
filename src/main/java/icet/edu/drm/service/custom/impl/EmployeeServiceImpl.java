@@ -33,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public String generateEmployeeId() {
         String lastEmployeeId = employeeDaoImpl.getLatestId();
-        if (lastEmployeeId == null) {
+        if (lastEmployeeId==null){
             return "E0001";
         }
         int number = Integer.parseInt(lastEmployeeId.split("E")[1]);
@@ -46,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         ObservableList<Employee> employeeList = FXCollections.observableArrayList();
 
         list.forEach(userEntity -> {
-            employeeList.add(new ObjectMapper().convertValue(userEntity, Employee.class));
+            employeeList.add(new ObjectMapper().convertValue(userEntity,Employee.class));
         });
         return employeeList;
     }
@@ -59,5 +59,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public boolean deleteUserById(String text) {
         return employeeDaoImpl.delete(text);
+    }
+    public Employee searchByName(String name) {
+        EmployeeEntity employeeEntity = employeeDaoImpl.search(name);
+
+        return new ObjectMapper().convertValue(employeeEntity, Employee.class);
     }
 }

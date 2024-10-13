@@ -228,4 +228,17 @@ public class AdminManagementFormController implements Initializable {
         txtContact.setText("");
         txtEmployeePassword.setText("");
     }
+
+    public void btnSearchEmployeeOnAction(ActionEvent event) {
+        try {
+            Employee employee = employeeServiceImpl.searchByName(txtEmployeeName.getText());
+            if (employee != null) {
+                setTextToValues(employee);
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Employee not found").showAndWait();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

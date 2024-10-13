@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import java.util.List;
 
 public interface CrudDao<T, S> extends SuperDao {
-    T search(S s);
 
     ObservableList<T> searchAll();
 
@@ -14,4 +13,6 @@ public interface CrudDao<T, S> extends SuperDao {
     boolean update(T t);
 
     boolean delete(S s);
+
+    T search(S s);
 }

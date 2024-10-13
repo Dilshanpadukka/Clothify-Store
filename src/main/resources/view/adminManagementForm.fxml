@@ -379,7 +379,7 @@
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton layoutX="451.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Employee">
+                        <JFXButton layoutX="451.0" layoutY="289.0" onAction="#btnSearchEmployeeOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Employee">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>

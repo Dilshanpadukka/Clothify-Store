@@ -31,10 +31,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return id;
     }
 
-    @Override
-    public EmployeeEntity search(String s) {
-        return null;
-    }
+
 
     @Override
     public ObservableList<EmployeeEntity> searchAll() {
@@ -79,5 +76,18 @@ public class EmployeeDaoImpl implements EmployeeDao {
         session.getTransaction().commit();
         session.close();
         return i > 0;
+    }
+    @Override
+    public EmployeeEntity search(String name) {
+        Session session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+
+        Query query = session.createQuery("FROM employee WHERE name=:name");
+        query.setParameter("name", name);
+
+        EmployeeEntity employeeEntity = (EmployeeEntity) query.uniqueResult();
+        session.close();
+
+        return employeeEntity;
     }
 }
