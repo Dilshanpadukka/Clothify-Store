@@ -1,13 +1,9 @@
 package icet.edu.drm.repository.custom.impl;
 
 import icet.edu.drm.repository.custom.EmployeeDao;
-import icet.edu.drm.entity.EmployeeEntity;
 import icet.edu.drm.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
-
-import java.util.List;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 

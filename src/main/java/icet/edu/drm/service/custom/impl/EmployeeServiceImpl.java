@@ -1,7 +1,6 @@
 package icet.edu.drm.service.custom.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import icet.edu.drm.entity.EmployeeEntity;
 import icet.edu.drm.model.Employee;
 import icet.edu.drm.repository.DaoFactory;
 import icet.edu.drm.repository.custom.impl.EmployeeDaoImpl;
