@@ -96,69 +96,78 @@
                         </ImageView>
                         <TableView layoutX="26.0" layoutY="369.0" prefHeight="293.0" prefWidth="831.0">
                           <columns>
-                            <TableColumn prefWidth="72.0" text="CustID" />
-                            <TableColumn prefWidth="53.0" text="Title" />
-                              <TableColumn prefWidth="163.0" text="Name" />
-                              <TableColumn prefWidth="193.0" text="Address" />
-                              <TableColumn prefWidth="132.0" text="City" />
-                              <TableColumn prefWidth="123.0" text="Province" />
-                              <TableColumn prefWidth="94.0" text="PostalCode" />
-                              <TableColumn prefWidth="94.0" text="Email" />
+                            <TableColumn fx:id="colCustId" prefWidth="72.0" text="CustID" />
+                            <TableColumn fx:id="colCustTitle" prefWidth="53.0" text="Title" />
+                              <TableColumn fx:id="colCustName" prefWidth="163.0" text="Name" />
+                              <TableColumn fx:id="colCustAddress" prefWidth="193.0" text="Address" />
+                              <TableColumn fx:id="colCustCity" prefWidth="132.0" text="City" />
+                              <TableColumn fx:id="colCustProvince" prefWidth="123.0" text="Province" />
+                              <TableColumn fx:id="colCustPostalCode" prefWidth="94.0" text="PostalCode" />
+                              <TableColumn fx:id="colCustEmail" prefWidth="94.0" text="Email" />
+                              <TableColumn fx:id="colCustContact" prefWidth="94.0" text="Contact" />
                           </columns>
                         </TableView>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000076" height="289.0" layoutX="26.0" layoutY="75.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="831.0" />
-                        <TextField layoutX="56.0" layoutY="156.0" prefHeight="31.0" prefWidth="185.0" promptText="City">
+                        <TextField fx:id="txtCustCity" layoutX="56.0" layoutY="156.0" prefHeight="31.0" prefWidth="185.0" promptText="City">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="296.0" layoutY="96.0" prefHeight="31.0" prefWidth="225.0" promptText="Enter Name">
+                        <TextField fx:id="txtCustName" layoutX="296.0" layoutY="96.0" prefHeight="31.0" prefWidth="225.0" promptText="Enter Name">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="267.0" layoutY="211.0" prefHeight="31.0" prefWidth="254.0" promptText="Email">
+                        <TextField fx:id="txtCustEmail" layoutX="267.0" layoutY="211.0" prefHeight="31.0" prefWidth="254.0" promptText="Email">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="269.0" layoutY="156.0" prefHeight="31.0" prefWidth="252.0" promptText="Province">
+                        <TextField fx:id="txtCustProvince" layoutX="269.0" layoutY="156.0" prefHeight="31.0" prefWidth="252.0" promptText="Province">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="57.0" layoutY="211.0" prefHeight="31.0" prefWidth="184.0" promptText="PostalCode">
+                        <TextField fx:id="txtCustPostalCode" layoutX="57.0" layoutY="211.0" prefHeight="31.0" prefWidth="184.0" promptText="PostalCode">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <Label alignment="CENTER" layoutX="40.0" layoutY="95.0" prefHeight="33.0" prefWidth="102.0" style="-fx-background-color: #7f8c8d;" text="C001" textFill="WHITE">
+                        <Label fx:id="lblCustId" alignment="CENTER" layoutX="40.0" layoutY="95.0" prefHeight="33.0" prefWidth="102.0" style="-fx-background-color: #7f8c8d;" text="C001" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Label>
-                        <ComboBox layoutX="174.0" layoutY="99.0" prefHeight="25.0" prefWidth="90.0" promptText="Set Title" style="-fx-background-color: #ecf0f1;" />
-                        <TextArea layoutX="553.0" layoutY="95.0" prefHeight="149.0" prefWidth="226.0" promptText="Address" />
-                        <JFXButton layoutX="58.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #2ecc71;" text="Add Customer">
+                        <ComboBox fx:id="cmbCustTitle" layoutX="174.0" layoutY="99.0" prefHeight="25.0" prefWidth="90.0" promptText="Set Title" style="-fx-background-color: #ecf0f1;" />
+                        <TextArea fx:id="txtCustAddress" layoutX="553.0" layoutY="155.0" prefHeight="89.0" prefWidth="226.0" promptText="Address">
+                           <font>
+                              <Font size="15.0" />
+                           </font></TextArea>
+                        <JFXButton layoutX="58.0" layoutY="289.0" onAction="#btnAddCustomerOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #2ecc71;" text="Add Customer">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton layoutX="257.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #f1c40f;" text="Update Customer">
+                        <JFXButton layoutX="257.0" layoutY="289.0" onAction="#btnUpdateCustomerOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #f1c40f;" text="Update Customer">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton layoutX="451.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Customer">
+                        <JFXButton layoutX="451.0" layoutY="289.0" onAction="#btnSearchCustomerOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Customer">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton layoutX="642.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #e74c3c;" text="Delete Customer">
+                        <JFXButton layoutX="642.0" layoutY="289.0" onAction="#btnDeleteCustomerOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #e74c3c;" text="Delete Customer">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
+                        <TextField fx:id="txtCustContact" layoutX="554.0" layoutY="96.0" prefHeight="31.0" prefWidth="225.0" promptText="Contact">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="pageSupplier" layoutX="-10.0" layoutY="-6.0" prefHeight="689.0" prefWidth="889.0" visible="false">

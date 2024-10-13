@@ -1,7 +1,9 @@
 package icet.edu.drm.controller.adminController;
 
 import icet.edu.drm.model.Employee;
+import icet.edu.drm.service.ServiceFactory;
 import icet.edu.drm.service.custom.impl.EmployeeServiceImpl;
+import icet.edu.drm.util.ServiceType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -46,7 +48,7 @@ public class AdminManagementFormController implements Initializable {
     private AnchorPane currentPage;
 
 
-    EmployeeServiceImpl employeeServiceImpl = new EmployeeServiceImpl();
+    EmployeeServiceImpl employeeServiceImpl = ServiceFactory.getInstance().getService(ServiceType.EMPLOYEE);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
