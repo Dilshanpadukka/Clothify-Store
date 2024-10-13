@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import icet.edu.drm.entity.EmployeeEntity;
 import icet.edu.drm.model.Employee;
 import icet.edu.drm.repository.DaoFactory;
+import icet.edu.drm.repository.custom.EmployeeDao;
 import icet.edu.drm.repository.custom.impl.EmployeeDaoImpl;
 import icet.edu.drm.service.custom.EmployeeService;
 import icet.edu.drm.util.DaoType;
@@ -15,25 +16,29 @@ import java.util.Base64;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
-    EmployeeDaoImpl employeeDaoImpl = DaoFactory.getInstance().getDao(DaoType.EMPLOYEE);
-
+    @Override
     public boolean isValidEmail(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);
     }
 
+    @Override
     public String passwordEncrypt(String password) {
         return new String(Base64.getEncoder().encode(password.getBytes(StandardCharsets.UTF_8)));
     }
 
-    public boolean insertUser(Employee employee) {
+    @Override
+    public boolean addEmployee(Employee employee) {
+        EmployeeDao employeeDao = DaoFactory.getInstance().getDaoType(DaoType.EMPLOYEE);
         EmployeeEntity userEntity = new ObjectMapper().convertValue(employee, EmployeeEntity.class);
-        return employeeDaoImpl.insert(userEntity);
+        return employeeDao.save(userEntity);
     }
 
+    @Override
     public String generateEmployeeId() {
-        String lastEmployeeId = employeeDaoImpl.getLatestId();
-        if (lastEmployeeId==null){
+        EmployeeDao employeeDao = DaoFactory.getInstance().getDaoType(DaoType.EMPLOYEE);
+        String lastEmployeeId = employeeDao.getLatestId();
+        if (lastEmployeeId == null) {
             return "E0001";
         }
         int number = Integer.parseInt(lastEmployeeId.split("E")[1]);
@@ -41,27 +46,36 @@ public class EmployeeServiceImpl implements EmployeeService {
         return String.format("E%04d", number);
     }
 
-    public ObservableList getAllUsers() {
-        ObservableList<EmployeeEntity> list = employeeDaoImpl.searchAll();
+    @Override
+    public ObservableList getEmployee() {
+        EmployeeDao employeeDao = DaoFactory.getInstance().getDaoType(DaoType.EMPLOYEE);
+        ObservableList<EmployeeEntity> list = employeeDao.getAll();
         ObservableList<Employee> employeeList = FXCollections.observableArrayList();
 
         list.forEach(userEntity -> {
-            employeeList.add(new ObjectMapper().convertValue(userEntity,Employee.class));
+            employeeList.add(new ObjectMapper().convertValue(userEntity, Employee.class));
         });
         return employeeList;
     }
 
-    public boolean updateUser(Employee employee) {
+    @Override
+    public boolean updateEmployee(Employee employee) {
+        EmployeeDao employeeDao = DaoFactory.getInstance().getDaoType(DaoType.EMPLOYEE);
         EmployeeEntity employeeEntity = new ObjectMapper().convertValue(employee, EmployeeEntity.class);
 
-        return employeeDaoImpl.update(employeeEntity);
+        return employeeDao.update(employeeEntity);
     }
 
-    public boolean deleteUserById(String text) {
-        return employeeDaoImpl.delete(text);
+    @Override
+    public boolean deleteEmployee(String text) {
+        EmployeeDao employeeDao = DaoFactory.getInstance().getDaoType(DaoType.EMPLOYEE);
+        return employeeDao.delete(text);
     }
+
+    @Override
     public Employee searchByName(String name) {
-        EmployeeEntity employeeEntity = employeeDaoImpl.search(name);
+        EmployeeDao employeeDao = DaoFactory.getInstance().getDaoType(DaoType.EMPLOYEE);
+        EmployeeEntity employeeEntity = employeeDao.search(name);
 
         return new ObjectMapper().convertValue(employeeEntity, Employee.class);
     }

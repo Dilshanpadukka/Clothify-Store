@@ -62,7 +62,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Label layoutX="74.0" layoutY="617.0" onMouseClicked="#btnLogOutOnAction" prefHeight="26.0" prefWidth="59.0" text="LogOut">
+                  <Label fx:id="btnLogOut" layoutX="74.0" layoutY="617.0" onMouseClicked="#btnLogOutOnAction" prefHeight="26.0" prefWidth="59.0" text="LogOut">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -94,7 +94,7 @@
                               <Image url="@../image/Customer.png" />
                            </image>
                         </ImageView>
-                        <TableView layoutX="26.0" layoutY="369.0" prefHeight="293.0" prefWidth="831.0">
+                        <TableView fx:id="tblCustomer" layoutX="26.0" layoutY="369.0" prefHeight="293.0" prefWidth="831.0">
                           <columns>
                             <TableColumn fx:id="colCustId" prefWidth="72.0" text="CustID" />
                             <TableColumn fx:id="colCustTitle" prefWidth="53.0" text="Title" />

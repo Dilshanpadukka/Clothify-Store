@@ -13,7 +13,7 @@ import java.util.List;
 
 public class EmployeeDaoImpl implements EmployeeDao {
     @Override
-    public boolean insert(EmployeeEntity userEntity) {
+    public boolean save(EmployeeEntity userEntity) {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         session.persist(userEntity);
@@ -21,7 +21,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         session.close();
         return true;
     }
-
+@Override
     public String getLatestId() {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
@@ -31,10 +31,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return id;
     }
 
-
-
     @Override
-    public ObservableList<EmployeeEntity> searchAll() {
+    public ObservableList<EmployeeEntity> getAll() {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.getTransaction();
         List<EmployeeEntity> employeeList = session.createQuery("FROM employee").list();

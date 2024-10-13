@@ -6,13 +6,15 @@ import java.util.List;
 
 public interface CrudDao<T, S> extends SuperDao {
 
-    ObservableList<T> searchAll();
+    ObservableList<T> getAll();
 
-    boolean insert(T t);
+    boolean save(T t);
 
     boolean update(T t);
 
     boolean delete(S s);
 
     T search(S s);
+
+    String getLatestId();
 }

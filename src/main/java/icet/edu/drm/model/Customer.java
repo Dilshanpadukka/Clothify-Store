@@ -11,8 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Customer {
     private String id;
+    private String title;
     private String name;
     private String contact;
     private String address;
+    private String city;
+    private String province;
+    private String postalCode;
     private String email;
 }
