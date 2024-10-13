@@ -333,17 +333,13 @@
                               <Image url="@../image/Employee.png" />
                            </image>
                         </ImageView>
-                        <TableView layoutX="26.0" layoutY="369.0" prefHeight="293.0" prefWidth="831.0">
+                        <TableView fx:id="tblEmployee" layoutX="26.0" layoutY="369.0" prefHeight="293.0" prefWidth="831.0">
                            <columns>
-                              <TableColumn prefWidth="72.0" text="EmpID" />
-                              <TableColumn prefWidth="53.0" text="Title" />
-                              <TableColumn prefWidth="163.0" text="Employee Name" />
-                              <TableColumn prefWidth="163.0" text="NIC" />
-                              <TableColumn prefWidth="125.0" text="DOB" />
-                              <TableColumn prefWidth="160.0" text="Address" />
-                              <TableColumn prefWidth="94.0" text="Emp Salary" />
-                              <TableColumn prefWidth="94.0" text="Email" />
-                              <TableColumn prefWidth="94.0" text="Password" />
+                              <TableColumn fx:id="colEmpId" prefWidth="72.0" text="EmpID" />
+                              <TableColumn fx:id="colEmpName" prefWidth="201.0" text="Employee Name" />
+                              <TableColumn fx:id="colEmpNic" prefWidth="190.0" text="NIC" />
+                              <TableColumn fx:id="colEmpAddress" prefWidth="176.0" text="Address" />
+                              <TableColumn fx:id="colEmpEmail" prefWidth="191.0" text="Email" />
                            </columns>
                         </TableView>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000076" height="289.0" layoutX="26.0" layoutY="75.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="831.0" />
@@ -393,8 +389,8 @@
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <DatePicker fx:id="txtEmployeeDOB" layoutX="50.0" layoutY="159.0" prefHeight="25.0" prefWidth="186.0" promptText="Date of Birth" />
-                        <TextField fx:id="txtEmployeeSalary" layoutX="451.0" layoutY="96.0" prefHeight="31.0" prefWidth="178.0" promptText="Employee Salary">
+                        <DatePicker fx:id="txtEmployeeDOB" disable="true" layoutX="50.0" layoutY="159.0" prefHeight="25.0" prefWidth="186.0" promptText="Date of Birth" />
+                        <TextField fx:id="txtEmployeeSalary" disable="true" layoutX="451.0" layoutY="96.0" prefHeight="31.0" prefWidth="178.0" promptText="Employee Salary">
                            <font>
                               <Font size="15.0" />
                            </font>

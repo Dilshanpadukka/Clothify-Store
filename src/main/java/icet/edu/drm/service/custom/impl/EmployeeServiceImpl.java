@@ -7,6 +7,8 @@ import icet.edu.drm.repository.DaoFactory;
 import icet.edu.drm.repository.custom.impl.EmployeeDaoImpl;
 import icet.edu.drm.service.custom.EmployeeService;
 import icet.edu.drm.util.DaoType;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -39,4 +41,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return String.format("E%04d", number);
     }
 
+    public ObservableList getAllUsers() {
+        ObservableList<EmployeeEntity> list = employeeDaoImpl.searchAll();
+        ObservableList<Employee> employeeList = FXCollections.observableArrayList();
+
+        list.forEach(userEntity -> {
+            employeeList.add(new ObjectMapper().convertValue(userEntity,Employee.class));
+        });
+        return employeeList;
+    }
 }

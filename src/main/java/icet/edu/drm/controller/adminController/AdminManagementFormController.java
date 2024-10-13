@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -34,6 +35,12 @@ public class AdminManagementFormController implements Initializable {
     public TextField txtContact;
     public TextField txtEmployeeNic;
     public Label lblEmployeeId;
+    public TableColumn colEmpId;
+    public TableColumn colEmpName;
+    public TableColumn colEmpNic;
+    public TableColumn colEmpAddress;
+    public TableColumn colEmpEmail;
+    public TableView tblEmployee;
 
     private AnchorPane currentPage;
 
@@ -44,6 +51,32 @@ public class AdminManagementFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         currentPage = pageCustomer;
         currentPage.setVisible(true);
+
+        colEmpId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colEmpName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colEmpNic.setCellValueFactory(new PropertyValueFactory<>("nic"));
+        colEmpAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colEmpEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        tblEmployee.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if (newValue != null) {
+                setTextToValues((Employee) newValue);
+            }
+        }));
+        loadTable();
+    }
+
+    private void setTextToValues(Employee newValue) {
+        lblEmployeeId.setText(newValue.getId());
+        txtEmployeeName.setText(newValue.getName());
+        txtContact.setText(newValue.getContact());
+        txtEmployeeNic.setText(newValue.getNic());
+        txtEmployeeEmail.setText(newValue.getEmail());
+        txtEmployeeAddress.setText(newValue.getEmail());
+    }
+
+    private void loadTable() {
+        tblEmployee.setItems(employeeServiceImpl.getAllUsers());
     }
 
     public void btnSupplierManagementOnAction(ActionEvent event) {
@@ -138,6 +171,6 @@ public class AdminManagementFormController implements Initializable {
         } else {
             new Alert(Alert.AlertType.ERROR, "Somthing Wrong..!!!").show();
         }
-
+        loadTable();
     }
 }
