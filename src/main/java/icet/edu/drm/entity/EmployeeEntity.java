@@ -20,16 +20,4 @@ public class EmployeeEntity {
     private String address;
     private String email;
     private String password;
-
-    public EmployeeEntity(String id, String address, String contact, String email, String name, String nic, String password) {
-        this.id = id;
-        this.name = name;
-        this.contact = contact;
-        this.nic = nic;
-        this.address = address;
-        this.email = email;
-        this.password = password;
-    }
-
-
 }

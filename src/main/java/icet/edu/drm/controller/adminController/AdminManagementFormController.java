@@ -141,13 +141,12 @@ public class AdminManagementFormController implements Initializable {
 
         Employee employee = new Employee(
                 lblEmployeeId.getText(),
-                txtEmployeeAddress.getText(),
-                txtContact.getText(),
-                txtEmployeeEmail.getText(),
                 txtEmployeeName.getText(),
+                txtContact.getText(),
                 txtEmployeeNic.getText(),
+                txtEmployeeAddress.getText(),
+                txtEmployeeEmail.getText(),
                 password
-
         );
         if (!txtEmployeeName.getText().equals("") && employeeServiceImpl.isValidEmail(txtEmployeeEmail.getText()) && !txtEmployeeAddress.getText().equals("")) {
 
