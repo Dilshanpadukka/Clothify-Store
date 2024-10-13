@@ -24,6 +24,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencies>
 
         <dependency>
@@ -37,6 +38,15 @@
             <artifactId>javafx-fxml</artifactId>
             <version>19</version>
         </dependency>
+
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.openjfx/javafx-controls &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.openjfx</groupId>-->
+        <!--            <artifactId>javafx-controls</artifactId>-->
+        <!--            <version>21</version>-->
+        <!--        </dependency>-->
+
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -92,7 +102,6 @@
             <artifactId>jasperreports</artifactId>
             <version>6.21.0</version>
         </dependency>
-
-
     </dependencies>
+
 </project>

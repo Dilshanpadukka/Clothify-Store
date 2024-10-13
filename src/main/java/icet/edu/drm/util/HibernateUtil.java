@@ -10,14 +10,20 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtil {
-
     private static SessionFactory session = createSession();
+
+
 
     private static SessionFactory createSession() {
         StandardServiceRegistry build = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
 
         Metadata metadata = new MetadataSources(build)
-                .addAnnotatedClass(CustomerEntity.class)
+                .addAnnotatedClass(EmployeeEntity.class)
+                //.addAnnotatedClass(CustomerEntity.class)
+                //.addAnnotatedClass(SupplierEntity.class)
+                //.addAnnotatedClass(ProductEntity.class)
+                //.addAnnotatedClass(OrderEntity.class)
+                //.addAnnotatedClass(OrderHasItemEntity.class)
                 .getMetadataBuilder()
                 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
                 .build();

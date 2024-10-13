@@ -71,6 +71,7 @@ public class EmployeeManagementFormController implements Initializable {
         currentPage.setVisible(true);
     }
     public void btnLogOutOnAction(MouseEvent mouseEvent) {
+
         Stage stage = new Stage();
         try {
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/logInForm.fxml"))));

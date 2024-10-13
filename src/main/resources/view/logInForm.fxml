@@ -10,7 +10,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="533.0" prefWidth="803.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="icet.edu.drm.controller.logInController.LogInFormController">
    <children>
       <ImageView fitHeight="553.0" fitWidth="417.0" pickOnBounds="true" preserveRatio="true">
@@ -29,17 +28,17 @@
             <Image url="@../image/LogIn.png" />
          </image>
       </ImageView>
-      <JFXTextField alignment="TOP_LEFT" focusColor="#34495e" layoutX="498.0" layoutY="191.0" prefHeight="35.0" prefWidth="246.0" promptText="Enter your Email">
+      <JFXTextField fx:id="txtEmail" alignment="TOP_LEFT" focusColor="#34495e" layoutX="498.0" layoutY="191.0" prefHeight="35.0" prefWidth="246.0" promptText="Enter your Email">
          <font>
             <Font size="16.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField alignment="TOP_LEFT" focusColor="#34495e" layoutX="498.0" layoutY="263.0" prefHeight="25.0" prefWidth="246.0" promptText="Enter your password">
+      <JFXPasswordField fx:id="txtPassword" alignment="TOP_LEFT" focusColor="#34495e" layoutX="498.0" layoutY="263.0" prefHeight="25.0" prefWidth="246.0" promptText="Enter your password">
          <font>
             <Font size="16.0" />
          </font>
       </JFXPasswordField>
-      <JFXButton layoutX="543.0" layoutY="386.0" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
+      <JFXButton fx:id="btnLogin" layoutX="543.0" layoutY="386.0" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
