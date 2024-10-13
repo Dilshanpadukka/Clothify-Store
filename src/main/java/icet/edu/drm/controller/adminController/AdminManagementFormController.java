@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -72,7 +73,7 @@ public class AdminManagementFormController implements Initializable {
         txtContact.setText(newValue.getContact());
         txtEmployeeNic.setText(newValue.getNic());
         txtEmployeeEmail.setText(newValue.getEmail());
-        txtEmployeeAddress.setText(newValue.getEmail());
+        txtEmployeeAddress.setText(newValue.getAddress());
     }
 
     private void loadTable() {
@@ -153,23 +154,78 @@ public class AdminManagementFormController implements Initializable {
 
             boolean isInsert = employeeServiceImpl.insertUser(employee);
             if (isInsert) {
-                //Table1.setItems(userBoImpl.getAllUsers());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Employee Added");
                 alert.setContentText("Employee Added Successfully..!");
                 alert.showAndWait();
-                lblEmployeeId.setText(employeeServiceImpl.generateEmployeeId());
-                txtEmployeeAddress.setText("");
-                txtEmployeeName.setText("");
-                txtEmployeeEmail.setText("");
-                txtEmployeeNic.setText("");
-                txtContact.setText("");
-                txtEmployeePassword.setText("");
+                clearFields();
             }
 
         } else {
             new Alert(Alert.AlertType.ERROR, "Somthing Wrong..!!!").show();
         }
+    }
+
+    public void btnUpdateEmployeeOnAction(ActionEvent event) {
+        Random random = new Random();
+        int p = random.nextInt(99999999) + 10000000;
+
+        String encrypt = Integer.toString(p);
+        String password = employeeServiceImpl.passwordEncrypt(encrypt);
+        if (!txtEmployeeName.getText().equals("") && employeeServiceImpl.isValidEmail(txtEmployeeEmail.getText()) && !txtEmployeeAddress.getText().equals("")) {
+            Employee employee = new Employee(
+                    lblEmployeeId.getText(),
+                    txtEmployeeName.getText(),
+                    txtContact.getText(),
+                    txtEmployeeNic.getText(),
+                    txtEmployeeAddress.getText(),
+                    txtEmployeeEmail.getText(),
+                    password
+            );
+            boolean isUpdated = employeeServiceImpl.updateUser(employee);
+            if (isUpdated) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Employee Update");
+                alert.setContentText("Employee Updated Successfully");
+                alert.showAndWait();
+                clearFields();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Something Missing");
+            alert.setContentText("Please Check your Form again..!!!");
+            alert.showAndWait();
+        }
+    }
+
+    public void btnDeleteEmployeeOnAction(ActionEvent event) {
+        if (!lblEmployeeId.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Deleting");
+            alert.setContentText("Are you sure want to delete this Employee");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+                boolean isDeleted = employeeServiceImpl.deleteUserById(lblEmployeeId.getText());
+                if (isDeleted) {
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Employee Deleted");
+                    alert2.setContentText("Employee deleted successfully");
+                    alert2.showAndWait();
+                    clearFields();
+                }
+            }
+        }
+    }
+
+    public void clearFields() {
         loadTable();
+        lblEmployeeId.setText(employeeServiceImpl.generateEmployeeId());
+        txtEmployeeAddress.setText("");
+        txtEmployeeName.setText("");
+        txtEmployeeEmail.setText("");
+        txtEmployeeNic.setText("");
+        txtContact.setText("");
+        txtEmployeePassword.setText("");
     }
 }

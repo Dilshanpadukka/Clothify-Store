@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public class EmployeeServiceImpl implements EmployeeService {
-    
+
     EmployeeDaoImpl employeeDaoImpl = DaoFactory.getInstance().getDao(DaoType.EMPLOYEE);
 
     public boolean isValidEmail(String email) {
@@ -33,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public String generateEmployeeId() {
         String lastEmployeeId = employeeDaoImpl.getLatestId();
-        if (lastEmployeeId==null){
+        if (lastEmployeeId == null) {
             return "E0001";
         }
         int number = Integer.parseInt(lastEmployeeId.split("E")[1]);
@@ -46,8 +46,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         ObservableList<Employee> employeeList = FXCollections.observableArrayList();
 
         list.forEach(userEntity -> {
-            employeeList.add(new ObjectMapper().convertValue(userEntity,Employee.class));
+            employeeList.add(new ObjectMapper().convertValue(userEntity, Employee.class));
         });
         return employeeList;
+    }
+
+    public boolean updateUser(Employee employee) {
+        EmployeeEntity employeeEntity = new ObjectMapper().convertValue(employee, EmployeeEntity.class);
+
+        return employeeDaoImpl.update(employeeEntity);
+    }
+
+    public boolean deleteUserById(String text) {
+        return employeeDaoImpl.delete(text);
     }
 }
