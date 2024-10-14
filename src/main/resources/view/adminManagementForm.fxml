@@ -49,7 +49,7 @@
                         <Font name="Impact" size="19.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton layoutX="32.0" layoutY="393.0" onAction="#btnProductManagementOnAction" prefHeight="39.0" prefWidth="245.0" style="-fx-background-color: #2c3e50;" text="Product Management" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton layoutX="32.0" layoutY="393.0" onAction="#btnProductManagementOnAction" prefHeight="39.0" prefWidth="245.0" style="-fx-background-color: #2c3e50;" text="Item Management" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Impact" size="19.0" />
                      </font>
@@ -256,62 +256,62 @@
                               <Image url="@../image/product%20management.png" />
                            </image>
                         </ImageView>
-                        <TableView layoutX="26.0" layoutY="369.0" prefHeight="293.0" prefWidth="831.0">
+                        <TableView fx:id="tblItem" layoutX="26.0" layoutY="369.0" prefHeight="293.0" prefWidth="831.0">
                            <columns>
-                              <TableColumn prefWidth="77.0" text="ProductID" />
-                              <TableColumn prefWidth="95.0" text="Category" />
-                              <TableColumn prefWidth="186.0" text="Product Name" />
-                              <TableColumn prefWidth="82.0" text="Product Size" />
-                              <TableColumn prefWidth="91.0" text="Qty" />
-                              <TableColumn prefWidth="114.0" text="Unit Price" />
-                              <TableColumn prefWidth="185.0" text="Description" />
+                              <TableColumn fx:id="colItemtId" prefWidth="77.0" text="ProductID" />
+                              <TableColumn fx:id="colItemCategory" prefWidth="95.0" text="Category" />
+                              <TableColumn fx:id="colItemName" prefWidth="186.0" text="Product Name" />
+                              <TableColumn fx:id="colItemSize" prefWidth="82.0" text="Product Size" />
+                              <TableColumn fx:id="colItemQty" prefWidth="91.0" text="Qty" />
+                              <TableColumn fx:id="colItemUnitPrice" prefWidth="114.0" text="Unit Price" />
+                              <TableColumn fx:id="colItemDescription" prefWidth="185.0" text="Description" />
                            </columns>
                         </TableView>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000076" height="289.0" layoutX="26.0" layoutY="75.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="831.0" />
-                        <TextField layoutX="296.0" layoutY="96.0" prefHeight="31.0" prefWidth="225.0" promptText="Product Name">
+                        <TextField fx:id="txtItemName" layoutX="296.0" layoutY="96.0" prefHeight="31.0" prefWidth="225.0" promptText="Item Name">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="57.0" layoutY="211.0" prefHeight="31.0" prefWidth="184.0" promptText="Unit Price">
+                        <TextField fx:id="txtItemUnitPrice" layoutX="57.0" layoutY="211.0" prefHeight="31.0" prefWidth="184.0" promptText="Unit Price">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <Label alignment="CENTER" layoutX="40.0" layoutY="95.0" prefHeight="33.0" prefWidth="102.0" style="-fx-background-color: #7f8c8d;" text="P001" textFill="WHITE">
+                        <Label fx:id="lblItemId" alignment="CENTER" layoutX="40.0" layoutY="95.0" prefHeight="33.0" prefWidth="102.0" style="-fx-background-color: #7f8c8d;" text="P001" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Label>
-                        <ComboBox layoutX="174.0" layoutY="99.0" prefHeight="25.0" prefWidth="90.0" promptText="Category" style="-fx-background-color: #ecf0f1;" />
-                        <TextArea layoutX="553.0" layoutY="95.0" prefHeight="149.0" prefWidth="226.0" promptText="Description" />
-                        <JFXButton layoutX="58.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #2ecc71;" text="Add Product">
+                        <ComboBox fx:id="cmbItemCategory" layoutX="174.0" layoutY="96.0" prefHeight="28.0" prefWidth="90.0" promptText="Category" style="-fx-background-color: #ecf0f1;" />
+                        <TextArea fx:id="txtItemDescription" layoutX="553.0" layoutY="95.0" prefHeight="149.0" prefWidth="226.0" promptText="Description" />
+                        <JFXButton layoutX="58.0" layoutY="289.0" onAction="#btnAddItemOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #2ecc71;" text="Add Item">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton layoutX="257.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #f1c40f;" text="Update Product">
+                        <JFXButton layoutX="257.0" layoutY="289.0" onAction="#btnUpdateItemOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #f1c40f;" text="Update Item">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton layoutX="451.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Product">
+                        <JFXButton layoutX="451.0" layoutY="289.0" onAction="#btnSearchItemOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Item">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton layoutX="642.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #e74c3c;" text="Delete Product">
+                        <JFXButton layoutX="642.0" layoutY="289.0" onAction="#btnDeleteItemOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #e74c3c;" text="Delete Item">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <ComboBox layoutX="58.0" layoutY="159.0" prefHeight="25.0" prefWidth="118.0" promptText="Product Size" style="-fx-background-color: #ecf0f1;" />
-                        <TextField layoutX="213.0" layoutY="154.0" prefHeight="31.0" prefWidth="108.0" promptText="Qty">
+                        <ComboBox fx:id="cmbItemSize" layoutX="58.0" layoutY="154.0" prefHeight="30.0" prefWidth="118.0" promptText="Item Size" style="-fx-background-color: #ecf0f1;" />
+                        <TextField fx:id="txtItemQty" layoutX="213.0" layoutY="154.0" prefHeight="31.0" prefWidth="108.0" promptText="Qty">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <ComboBox layoutX="341.0" layoutY="157.0" prefHeight="25.0" prefWidth="175.0" promptText="Supplier ID" style="-fx-background-color: #ecf0f1;" />
+                        <ComboBox fx:id="cmbSupplierId" layoutX="341.0" layoutY="152.0" prefHeight="30.0" prefWidth="175.0" promptText="Supplier ID" style="-fx-background-color: #ecf0f1;" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="pageOrderManage" visible="false">

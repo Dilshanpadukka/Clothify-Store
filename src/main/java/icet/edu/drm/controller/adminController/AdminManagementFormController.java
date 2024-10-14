@@ -2,12 +2,16 @@ package icet.edu.drm.controller.adminController;
 
 import icet.edu.drm.model.Customer;
 import icet.edu.drm.model.Employee;
+import icet.edu.drm.model.Item;
 import icet.edu.drm.model.Supplier;
+import icet.edu.drm.repository.custom.SupplierDao;
 import icet.edu.drm.service.custom.CustomerService;
 import icet.edu.drm.service.custom.EmployeeService;
+import icet.edu.drm.service.custom.ItemService;
 import icet.edu.drm.service.custom.SupplierService;
 import icet.edu.drm.service.custom.impl.CustomerServiceImpl;
 import icet.edu.drm.service.custom.impl.EmployeeServiceImpl;
+import icet.edu.drm.service.custom.impl.ItemServiceImpl;
 import icet.edu.drm.service.custom.impl.SupplierServiceImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +27,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -87,6 +92,22 @@ public class AdminManagementFormController implements Initializable {
     public TableColumn colSupId;
     public TableView tblSupplier;
     public TextField txtSupContact;
+    public TableView tblItem;
+    public TableColumn colItemtId;
+    public TableColumn colItemCategory;
+    public TableColumn colItemName;
+    public TableColumn colItemSize;
+    public TableColumn colItemQty;
+    public TableColumn colItemUnitPrice;
+    public TableColumn colItemDescription;
+    public TextField txtItemName;
+    public TextField txtItemUnitPrice;
+    public Label lblItemId;
+    public ComboBox cmbItemCategory;
+    public TextArea txtItemDescription;
+    public ComboBox cmbItemSize;
+    public TextField txtItemQty;
+    public ComboBox cmbSupplierId;
 
     private AnchorPane currentPage;
 
@@ -107,6 +128,7 @@ public class AdminManagementFormController implements Initializable {
     }
 
     public void btnProductManagementOnAction(ActionEvent event) {
+        lblItemId.setText(itemService.generateItemId());
         currentPage.setVisible(false);
         currentPage = pageProduct;
         currentPage.setVisible(true);
@@ -407,6 +429,7 @@ public class AdminManagementFormController implements Initializable {
             alert.showAndWait();
         }
     }
+
     //====================================SUPPLIER MANAGEMENT===============================================================
     final SupplierService supplierService = new SupplierServiceImpl();
 
@@ -436,6 +459,7 @@ public class AdminManagementFormController implements Initializable {
         txtSupCompanyEmail.setText("");
         txtSupCompanyAddress.setText("");
     }
+
     public void btnAddSupplierOnAction(ActionEvent event) {
         Supplier supplier = new Supplier(
                 lblSupId.getText(),
@@ -524,11 +548,153 @@ public class AdminManagementFormController implements Initializable {
     }
 
     //======================================================================================================================
+    //======================================================================================================================
 
+    //====================================ITEM MANAGEMENT===============================================================
+
+    final ItemService itemService = new ItemServiceImpl();
+
+    private void loadItemTable() {
+        tblItem.setItems(FXCollections.observableArrayList(itemService.getItem()));
+    }
+    private void loadCategoryMenu() {
+        ObservableList<Object> category = FXCollections.observableArrayList();
+        category.add("Ladies");
+        category.add("Gents");
+        category.add("Kids");
+        cmbItemCategory.setItems(category);
+    }
+    private void loadSizeMenu() {
+        ObservableList<Object> sizes = FXCollections.observableArrayList();
+        sizes.add("XS");
+        sizes.add("S");
+        sizes.add("M");
+        sizes.add("L");
+        sizes.add("XL");
+        sizes.add("XXL");
+        cmbItemSize.setItems(sizes);
+    }
+    private void loadSupplierId(){
+        List<Supplier> suppliers = supplierService.getSupplier();
+        ObservableList<String> supplierIds = FXCollections.observableArrayList();
+        for (Supplier supplier : suppliers) {
+            supplierIds.add(supplier.getId());
+        }
+        cmbSupplierId.setItems(supplierIds);
+    }
+    private void setTextToValues(Item newValue) {
+        lblItemId.setText(newValue.getId());
+        txtItemName.setText(newValue.getName());
+        txtItemQty.setText(newValue.getQty());
+        txtItemUnitPrice.setText(newValue.getUnitPrice());
+        txtItemDescription.setText(newValue.getDescription());
+        cmbItemCategory.setValue(newValue.getCategory());
+        cmbItemSize.setValue(newValue.getSize());
+        cmbSupplierId.setValue(newValue.getSupId());
+    }
+
+    public void clearFieldsItem() {
+        loadItemTable();
+        lblItemId.setText(itemService.generateItemId());
+        txtItemName.setText("");
+        cmbItemCategory.setValue("");
+        cmbItemSize.setValue("");
+        txtItemDescription.setText("");
+        cmbSupplierId.setValue("");
+        txtItemQty.setText("");
+        txtItemUnitPrice.setText("");
+    }
+
+    public void btnAddItemOnAction(ActionEvent event) {
+        Item item = new Item(
+                lblItemId.getText(),
+                txtItemName.getText(),
+                cmbItemCategory.getValue().toString(),
+                cmbItemSize.getValue().toString(),
+                txtItemDescription.getText(),
+                cmbSupplierId.getValue().toString(),
+                txtItemQty.getText(),
+                txtItemUnitPrice.getText()
+        );
+        if (!txtItemName.getText().equals("") && !cmbSupplierId.getValue().equals("")) {
+            boolean isInsert = itemService.addItem(item);
+            if (isInsert) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Item Added");
+                alert.setContentText("Item Added Successfully..!");
+                alert.showAndWait();
+                clearFieldsItem();
+            }
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Somthing Wrong..!!!").show();
+        }
+    }
+
+    public void btnUpdateItemOnAction(ActionEvent event) {
+        if (!txtItemName.getText().equals("") && !cmbSupplierId.getValue().equals("")) {
+            Item item = new Item(
+                    lblItemId.getText(),
+                    txtItemName.getText(),
+                    cmbItemCategory.getValue().toString(),
+                    cmbItemSize.getValue().toString(),
+                    txtItemDescription.getText(),
+                    cmbSupplierId.getValue().toString(),
+                    txtItemQty.getText(),
+                    txtItemUnitPrice.getText()
+            );
+            boolean isUpdated = itemService.updateItem(item);
+            if (isUpdated) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Item Update");
+                alert.setContentText("Item Updated Successfully");
+                alert.showAndWait();
+                clearFieldsItem();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Something Missing");
+            alert.setContentText("Please Check your Form again..!!!");
+            alert.showAndWait();
+        }
+    }
+
+    public void btnSearchItemOnAction(ActionEvent event) {
+        try {
+            Item item = itemService.searchByName(txtItemName.getText());
+            if (item != null) {
+                setTextToValues(item);
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Item not found").showAndWait();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void btnDeleteItemOnAction(ActionEvent event) {
+        if (!txtItemName.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Deleting");
+            alert.setContentText("Are you sure want to delete this item");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                boolean isDeleted = itemService.deleteItem(lblItemId.getText());
+                if (isDeleted) {
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Item Deleted");
+                    alert2.setContentText("Item deleted successfully");
+                    alert2.showAndWait();
+                    clearFieldsItem();
+                }
+            }
+        }
+
+    }
 
     //======================================================================================================================
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        lblCustId.setText(customerService.generateCustomerId());
         currentPage = pageCustomer;
         currentPage.setVisible(true);
 
@@ -579,6 +745,27 @@ public class AdminManagementFormController implements Initializable {
             }
         }));
         loadSupplierTable();
+
+        colItemtId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colItemCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colItemSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+        colItemDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colItemQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colItemUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+
+        tblItem.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if (newValue != null) {
+                setTextToValues((Item) newValue);
+            }
+        }));
+
+        loadItemTable();
+        loadCategoryMenu();
+        loadSizeMenu();
+        loadSupplierId();
+
     }
+
 
 }

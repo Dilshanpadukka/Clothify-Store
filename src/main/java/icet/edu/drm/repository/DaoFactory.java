@@ -2,6 +2,7 @@ package icet.edu.drm.repository;
 
 import icet.edu.drm.repository.custom.impl.CustomerDaoImpl;
 import icet.edu.drm.repository.custom.impl.EmployeeDaoImpl;
+import icet.edu.drm.repository.custom.impl.ItemDaoImpl;
 import icet.edu.drm.repository.custom.impl.SupplierDaoImpl;
 import icet.edu.drm.util.DaoType;
 
@@ -16,6 +17,7 @@ public class DaoFactory {
             case EMPLOYEE:return (T) new EmployeeDaoImpl();
             case CUSTOMER:return (T) new CustomerDaoImpl();
             case SUPPLIER:return (T) new SupplierDaoImpl();
+            case ITEM:return (T) new ItemDaoImpl();
             default:return null;
         }
 

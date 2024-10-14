@@ -1,8 +1,10 @@
 package icet.edu.drm.repository.custom.impl;
 
 import icet.edu.drm.entity.EmployeeEntity;
+import icet.edu.drm.entity.ItemEntity;
 import icet.edu.drm.entity.SupplierEntity;
-import icet.edu.drm.repository.custom.SupplierDao;
+import icet.edu.drm.model.Supplier;
+import icet.edu.drm.repository.custom.ItemDao;
 import icet.edu.drm.util.HibernateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,12 +14,12 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class SupplierDaoImpl implements SupplierDao {
+public class ItemDaoImpl implements ItemDao {
     @Override
-    public boolean save(SupplierEntity supplierEntity) {
+    public boolean save(ItemEntity itemEntity) {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        session.persist(supplierEntity);
+        session.persist(itemEntity);
         session.getTransaction().commit();
         session.close();
         return true;
@@ -26,25 +28,25 @@ public class SupplierDaoImpl implements SupplierDao {
     public String getLatestId() {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("SELECT id FROM supplier ORDER BY id DESC LIMIT 1");
+        Query query = session.createQuery("SELECT id FROM item ORDER BY id DESC LIMIT 1");
         String id = (String) query.uniqueResult();
         session.close();
         return id;
     }
 
     @Override
-    public List<SupplierEntity> getAll() {
+    public List<ItemEntity> getAll() {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.getTransaction();
-        List<SupplierEntity> supplierList = session.createQuery("FROM supplier").list();
-        return supplierList;
+        List<ItemEntity> itemList = session.createQuery("FROM item").list();
+        return itemList;
     }
 
     @Override
-    public boolean update(SupplierEntity supplierEntity) {
+    public boolean update(ItemEntity itemEntity) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
-        session.merge(supplierEntity.getId(),supplierEntity);
+        session.merge(itemEntity.getId(),itemEntity);
         session.getTransaction().commit();
         return true;
     }
@@ -53,28 +55,21 @@ public class SupplierDaoImpl implements SupplierDao {
     public boolean delete(String id) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
-        session.remove(session.get(SupplierEntity.class,id));
+        session.remove(session.get(ItemEntity.class,id));
         session.getTransaction().commit();
         return true;
     }
     @Override
-    public SupplierEntity search(String name) {
+    public ItemEntity search(String name) {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
 
-        Query query = session.createQuery("FROM supplier WHERE name=:name");
+        Query query = session.createQuery("FROM item WHERE name=:name");
         query.setParameter("name", name);
 
-        SupplierEntity supplierEntity = (SupplierEntity) query.uniqueResult();
+        ItemEntity itemEntity = (ItemEntity) query.uniqueResult();
         session.close();
-        return supplierEntity;
+        return itemEntity;
     }
-//    public ObservableList<String> getSupplierIds(){
-//        ObservableList<String> supplierId = FXCollections.observableArrayList();
-//        List<SupplierEntity> supplierObserverList = getAll();
-//        supplierObserverList.forEach(supplier -> {
-//            supplierId.add(supplier.getId());
-//        });
-//        return supplierId;
-//    }
+
 }

@@ -21,7 +21,7 @@ public class HibernateUtil {
                 .addAnnotatedClass(EmployeeEntity.class)
                 .addAnnotatedClass(CustomerEntity.class)
                 .addAnnotatedClass(SupplierEntity.class)
-                //.addAnnotatedClass(ProductEntity.class)
+                .addAnnotatedClass(ItemEntity.class)
                 //.addAnnotatedClass(OrderEntity.class)
                 //.addAnnotatedClass(OrderHasItemEntity.class)
                 .getMetadataBuilder()

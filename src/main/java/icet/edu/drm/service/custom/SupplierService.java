@@ -8,7 +8,7 @@ import java.util.List;
 public interface SupplierService {
     boolean addSupplier(Supplier supplier);
 
-    List getSupplier();
+//    List getSupplier();
 
     Supplier searchByName(String name);
 
@@ -17,4 +17,5 @@ public interface SupplierService {
     boolean updateSupplier(Supplier supplier);
 
     String generateSupplierId();
+    List<Supplier> getSupplier();
 }
