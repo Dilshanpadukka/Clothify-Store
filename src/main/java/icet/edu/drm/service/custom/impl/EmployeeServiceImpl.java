@@ -5,7 +5,6 @@ import icet.edu.drm.entity.EmployeeEntity;
 import icet.edu.drm.model.Employee;
 import icet.edu.drm.repository.DaoFactory;
 import icet.edu.drm.repository.custom.EmployeeDao;
-import icet.edu.drm.repository.custom.impl.EmployeeDaoImpl;
 import icet.edu.drm.service.custom.EmployeeService;
 import icet.edu.drm.util.DaoType;
 import javafx.collections.FXCollections;
@@ -13,6 +12,7 @@ import javafx.collections.ObservableList;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.List;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -47,9 +47,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ObservableList getEmployee() {
+    public List getEmployee() {
         EmployeeDao employeeDao = DaoFactory.getInstance().getDaoType(DaoType.EMPLOYEE);
-        ObservableList<EmployeeEntity> list = employeeDao.getAll();
+        List<EmployeeEntity> list = employeeDao.getAll();
         ObservableList<Employee> employeeList = FXCollections.observableArrayList();
 
         list.forEach(userEntity -> {

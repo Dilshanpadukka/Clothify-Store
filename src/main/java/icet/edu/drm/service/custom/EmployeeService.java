@@ -1,12 +1,13 @@
 package icet.edu.drm.service.custom;
 
 import icet.edu.drm.model.Employee;
-import javafx.collections.ObservableList;
+
+import java.util.List;
 
 public interface EmployeeService {
     boolean addEmployee(Employee employee);
 
-    ObservableList getEmployee();
+    List getEmployee();
 
     Employee searchByName(String name);
 

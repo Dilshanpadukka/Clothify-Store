@@ -3,6 +3,8 @@ package icet.edu.drm.service.custom;
 import icet.edu.drm.model.Customer;
 import javafx.collections.ObservableList;
 
+import java.util.List;
+
 public interface CustomerService {
     boolean addCustomer(Customer customer);
 
@@ -10,7 +12,7 @@ public interface CustomerService {
 
     boolean deleteCustomer(String text);
 
-    ObservableList getCustomer();
+    List getCustomer();
 
     boolean updateCustomer(Customer customer);
 

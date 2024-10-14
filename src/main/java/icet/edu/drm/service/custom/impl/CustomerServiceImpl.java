@@ -10,6 +10,8 @@ import icet.edu.drm.util.DaoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.List;
+
 public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean addCustomer(Customer customer) {
@@ -29,11 +31,10 @@ public class CustomerServiceImpl implements CustomerService {
         return String.format("C%04d", number);
     }
     @Override
-    public ObservableList getCustomer() {
+    public List getCustomer() {
         CustomerDao customerDao = DaoFactory.getInstance().getDaoType(DaoType.CUSTOMER);
-        ObservableList<CustomerEntity> list = customerDao.getAll();
+        List<CustomerEntity> list = customerDao.getAll();
         ObservableList<Customer> customerList = FXCollections.observableArrayList();
-
         list.forEach(customerEntity -> {
             customerList.add(new ObjectMapper().convertValue(customerEntity, Customer.class));
         });

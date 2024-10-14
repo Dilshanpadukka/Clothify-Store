@@ -133,7 +133,7 @@ public class AdminManagementFormController implements Initializable {
     final EmployeeService employeeService = new EmployeeServiceImpl();
 
     private void loadEmployeeTable() {
-        tblEmployee.setItems(employeeService.getEmployee());
+        tblEmployee.setItems(FXCollections.observableArrayList(employeeService.getEmployee()));
     }
 
     private void setTextToValues(Employee newValue) {
@@ -270,7 +270,7 @@ public class AdminManagementFormController implements Initializable {
     }
 
     private void loadCustomerTable() {
-        tblCustomer.setItems(customerService.getCustomer());
+        tblCustomer.setItems(FXCollections.observableArrayList(customerService.getCustomer()));
     }
 
     private void setTextToValues(Customer newValue) {

@@ -1,7 +1,6 @@
 package icet.edu.drm.repository.custom.impl;
 
 import icet.edu.drm.entity.CustomerEntity;
-import icet.edu.drm.entity.EmployeeEntity;
 import icet.edu.drm.repository.custom.CustomerDao;
 import icet.edu.drm.util.HibernateUtil;
 import javafx.collections.FXCollections;
@@ -33,7 +32,7 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public ObservableList<CustomerEntity> getAll() {
+    public List<CustomerEntity> getAll() {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.getTransaction();
         List<CustomerEntity> customerList = session.createQuery("FROM customer").list();

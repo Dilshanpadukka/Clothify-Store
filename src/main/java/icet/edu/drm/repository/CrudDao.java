@@ -1,12 +1,10 @@
 package icet.edu.drm.repository;
 
-import javafx.collections.ObservableList;
-
 import java.util.List;
 
 public interface CrudDao<T, S> extends SuperDao {
 
-    ObservableList<T> getAll();
+    List<T> getAll();
 
     boolean save(T t);
 

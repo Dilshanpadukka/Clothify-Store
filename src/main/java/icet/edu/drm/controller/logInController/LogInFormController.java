@@ -34,6 +34,9 @@ public class LogInFormController {
             try {
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/employeeManagementForm.fxml"))));
                 stage.setTitle("Clothify Shop Management System | Employee DashBoard");
+                stage.setHeight(720);
+                stage.setWidth(1200);
+                stage.setResizable(false);
                 new Alert(Alert.AlertType.INFORMATION, "Log In Successfully").showAndWait();
                 btnLogin.getScene().getWindow().hide();
                 stage.show();

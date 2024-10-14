@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -19,6 +20,7 @@ public class EmployeeManagementFormController implements Initializable {
     public AnchorPane pageOrderManage;
     public AnchorPane pagePlaceOrder;
     public AnchorPane pageViewOrders;
+    public Label btnLogOut;
 
     private AnchorPane currentPage;
     public void btnSupplierManagementOnAction(ActionEvent event) {
@@ -65,16 +67,12 @@ public class EmployeeManagementFormController implements Initializable {
         currentPage=pageViewOrders;
         currentPage.setVisible(true);
     }
-    public void btnViewOrderOnAction2(MouseEvent mouseEvent) {
-        currentPage.setVisible(false);
-        currentPage=pageViewOrders;
-        currentPage.setVisible(true);
-    }
     public void btnLogOutOnAction(MouseEvent mouseEvent) {
 
         Stage stage = new Stage();
         try {
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/logInForm.fxml"))));
+            btnLogOut.getScene().getWindow().hide();
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);

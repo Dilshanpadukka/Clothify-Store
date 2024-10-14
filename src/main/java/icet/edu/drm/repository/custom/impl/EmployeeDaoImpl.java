@@ -3,8 +3,6 @@ package icet.edu.drm.repository.custom.impl;
 import icet.edu.drm.entity.EmployeeEntity;
 import icet.edu.drm.repository.custom.EmployeeDao;
 import icet.edu.drm.util.HibernateUtil;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -32,48 +30,29 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public ObservableList<EmployeeEntity> getAll() {
+    public List<EmployeeEntity> getAll() {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.getTransaction();
         List<EmployeeEntity> employeeList = session.createQuery("FROM employee").list();
-        ObservableList<EmployeeEntity> list = FXCollections.observableArrayList();
-        session.close();
-        employeeList.forEach(employeeEntity -> {
-            list.add(employeeEntity);
-        });
-        return list;
+        return employeeList;
     }
 
     @Override
     public boolean update(EmployeeEntity employeeEntity) {
         Session session = HibernateUtil.getSession();
-        session.getTransaction().begin();
-        Query query = session.createQuery("UPDATE employee SET name =:name,contact =:contact,nic =:nic,address =:address,email =:email,password =:password WHERE id =:id");
-        query.setParameter("name", employeeEntity.getName());
-        query.setParameter("contact", employeeEntity.getContact());
-        query.setParameter("nic", employeeEntity.getNic());
-        query.setParameter("address", employeeEntity.getAddress());
-        query.setParameter("email", employeeEntity.getEmail());
-        query.setParameter("password", employeeEntity.getPassword());
-        query.setParameter("id", employeeEntity.getId());
-
-        int i = query.executeUpdate();
+        session.beginTransaction();
+        session.merge(employeeEntity.getId(),employeeEntity);
         session.getTransaction().commit();
-        session.close();
-
-        return i > 0;
+        return true;
     }
 
     @Override
     public boolean delete(String id) {
         Session session = HibernateUtil.getSession();
-        session.getTransaction().begin();
-        Query query = session.createQuery("DELETE FROM employee WHERE id=:id");
-        query.setParameter("id", id);
-        int i = query.executeUpdate();
+        session.beginTransaction();
+        session.remove(session.get(EmployeeEntity.class,id));
         session.getTransaction().commit();
-        session.close();
-        return i > 0;
+        return true;
     }
     @Override
     public EmployeeEntity search(String name) {
@@ -85,7 +64,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
         EmployeeEntity employeeEntity = (EmployeeEntity) query.uniqueResult();
         session.close();
-
         return employeeEntity;
     }
 }
