@@ -20,7 +20,7 @@ public class HibernateUtil {
         Metadata metadata = new MetadataSources(build)
                 .addAnnotatedClass(EmployeeEntity.class)
                 .addAnnotatedClass(CustomerEntity.class)
-                //.addAnnotatedClass(SupplierEntity.class)
+                .addAnnotatedClass(SupplierEntity.class)
                 //.addAnnotatedClass(ProductEntity.class)
                 //.addAnnotatedClass(OrderEntity.class)
                 //.addAnnotatedClass(OrderHasItemEntity.class)

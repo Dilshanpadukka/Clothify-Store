@@ -178,68 +178,74 @@
                               <Image url="@../image/Supplier.png" />
                            </image>
                         </ImageView>
-                        <TableView layoutX="36.0" layoutY="379.0" prefHeight="293.0" prefWidth="831.0">
+                        <TableView fx:id="tblSupplier" layoutX="36.0" layoutY="379.0" prefHeight="293.0" prefWidth="831.0">
                            <columns>
-                              <TableColumn prefWidth="77.0" text="SupID" />
-                              <TableColumn prefWidth="152.0" text="Supplier Name" />
-                              <TableColumn prefWidth="178.0" text="Company Name" />
-                              <TableColumn prefWidth="175.0" text="Company Address" />
-                              <TableColumn prefWidth="98.0" text="PostalCode" />
-                              <TableColumn prefWidth="150.0" text="Company Email" />
+                              <TableColumn fx:id="colSupId" prefWidth="77.0" text="SupID" />
+                              <TableColumn fx:id="colSupName" prefWidth="152.0" text="Supplier Name" />
+                              <TableColumn fx:id="colSupCompany" prefWidth="178.0" text="Company Name" />
+                              <TableColumn fx:id="colSupAddress" prefWidth="175.0" text="Company Address" />
+                              <TableColumn fx:id="colSupEmail" prefWidth="150.0" text="Company Email" />
+                              <TableColumn fx:id="colSupContact" prefWidth="150.0" text="Contact" />
+                              <TableColumn fx:id="colSupPostalCode" prefWidth="98.0" text="PostalCode" />
                            </columns>
                         </TableView>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000076" height="289.0" layoutX="36.0" layoutY="85.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="831.0" />
-                        <TextField layoutX="347.0" layoutY="164.0" prefHeight="31.0" prefWidth="185.0" promptText="City">
+                        <TextField fx:id="txtSupCity" layoutX="347.0" layoutY="164.0" prefHeight="31.0" prefWidth="185.0" promptText="City">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="184.0" layoutY="106.0" prefHeight="31.0" prefWidth="346.0" promptText="Supplier Name">
+                        <TextField fx:id="txtSupName" layoutX="184.0" layoutY="106.0" prefHeight="31.0" prefWidth="346.0" promptText="Supplier Name">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="277.0" layoutY="221.0" prefHeight="31.0" prefWidth="254.0" promptText="Company Email">
+                        <TextField fx:id="txtSupCompanyEmail" layoutX="277.0" layoutY="221.0" prefHeight="31.0" prefWidth="254.0" promptText="Company Email">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="67.0" layoutY="164.0" prefHeight="31.0" prefWidth="252.0" promptText="Company Name">
+                        <TextField fx:id="txtSupCompany" layoutX="67.0" layoutY="164.0" prefHeight="31.0" prefWidth="252.0" promptText="Company Name">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="67.0" layoutY="221.0" prefHeight="31.0" prefWidth="184.0" promptText="PostalCode">
+                        <TextField fx:id="txtSupPostalCode" layoutX="67.0" layoutY="221.0" prefHeight="31.0" prefWidth="184.0" promptText="PostalCode">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <Label alignment="CENTER" layoutX="50.0" layoutY="105.0" prefHeight="33.0" prefWidth="102.0" style="-fx-background-color: #7f8c8d;" text="S001" textFill="WHITE">
+                        <Label fx:id="lblSupId" alignment="CENTER" layoutX="50.0" layoutY="105.0" prefHeight="33.0" prefWidth="102.0" style="-fx-background-color: #7f8c8d;" text="S001" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Label>
-                        <TextArea layoutX="563.0" layoutY="105.0" prefHeight="149.0" prefWidth="226.0" promptText="Company Address" />
-                        <JFXButton layoutX="68.0" layoutY="299.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #2ecc71;" text="Add Supplier">
+                        <TextArea fx:id="txtSupCompanyAddress" layoutX="563.0" layoutY="161.0" prefHeight="94.0" prefWidth="258.0" promptText="Company Address" />
+                        <JFXButton layoutX="68.0" layoutY="299.0" onAction="#btnAddSupplierOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #2ecc71;" text="Add Supplier">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton layoutX="267.0" layoutY="299.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #f1c40f;" text="Update Supplier">
+                        <JFXButton layoutX="267.0" layoutY="299.0" onAction="#btnUpdateSupplierOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #f1c40f;" text="Update Supplier">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton layoutX="461.0" layoutY="299.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Supplier">
+                        <JFXButton layoutX="461.0" layoutY="299.0" onAction="#btnSerachSupplierOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Supplier">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton layoutX="652.0" layoutY="299.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #e74c3c;" text="Delete Supplier">
+                        <JFXButton layoutX="652.0" layoutY="299.0" onAction="#btnDeleteSupplierOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #e74c3c;" text="Delete Supplier">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </JFXButton>
+                        <TextField fx:id="txtSupContact" layoutX="563.0" layoutY="106.0" prefHeight="31.0" prefWidth="252.0" promptText="Contact">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="pageProduct" layoutY="5.0" prefHeight="682.0" prefWidth="886.0" visible="false">
