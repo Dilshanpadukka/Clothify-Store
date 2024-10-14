@@ -1,7 +1,6 @@
 package icet.edu.drm.service.custom;
 
 import icet.edu.drm.model.Customer;
-import javafx.collections.ObservableList;
 
 import java.util.List;
 

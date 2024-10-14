@@ -4,7 +4,6 @@ import icet.edu.drm.model.Customer;
 import icet.edu.drm.model.Employee;
 import icet.edu.drm.model.Item;
 import icet.edu.drm.model.Supplier;
-import icet.edu.drm.repository.custom.SupplierDao;
 import icet.edu.drm.service.custom.CustomerService;
 import icet.edu.drm.service.custom.EmployeeService;
 import icet.edu.drm.service.custom.ItemService;

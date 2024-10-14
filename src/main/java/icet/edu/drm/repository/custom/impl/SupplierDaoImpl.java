@@ -1,11 +1,8 @@
 package icet.edu.drm.repository.custom.impl;
 
-import icet.edu.drm.entity.EmployeeEntity;
 import icet.edu.drm.entity.SupplierEntity;
 import icet.edu.drm.repository.custom.SupplierDao;
 import icet.edu.drm.util.HibernateUtil;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -69,12 +66,4 @@ public class SupplierDaoImpl implements SupplierDao {
         session.close();
         return supplierEntity;
     }
-//    public ObservableList<String> getSupplierIds(){
-//        ObservableList<String> supplierId = FXCollections.observableArrayList();
-//        List<SupplierEntity> supplierObserverList = getAll();
-//        supplierObserverList.forEach(supplier -> {
-//            supplierId.add(supplier.getId());
-//        });
-//        return supplierId;
-//    }
 }

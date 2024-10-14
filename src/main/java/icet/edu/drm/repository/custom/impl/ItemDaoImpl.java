@@ -1,15 +1,9 @@
 package icet.edu.drm.repository.custom.impl;
 
-import icet.edu.drm.entity.EmployeeEntity;
 import icet.edu.drm.entity.ItemEntity;
-import icet.edu.drm.entity.SupplierEntity;
-import icet.edu.drm.model.Supplier;
 import icet.edu.drm.repository.custom.ItemDao;
 import icet.edu.drm.util.HibernateUtil;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -37,7 +31,7 @@ public class ItemDaoImpl implements ItemDao {
     @Override
     public List<ItemEntity> getAll() {
         Session session = HibernateUtil.getSession();
-        Transaction transaction = session.getTransaction();
+        //Transaction transaction = session.getTransaction();
         List<ItemEntity> itemList = session.createQuery("FROM item").list();
         return itemList;
     }
