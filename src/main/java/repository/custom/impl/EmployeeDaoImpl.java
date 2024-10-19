@@ -91,4 +91,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
         return employeeList;
     }
+
+    @Override
+    public String getLatestId() {
+        return null;
+    }
 }

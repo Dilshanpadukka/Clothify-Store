@@ -60,4 +60,15 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerDaoImpl customerDao = DaoFactory.getInstance().getDaoType(DaoType.CUSTOMER);
         return customerDao.getCustomerIds();
     }
+    @Override
+    public String generateCustomerId() {
+        CustomerDao customerDao = DaoFactory.getInstance().getDaoType(DaoType.CUSTOMER);
+        String lastCustomerId = customerDao.getLatestId();
+        if (lastCustomerId == null) {
+            return "C0001";
+        }
+        int number = Integer.parseInt(lastCustomerId.split("C")[1]);
+        number++;
+        return String.format("C%04d", number);
+    }
 }

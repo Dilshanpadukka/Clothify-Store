@@ -4,6 +4,7 @@ import entity.CustomerEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import repository.custom.CustomerDao;
 import util.HibernateUtil;
 
@@ -104,6 +105,15 @@ public class CustomerDaoImpl implements CustomerDao {
             customerIds.add(customer.getCustId());
         });
         return customerIds;
+    }
+    @Override
+    public String getLatestId() {
+        Session session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("SELECT id FROM CustomerEntity ORDER BY id DESC LIMIT 1");
+        String id = (String) query.uniqueResult();
+        session.close();
+        return id;
     }
 
 }

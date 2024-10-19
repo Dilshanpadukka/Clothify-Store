@@ -38,4 +38,9 @@ public class OrderDaoImpl implements OrderDao {
     public List<OrderEntity> getAll() {
         return List.of();
     }
+
+    @Override
+    public String getLatestId() {
+        return null;
+    }
 }

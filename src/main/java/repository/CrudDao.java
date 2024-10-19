@@ -8,4 +8,5 @@ public interface CrudDao<T> extends SuperDao {
     T search(String  id);
     boolean delete(String id);
     List<T> getAll();
+    String getLatestId();
 }

@@ -234,7 +234,7 @@ public class AdminManagementFormController implements Initializable {
         txtCustPostalCode.setText(newValue.getPostalCode());
     }
     public void clearFieldsCustomer() {
-        generateCustomerID();
+        txtCustId.setText(customerService.generateCustomerId());
         cmbCustTitle.setValue(null);
         txtCustName.setText("");
         txtCustContact.setText("");
@@ -243,24 +243,6 @@ public class AdminManagementFormController implements Initializable {
         txtCustProvince.setText("");
         txtCustPostalCode.setText("");
         txtCustEmail.setText("");
-    }
-    public void generateCustomerID() {
-        try {
-            String SQL = "SELECT MAX(CustID) FROM customerentity";
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Clothify-Store-new", "root", "12345");
-            PreparedStatement pstm = connection.prepareStatement(SQL);
-            ResultSet resultSet = pstm.executeQuery();
-            int newId = 1;
-            if (resultSet.next()) {
-                String lastId = resultSet.getString(1);
-                if (lastId != null) {
-                    newId = Integer.parseInt(lastId.substring(1)) + 1;
-                }
-            }
-            txtCustId.setText(String.format("C%04d", newId));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
     public void btnAddCustomerOnAction(ActionEvent event) {
         Customer customer = new Customer(
@@ -453,7 +435,7 @@ public class AdminManagementFormController implements Initializable {
         chartContainer.getChildren().add(stackedBarChart);
         loadPieChart();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        generateCustomerID();
+        txtCustId.setText(customerService.generateCustomerId());
         loadTitleMenu();
         colCustId.setCellValueFactory(new PropertyValueFactory<>("custId"));
         colCustTitle.setCellValueFactory(new PropertyValueFactory<>("custTitle"));

@@ -61,6 +61,11 @@ public class UserDaoImpl implements UserDao {
         return List.of();
     }
 
+    @Override
+    public String getLatestId() {
+        return null;
+    }
+
     public User  getUserByEmail(String emailAddress) {
         Transaction transaction = null;
         User user = null;

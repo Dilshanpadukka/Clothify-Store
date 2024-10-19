@@ -11,4 +11,5 @@ public interface CustomerService extends SuperService {
     boolean deleteCustomer(String id);
     ObservableList<Customer> getAll();
     ObservableList<String> getCustomerIds();
+    String generateCustomerId();
 }

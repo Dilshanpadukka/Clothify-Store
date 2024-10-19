@@ -91,6 +91,11 @@ public class ItemDaoImpl implements ItemDao {
         return itemList;
     }
 
+    @Override
+    public String getLatestId() {
+        return null;
+    }
+
     public ObservableList<String> getItemIds(){
         List<ItemEntity> all = getAll();
         ObservableList<String> itemIds = FXCollections.observableArrayList();

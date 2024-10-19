@@ -39,6 +39,11 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
         return List.of();
     }
 
+    @Override
+    public String getLatestId() {
+        return null;
+    }
+
     public double getTotalSalesPrice() {
         double totalSalesPrice = 0.0;
         Session session = HibernateUtil.getSession();

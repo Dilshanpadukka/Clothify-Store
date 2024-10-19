@@ -92,4 +92,9 @@ public class SupplierDaoImpl implements SupplierDao {
 
         return supplierList;
     }
+
+    @Override
+    public String getLatestId() {
+        return null;
+    }
 }
