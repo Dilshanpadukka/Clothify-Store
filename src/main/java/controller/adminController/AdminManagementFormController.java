@@ -16,15 +16,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Customer;
 import model.Employee;
+import model.Item;
 import model.Supplier;
 import service.ServiceFactory;
 import service.custom.CustomerService;
 import service.custom.EmployeeService;
+import service.custom.ItemService;
 import service.custom.SupplierService;
 import util.ServiceType;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdminManagementFormController implements Initializable {
@@ -557,14 +560,143 @@ public class AdminManagementFormController implements Initializable {
     public void btnSupplierClearOnAction(MouseEvent mouseEvent) {
         clearFieldsSupplier();
     }
-
-    //====================================DASHBOARD MANAGEMENT==============================================================
+    //======================================================================ITEM MANAGEMENT==========================================================================
+    final ItemService itemService = ServiceFactory.getInstance().getServiceType(ServiceType.ITEM);
 
     public void btnProductManagementOnAction(ActionEvent event) {
+        loadSupplierId();
         currentPage.setVisible(false);
         currentPage = pageProduct;
         currentPage.setVisible(true);
     }
+    private void loadItemTable() {
+        tblItem.setItems(FXCollections.observableArrayList(itemService.getAll()));
+    }
+    private void loadCategoryMenu() {
+        ObservableList<Object> category = FXCollections.observableArrayList();
+        category.add("Ladies");
+        category.add("Gents");
+        category.add("Kids");
+        cmbItemCategory.setItems(category);
+    }
+    private void loadSizeMenu() {
+        ObservableList<Object> sizes = FXCollections.observableArrayList();
+        sizes.add("XS");
+        sizes.add("S");
+        sizes.add("M");
+        sizes.add("L");
+        sizes.add("XL");
+        sizes.add("XXL");
+        cmbItemSize.setItems(sizes);
+    }
+    private void loadSupplierId(){
+        List<Supplier> suppliers = supplierService.getAll();
+        ObservableList<String> supplierIds = FXCollections.observableArrayList();
+        for (Supplier supplier : suppliers) {
+            supplierIds.add(supplier.getSupplierId());
+        }
+        cmbSupplierId.setItems(supplierIds);
+    }
+    private void setTextToValues(Item newValue) {
+        txtItemId.setText(newValue.getItemId());
+        txtItemName.setText(newValue.getName());
+        txtItemQty.setText(String.valueOf(newValue.getQty()));
+        txtItemUnitPrice.setText(String.valueOf(newValue.getPrice()));
+        cmbItemCategory.setValue(newValue.getCategory());
+        cmbItemSize.setValue(newValue.getSize());
+        cmbSupplierId.setValue(newValue.getSupId());
+    }
+
+    public void clearFieldsItem() {
+        txtItemId.setText(itemService.generateItemId());
+        txtItemName.setText("");
+        cmbItemCategory.setValue("");
+        cmbItemSize.setValue("");
+        cmbSupplierId.setValue("");
+        txtItemQty.setText("");
+        txtItemUnitPrice.setText("");
+    }
+    public void btnAddItemOnAction(ActionEvent event) {
+        Item item = new Item(
+                txtItemId.getText(),
+                txtItemName.getText(),
+                cmbItemCategory.getValue().toString(),
+                cmbItemSize.getValue().toString(),
+                cmbSupplierId.getValue().toString(),
+                Double.parseDouble(txtItemUnitPrice.getText()),
+                Integer.parseInt(txtItemQty.getText())
+        );
+        ItemService itemService = ServiceFactory.getInstance().getServiceType(ServiceType.ITEM);
+        if (itemService.addItem(item)){
+            loadItemTable();
+            clearFieldsItem();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Item Added Successfully...");
+            alert.show();
+
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Failed to add the item.");
+            alert.show();
+        }
+    }
+
+    public void btnUpdateItemOnAction(ActionEvent event) {
+        Item item = new Item(
+                txtItemId.getText(),
+                txtItemName.getText(),
+                cmbItemCategory.getValue().toString(),
+                cmbItemSize.getValue().toString(),
+                cmbSupplierId.getValue().toString(),
+                Double.parseDouble(txtItemUnitPrice.getText()),
+                Integer.parseInt(txtItemQty.getText())
+        );
+        if(itemService.updateItem(item)){
+            loadItemTable();
+            clearFieldsItem();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Item Updated Successfully..");
+            alert.show();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Item didn't Updated ...");
+            alert.show();
+        }
+    }
+
+    public void btnSearchItemOnAction(ActionEvent event) {
+        Item item = itemService.searchItem(txtItemId.getText());
+        if (item!=null) {
+            setTextToValues(item);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Item Not Found");
+            alert.setHeaderText(null);
+            alert.setContentText("No Item found with ID: " + txtItemId.getText());
+            alert.showAndWait();
+        }
+    }
+
+    public void btnDeleteItemOnAction(ActionEvent event) {
+        if(itemService.deleteItem(txtItemId.getText())){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Item Deleted SuccessFully");
+            alert.show();
+            loadItemTable();
+            clearFieldsItem();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Item Didn't Found");
+            alert.show();
+        }
+    }
+    public void btnItemClearOnAction(MouseEvent mouseEvent) {
+        clearFieldsItem();
+    }
+
+    //====================================DASHBOARD MANAGEMENT==============================================================
+
+
 
     public void btnOrderManagementOnAction(ActionEvent event) {
         currentPage.setVisible(false);
@@ -601,20 +733,7 @@ public class AdminManagementFormController implements Initializable {
     public void btnRemoveOnAction(ActionEvent event) {
     }
 
-    public void btnItemClearOnAction(MouseEvent mouseEvent) {
-    }
 
-    public void btnAddItemOnAction(ActionEvent event) {
-    }
-
-    public void btnUpdateItemOnAction(ActionEvent event) {
-    }
-
-    public void btnSearchItemOnAction(ActionEvent event) {
-    }
-
-    public void btnDeleteItemOnAction(ActionEvent event) {
-    }
 
 
     @Override
@@ -675,9 +794,24 @@ public class AdminManagementFormController implements Initializable {
             }
         }));
         loadSupplierTable();
-
+///////////////////////////////////////////////ITEM/////////////////////////////////////////////////////////////////////
+        txtItemId.setText(itemService.generateItemId());
+        colItemtId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+        colItemCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colItemSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+        colItemQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colItemUnitPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        tblItem.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if (newValue != null) {
+                setTextToValues((Item) newValue);
+            }
+        }));
+        loadItemTable();
+        loadCategoryMenu();
+        loadSizeMenu();
+        loadSupplierId();
 
     }
-
 
 }

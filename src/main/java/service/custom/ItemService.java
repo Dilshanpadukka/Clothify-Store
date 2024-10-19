@@ -15,4 +15,5 @@ public interface ItemService extends SuperService {
     ObservableList<Item> getAll();
     ObservableList<String> getItemIds();
     boolean updateStock(List<OrderDetails> items);
+    String generateItemId();
 }

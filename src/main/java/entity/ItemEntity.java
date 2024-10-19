@@ -16,17 +16,14 @@ import java.util.Set;
 @Table(name = "item")
 public class ItemEntity {
     @Id
+
     private String itemId;
-
     private String name;
-
-    private String supId;
-
-    private Double price;
-
-    private Integer qty;
-
+    private String category;
     private String size;
+    private String supId;
+    private Double price;
+    private Integer qty;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private Set<OrderDetailsEntity> orderDetails;

@@ -1,5 +1,6 @@
 package service.custom.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.ItemEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,6 +8,7 @@ import model.Item;
 import model.OrderDetails;
 import org.modelmapper.ModelMapper;
 import repository.DaoFactory;
+import repository.custom.EmployeeDao;
 import repository.custom.ItemDao;
 import repository.custom.impl.ItemDaoImpl;
 import service.custom.ItemService;
@@ -33,7 +35,7 @@ public class ItemServiceImpl implements ItemService {
     public Item searchItem(String itemCode) {
         ItemDao itemDao =  DaoFactory.getInstance().getDaoType(DaoType.ITEM);
         ItemEntity itemEntity = itemDao.search(itemCode);
-        Item items = new ModelMapper().map(itemEntity, Item.class);
+        Item items = new ObjectMapper().convertValue(itemEntity, Item.class);
         return items;
     }
 
@@ -70,5 +72,17 @@ public class ItemServiceImpl implements ItemService {
             }
         }
         return true;
+    }
+
+    @Override
+    public String generateItemId() {
+        ItemDao itemDao = DaoFactory.getInstance().getDaoType(DaoType.ITEM);
+        String lastItemId = itemDao.getLatestId();
+        if (lastItemId == null) {
+            return "P0001";
+        }
+        int number = Integer.parseInt(lastItemId.split("P")[1]);
+        number++;
+        return String.format("P%04d", number);
     }
 }

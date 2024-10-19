@@ -4,6 +4,7 @@ import entity.ItemEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import repository.custom.ItemDao;
 import util.HibernateUtil;
 
@@ -93,7 +94,12 @@ public class ItemDaoImpl implements ItemDao {
 
     @Override
     public String getLatestId() {
-        return null;
+        Session session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("SELECT id FROM ItemEntity ORDER BY id DESC LIMIT 1");
+        String id = (String) query.uniqueResult();
+        session.close();
+        return id;
     }
 
     public ObservableList<String> getItemIds(){

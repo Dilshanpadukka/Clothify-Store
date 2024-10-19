@@ -12,8 +12,10 @@ import lombok.ToString;
 public class Item {
     private String itemId;
     private String name;
+    private String category;
+    private String size;
     private String supId;
     private Double price;
     private Integer qty;
-    private String size;
+
 }
