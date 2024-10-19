@@ -16,9 +16,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Customer;
 import model.Employee;
+import model.Supplier;
 import service.ServiceFactory;
 import service.custom.CustomerService;
 import service.custom.EmployeeService;
+import service.custom.SupplierService;
 import util.ServiceType;
 
 import java.io.IOException;
@@ -141,12 +143,14 @@ public class AdminManagementFormController implements Initializable {
     private AnchorPane currentPage;
 
     //=========================================================================REPORT GEN==========================================================================
-    public StackedBarChart<String,Number> stackedBarChart;
+    public StackedBarChart<String, Number> stackedBarChart;
+
     public void btnReportGenOnAction(ActionEvent event) {
         currentPage.setVisible(false);
         currentPage = pageReportGen;
         currentPage.setVisible(true);
     }
+
     private StackedBarChart<String, Number> createStackedBarChart() {
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -172,6 +176,7 @@ public class AdminManagementFormController implements Initializable {
 
         return stackedBarChart;
     }
+
     private void loadPieChart() {
         PieChart.Data slice1 = new PieChart.Data("Clothing", 30);
         PieChart.Data slice2 = new PieChart.Data("Footwear", 25);
@@ -203,6 +208,7 @@ public class AdminManagementFormController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
     //====================================================================CUSTOMER MANAGEMENT==========================================================================
     final CustomerService customerService = ServiceFactory.getInstance().getServiceType(ServiceType.CUSTOMER);
 
@@ -211,6 +217,7 @@ public class AdminManagementFormController implements Initializable {
         currentPage = pageCustomer;
         currentPage.setVisible(true);
     }
+
     private void loadTitleMenu() {
         ObservableList<Object> title = FXCollections.observableArrayList();
         title.add("Mr.");
@@ -219,10 +226,12 @@ public class AdminManagementFormController implements Initializable {
         title.add("Master.");
         cmbCustTitle.setItems(title);
     }
+
     private void loadCustomerTable() {
         ObservableList<Customer> customers = customerService.getAll();
         tblCustomer.setItems(customers);
     }
+
     private void setTextToValues(Customer newValue) {
         txtCustId.setText(newValue.getCustId());
         cmbCustTitle.setValue(newValue.getCustTitle());
@@ -234,6 +243,7 @@ public class AdminManagementFormController implements Initializable {
         txtCustProvince.setText(newValue.getProvince());
         txtCustPostalCode.setText(newValue.getPostalCode());
     }
+
     public void clearFieldsCustomer() {
         txtCustId.setText(customerService.generateCustomerId());
         cmbCustTitle.setValue(null);
@@ -245,6 +255,7 @@ public class AdminManagementFormController implements Initializable {
         txtCustPostalCode.setText("");
         txtCustEmail.setText("");
     }
+
     public void btnAddCustomerOnAction(ActionEvent event) {
         Customer customer = new Customer(
                 txtCustId.getText(),
@@ -269,6 +280,7 @@ public class AdminManagementFormController implements Initializable {
             alert.show();
         }
     }
+
     public void btnUpdateCustomerOnAction(ActionEvent event) {
         Customer customer = new Customer(
                 txtCustId.getText(),
@@ -281,18 +293,19 @@ public class AdminManagementFormController implements Initializable {
                 txtCustProvince.getText(),
                 txtCustPostalCode.getText()
         );
-        if(customerService.updateCustomer(customer)){
+        if (customerService.updateCustomer(customer)) {
             loadCustomerTable();
             clearFieldsCustomer();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Customer Updated Successfully..");
             alert.show();
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Customer didn't Updated ...");
             alert.show();
         }
     }
+
     public void btnSearchCustomerOnAction(ActionEvent event) {
         try {
             Customer customer = customerService.searchCustomer(txtCustId.getText());
@@ -306,30 +319,35 @@ public class AdminManagementFormController implements Initializable {
         }
 
     }
+
     public void btnDeleteCustomerOnAction(ActionEvent event) {
-        if(customerService.deleteCustomer(txtCustId.getText())){
+        if (customerService.deleteCustomer(txtCustId.getText())) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Customer Deleted SuccessFully");
             alert.show();
             loadCustomerTable();
             clearFieldsCustomer();
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Customer Didn't Found");
             alert.show();
         }
     }
+
     //====================================================================EMPLOYEE MANAGEMENT==========================================================================
     final EmployeeService employeeService = ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
+
     public void btnEmployeeManagementOnAction(ActionEvent event) {
         currentPage.setVisible(false);
         currentPage = pageEmployee;
         currentPage.setVisible(true);
     }
+
     private void loadEmployeeTable() {
         ObservableList<Employee> employees = employeeService.getAll();
         tblEmployee.setItems(employees);
     }
+
     private void setTextToValues(Employee newValue) {
         txtEmployeeId.setText(newValue.getEmployeeId());
         txtEmployeeName.setText(newValue.getEmployeeName());
@@ -338,6 +356,7 @@ public class AdminManagementFormController implements Initializable {
         txtEmployeeEmail.setText(newValue.getEmployeeEmailAddress());
         txtEmployeeAddress.setText(newValue.getEmployeeAddress());
     }
+
     public void clearFieldsEmployee() {
         txtEmployeeId.setText(employeeService.generateEmployeeId());
         txtEmployeeAddress.setText("");
@@ -346,6 +365,7 @@ public class AdminManagementFormController implements Initializable {
         txtEmployeeNic.setText("");
         txtEmployeeContact.setText("");
     }
+
     public void btnAddEmployeeOnAction(ActionEvent event) {
         Employee employee = new Employee(
                 txtEmployeeId.getText(),
@@ -367,6 +387,7 @@ public class AdminManagementFormController implements Initializable {
             alert.show();
         }
     }
+
     public void btnUpdateEmployeeOnAction(ActionEvent event) {
         Employee employee = new Employee(
                 txtEmployeeId.getText(),
@@ -376,14 +397,14 @@ public class AdminManagementFormController implements Initializable {
                 txtEmployeeEmail.getText(),
                 txtEmployeeContact.getText()
         );
-        if(employeeService.updateEmployee(employee)){
+        if (employeeService.updateEmployee(employee)) {
             loadEmployeeTable();
             clearFieldsEmployee();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Employee Updated Successfully..");
             alert.show();
 
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Employee didn't Updated ...");
             alert.show();
@@ -392,41 +413,153 @@ public class AdminManagementFormController implements Initializable {
 
     public void btnSearchEmployeeOnAction(ActionEvent event) {
         Employee employee = employeeService.searchEmployee(txtEmployeeId.getText());
-        if (employee!=null) {
+        if (employee != null) {
             setTextToValues(employee);
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Employee Not Found");
             alert.setHeaderText(null);
             alert.setContentText("No employee found with ID: " + txtEmployeeId.getText());
             alert.showAndWait();
         }
     }
+
     public void btnDeleteEmployeeOnAction(ActionEvent event) {
-        if(employeeService.deleteEmployee(txtEmployeeId.getText())){
+        if (employeeService.deleteEmployee(txtEmployeeId.getText())) {
             loadEmployeeTable();
             clearFieldsEmployee();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Employee Deleted SuccessFully");
             alert.show();
 
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Employee Didn't Found");
             alert.show();
         }
     }
+
     public void btnEmployeeClearOnAction(MouseEvent mouseEvent) {
         clearFieldsEmployee();
     }
 
+    //====================================================================SUPPLIER MANAGEMENT==========================================================================
+    final SupplierService supplierService = ServiceFactory.getInstance().getServiceType(ServiceType.SUPPLIER);
 
-    //====================================DASHBOARD MANAGEMENT==============================================================
     public void btnSupplierManagementOnAction(ActionEvent event) {
         currentPage.setVisible(false);
         currentPage = pageSupplier;
         currentPage.setVisible(true);
     }
+
+    private void loadSupplierTable() {
+        tblSupplier.setItems(FXCollections.observableArrayList(supplierService.getAll()));
+    }
+
+    private void setTextToValues(Supplier newValue) {
+        txtSupId.setText(newValue.getSupplierId());
+        txtSupName.setText(newValue.getSupplierName());
+        txtSupCompany.setText(newValue.getSupplierCompany());
+        txtSupContact.setText(newValue.getSupplierContactNumber());
+        txtSupCompanyEmail.setText(newValue.getSupplierEmailAddress());
+        txtSupCompanyAddress.setText(newValue.getSupplierAddress());
+        txtSupPostalCode.setText(newValue.getSupplierPostalCode());
+        txtSupItemDesc.setText(newValue.getSupplierItem());
+    }
+
+    public void clearFieldsSupplier() {
+        txtSupId.setText(supplierService.generateSupplierId());
+        txtSupName.setText("");
+        txtSupCompany.setText("");
+        txtSupContact.setText("");
+        txtSupItemDesc.setText("");
+        txtSupPostalCode.setText("");
+        txtSupCompanyEmail.setText("");
+        txtSupCompanyAddress.setText("");
+    }
+
+    public void btnAddSupplierOnAction(ActionEvent event) {
+        Supplier supplier = new Supplier(
+                txtSupId.getText(),
+                txtSupName.getText(),
+                txtSupContact.getText(),
+                txtSupItemDesc.getText(),
+                txtSupCompany.getText(),
+                txtSupCompanyAddress.getText(),
+                txtSupCompanyEmail.getText(),
+                txtSupPostalCode.getText()
+        );
+        if (supplierService.addSupplier(supplier)) {
+            loadSupplierTable();
+            clearFieldsSupplier();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Supplier Added Successfully...");
+            alert.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Supplier Didn't added....");
+            alert.show();
+        }
+    }
+
+    public void btnUpdateSupplierOnAction(ActionEvent event) {
+        Supplier supplier = new Supplier(
+                txtSupId.getText(),
+                txtSupName.getText(),
+                txtSupContact.getText(),
+                txtSupItemDesc.getText(),
+                txtSupCompany.getText(),
+                txtSupCompanyAddress.getText(),
+                txtSupCompanyEmail.getText(),
+                txtSupPostalCode.getText()
+        );
+        if (supplierService.updateSupplier(supplier)) {
+            loadSupplierTable();
+            clearFieldsSupplier();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Supplier Updated Successfully..");
+            alert.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Supplier didn't Updated ...");
+            alert.show();
+        }
+    }
+
+    public void btnSerachSupplierOnAction(ActionEvent event) {
+        Supplier supplier = supplierService.searchSupplier(txtSupId.getText());
+        if (supplier != null) {
+            setTextToValues(supplier);
+        } else {
+            // Show an alert if no customer is found
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Supplier Not Found");
+            alert.setHeaderText(null);
+            alert.setContentText("No employee found with ID: " + txtSupId.getText());
+            alert.showAndWait();
+        }
+    }
+
+    public void btnDeleteSupplierOnAction(ActionEvent event) {
+        if (supplierService.deleteSupplier(txtSupId.getText())) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Supplier Deleted SuccessFully");
+            alert.show();
+            loadSupplierTable();
+            clearFieldsSupplier();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Supplier Didn't Found");
+            alert.show();
+        }
+    }
+
+    public void btnSupplierClearOnAction(MouseEvent mouseEvent) {
+        clearFieldsSupplier();
+    }
+
+    //====================================DASHBOARD MANAGEMENT==============================================================
+
     public void btnProductManagementOnAction(ActionEvent event) {
         currentPage.setVisible(false);
         currentPage = pageProduct;
@@ -452,9 +585,6 @@ public class AdminManagementFormController implements Initializable {
     }
 
 
-
-
-
     public void btnAddtoCartOnAction(ActionEvent event) {
 
     }
@@ -466,35 +596,12 @@ public class AdminManagementFormController implements Initializable {
     public void btnCustomerClearOnAction(MouseEvent mouseEvent) {
         clearFieldsCustomer();
     }
-    
+
 
     public void btnRemoveOnAction(ActionEvent event) {
     }
 
     public void btnItemClearOnAction(MouseEvent mouseEvent) {
-    }
-
-
-
-    public void btnSupplierClearOnAction(MouseEvent mouseEvent) {
-    }
-
-
-
-
-
-
-
-    public void btnAddSupplierOnAction(ActionEvent event) {
-    }
-
-    public void btnUpdateSupplierOnAction(ActionEvent event) {
-    }
-
-    public void btnSerachSupplierOnAction(ActionEvent event) {
-    }
-
-    public void btnDeleteSupplierOnAction(ActionEvent event) {
     }
 
     public void btnAddItemOnAction(ActionEvent event) {
@@ -508,7 +615,6 @@ public class AdminManagementFormController implements Initializable {
 
     public void btnDeleteItemOnAction(ActionEvent event) {
     }
-
 
 
     @Override
@@ -553,10 +659,25 @@ public class AdminManagementFormController implements Initializable {
             }
         }));
         loadEmployeeTable();
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////SUPPLIER///////////////////////////////////////////////////////////////////
+        txtSupId.setText(supplierService.generateSupplierId());
+        colSupId.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
+        colSupName.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
+        colSupCompany.setCellValueFactory(new PropertyValueFactory<>("supplierCompany"));
+        colSupAddress.setCellValueFactory(new PropertyValueFactory<>("supplierAddress"));
+        colSupEmail.setCellValueFactory(new PropertyValueFactory<>("supplierEmailAddress"));
+        colSupContact.setCellValueFactory(new PropertyValueFactory<>("supplierContactNumber"));
+        colSupPostalCode.setCellValueFactory(new PropertyValueFactory<>("supplierPostalCode"));
+
+        tblSupplier.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if (newValue != null) {
+                setTextToValues((Supplier) newValue);
+            }
+        }));
+        loadSupplierTable();
+
 
     }
-
 
 
 }

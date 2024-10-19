@@ -2,6 +2,7 @@ package repository.custom.impl;
 
 import entity.SupplierEntity;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import repository.custom.SupplierDao;
 import util.HibernateUtil;
 
@@ -27,12 +28,12 @@ public class SupplierDaoImpl implements SupplierDao {
 
         if (supplierToUpdate != null) {
             supplierToUpdate.setSupplierId(supplier.getSupplierId());
-            supplierToUpdate.setSupplierTitle(supplier.getSupplierTitle());
             supplierToUpdate.setSupplierName(supplier.getSupplierName());
             supplierToUpdate.setSupplierItem(supplier.getSupplierItem());
             supplierToUpdate.setSupplierCompany(supplier.getSupplierCompany());
             supplierToUpdate.setSupplierContactNumber(supplier.getSupplierContactNumber());
             supplierToUpdate.setSupplierEmailAddress(supplier.getSupplierEmailAddress());
+            supplierToUpdate.setSupplierPostalCode(supplier.getSupplierPostalCode());
             session.update(supplierToUpdate);
             session.getTransaction().commit();
             session.close();
@@ -93,8 +94,12 @@ public class SupplierDaoImpl implements SupplierDao {
         return supplierList;
     }
 
-    @Override
     public String getLatestId() {
-        return null;
+        Session session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("SELECT id FROM SupplierEntity ORDER BY id DESC LIMIT 1");
+        String id = (String) query.uniqueResult();
+        session.close();
+        return id;
     }
 }

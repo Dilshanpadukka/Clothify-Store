@@ -36,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee searchEmployee(String id) {
         EmployeeDao employeeDao =  DaoFactory.getInstance().getDaoType(DaoType.EMPLOYEE);
         EmployeeEntity employeeEntity = employeeDao.search(id);
-        Employee employees = new ModelMapper().map(employeeEntity, Employee.class);
+        Employee employees =  new ObjectMapper().convertValue(employeeEntity, Employee.class);
         return employees;
     }
 

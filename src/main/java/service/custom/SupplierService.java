@@ -10,4 +10,5 @@ public interface SupplierService extends SuperService {
     Supplier searchSupplier(String  id);
     boolean deleteSupplier(String id);
     ObservableList<Supplier> getAll();
+    String generateSupplierId();
 }

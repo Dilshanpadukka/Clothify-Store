@@ -1,5 +1,6 @@
 package service.custom.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.SupplierEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +32,7 @@ public class SupplierServiceImpl implements SupplierService {
     public Supplier searchSupplier(String id) {
         SupplierDao supplierDao =  DaoFactory.getInstance().getDaoType(DaoType.SUPPLIER);
         SupplierEntity supplierEntity = supplierDao.search(id);
-        Supplier supplier = new ModelMapper().map(supplierEntity, Supplier.class);
+        Supplier supplier = new ObjectMapper().convertValue(supplierEntity, Supplier.class);
         return supplier;
     }
 
@@ -54,4 +55,15 @@ public class SupplierServiceImpl implements SupplierService {
         return suppliers;
     }
 
+    @Override
+    public String generateSupplierId() {
+        SupplierDao supplierDao = DaoFactory.getInstance().getDaoType(DaoType.SUPPLIER);
+        String lastSupplierId = supplierDao.getLatestId();
+        if (lastSupplierId == null) {
+            return "S0001";
+        }
+        int number = Integer.parseInt(lastSupplierId.split("S")[1]);
+        number++;
+        return String.format("S%04d", number);
+    }
 }

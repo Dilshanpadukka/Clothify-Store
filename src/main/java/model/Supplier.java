@@ -11,10 +11,11 @@ import lombok.ToString;
 @ToString
 public class Supplier {
     private String supplierId;
-    private String supplierTitle;
     private String supplierName;
+    private String supplierContactNumber;
     private String supplierItem;
     private String supplierCompany;
-    private String supplierContactNumber;
+    private String supplierAddress;
     private String supplierEmailAddress;
+    private String supplierPostalCode;
 }
