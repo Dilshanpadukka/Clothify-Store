@@ -15,13 +15,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Customer;
+import model.Employee;
 import service.ServiceFactory;
 import service.custom.CustomerService;
+import service.custom.EmployeeService;
 import util.ServiceType;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
 import java.util.ResourceBundle;
 
 public class AdminManagementFormController implements Initializable {
@@ -318,6 +319,108 @@ public class AdminManagementFormController implements Initializable {
             alert.show();
         }
     }
+    //====================================================================EMPLOYEE MANAGEMENT==========================================================================
+    final EmployeeService employeeService = ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
+    public void btnEmployeeManagementOnAction(ActionEvent event) {
+        currentPage.setVisible(false);
+        currentPage = pageEmployee;
+        currentPage.setVisible(true);
+    }
+    private void loadEmployeeTable() {
+        ObservableList<Employee> employees = employeeService.getAll();
+        tblEmployee.setItems(employees);
+    }
+    private void setTextToValues(Employee newValue) {
+        txtEmployeeId.setText(newValue.getEmployeeId());
+        txtEmployeeName.setText(newValue.getEmployeeName());
+        txtEmployeeContact.setText(newValue.getContactNumber());
+        txtEmployeeNic.setText(newValue.getEmployeeNic());
+        txtEmployeeEmail.setText(newValue.getEmployeeEmailAddress());
+        txtEmployeeAddress.setText(newValue.getEmployeeAddress());
+    }
+    public void clearFieldsEmployee() {
+        txtEmployeeId.setText(employeeService.generateEmployeeId());
+        txtEmployeeAddress.setText("");
+        txtEmployeeName.setText("");
+        txtEmployeeEmail.setText("");
+        txtEmployeeNic.setText("");
+        txtEmployeeContact.setText("");
+    }
+    public void btnAddEmployeeOnAction(ActionEvent event) {
+        Employee employee = new Employee(
+                txtEmployeeId.getText(),
+                txtEmployeeName.getText(),
+                txtEmployeeNic.getText(),
+                txtEmployeeAddress.getText(),
+                txtEmployeeEmail.getText(),
+                txtEmployeeContact.getText()
+        );
+        if (employeeService.addEmployee(employee)) {
+            loadEmployeeTable();
+            clearFieldsEmployee();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Employee Added Successfully...");
+            alert.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Employee Didn't added....");
+            alert.show();
+        }
+    }
+    public void btnUpdateEmployeeOnAction(ActionEvent event) {
+        Employee employee = new Employee(
+                txtEmployeeId.getText(),
+                txtEmployeeName.getText(),
+                txtEmployeeNic.getText(),
+                txtEmployeeAddress.getText(),
+                txtEmployeeEmail.getText(),
+                txtEmployeeContact.getText()
+        );
+        if(employeeService.updateEmployee(employee)){
+            loadEmployeeTable();
+            clearFieldsEmployee();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Employee Updated Successfully..");
+            alert.show();
+
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Employee didn't Updated ...");
+            alert.show();
+        }
+    }
+
+    public void btnSearchEmployeeOnAction(ActionEvent event) {
+        Employee employee = employeeService.searchEmployee(txtEmployeeId.getText());
+        if (employee!=null) {
+            setTextToValues(employee);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Employee Not Found");
+            alert.setHeaderText(null);
+            alert.setContentText("No employee found with ID: " + txtEmployeeId.getText());
+            alert.showAndWait();
+        }
+    }
+    public void btnDeleteEmployeeOnAction(ActionEvent event) {
+        if(employeeService.deleteEmployee(txtEmployeeId.getText())){
+            loadEmployeeTable();
+            clearFieldsEmployee();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Employee Deleted SuccessFully");
+            alert.show();
+
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Employee Didn't Found");
+            alert.show();
+        }
+    }
+    public void btnEmployeeClearOnAction(MouseEvent mouseEvent) {
+        clearFieldsEmployee();
+    }
+
+
     //====================================DASHBOARD MANAGEMENT==============================================================
     public void btnSupplierManagementOnAction(ActionEvent event) {
         currentPage.setVisible(false);
@@ -327,12 +430,6 @@ public class AdminManagementFormController implements Initializable {
     public void btnProductManagementOnAction(ActionEvent event) {
         currentPage.setVisible(false);
         currentPage = pageProduct;
-        currentPage.setVisible(true);
-    }
-
-    public void btnEmployeeManagementOnAction(ActionEvent event) {
-        currentPage.setVisible(false);
-        currentPage = pageEmployee;
         currentPage.setVisible(true);
     }
 
@@ -370,8 +467,6 @@ public class AdminManagementFormController implements Initializable {
         clearFieldsCustomer();
     }
     
-    public void btnEmployeeClearOnAction(MouseEvent mouseEvent) {
-    }
 
     public void btnRemoveOnAction(ActionEvent event) {
     }
@@ -414,27 +509,17 @@ public class AdminManagementFormController implements Initializable {
     public void btnDeleteItemOnAction(ActionEvent event) {
     }
 
-    public void btnAddEmployeeOnAction(ActionEvent event) {
-    }
 
-    public void btnUpdateEmployeeOnAction(ActionEvent event) {
-    }
-
-    public void btnSearchEmployeeOnAction(ActionEvent event) {
-    }
-
-    public void btnDeleteEmployeeOnAction(ActionEvent event) {
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         currentPage = pageCustomer;
         currentPage.setVisible(true);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////REPORT GEN/////////////////////////////////////////////////////////////////
         StackedBarChart<String, Number> stackedBarChart = createStackedBarChart();
         chartContainer.getChildren().add(stackedBarChart);
         loadPieChart();
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////CUSTOMER///////////////////////////////////////////////////////////////////
         txtCustId.setText(customerService.generateCustomerId());
         loadTitleMenu();
         colCustId.setCellValueFactory(new PropertyValueFactory<>("custId"));
@@ -453,7 +538,25 @@ public class AdminManagementFormController implements Initializable {
             }
         }));
         loadCustomerTable();
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////EMPLOYEE///////////////////////////////////////////////////////////////////
+        txtEmployeeId.setText(employeeService.generateEmployeeId());
+        colEmpId.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
+        colEmpName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+        colEmpNic.setCellValueFactory(new PropertyValueFactory<>("employeeNic"));
+        colEmpAddress.setCellValueFactory(new PropertyValueFactory<>("employeeAddress"));
+        colEmpEmail.setCellValueFactory(new PropertyValueFactory<>("employeeEmailAddress"));
+        colEmpContact.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
+
+        tblEmployee.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if (newValue != null) {
+                setTextToValues((Employee) newValue);
+            }
+        }));
+        loadEmployeeTable();
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     }
+
+
 
 }

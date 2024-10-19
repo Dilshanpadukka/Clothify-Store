@@ -16,7 +16,7 @@ public class EmployeeEntity {
     @Id
     private String employeeId;
     private String employeeName;
-    private String employeeTitle;
+    private String employeeNic;
     private String employeeAddress;
     private String employeeEmailAddress;
     private String contactNumber;

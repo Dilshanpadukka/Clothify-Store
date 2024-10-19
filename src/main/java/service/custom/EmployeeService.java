@@ -10,4 +10,5 @@ public interface EmployeeService extends SuperService {
     Employee searchEmployee(String  id);
     boolean deleteEmployee(String id);
     ObservableList<Employee> getAll();
+    String generateEmployeeId();
 }

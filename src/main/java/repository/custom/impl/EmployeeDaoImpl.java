@@ -2,6 +2,7 @@ package repository.custom.impl;
 
 import entity.EmployeeEntity;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import repository.custom.EmployeeDao;
 import util.HibernateUtil;
 
@@ -28,7 +29,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         if (employeeToUpdate != null) {
             employeeToUpdate.setEmployeeId(employee.getEmployeeId());
             employeeToUpdate.setEmployeeName(employee.getEmployeeName());
-            employeeToUpdate.setEmployeeTitle(employee.getEmployeeTitle());
+            employeeToUpdate.setEmployeeNic(employee.getEmployeeNic());
             employeeToUpdate.setEmployeeAddress(employee.getEmployeeAddress());
             employeeToUpdate.setEmployeeEmailAddress(employee.getEmployeeEmailAddress());
             employeeToUpdate.setContactNumber(employee.getContactNumber());
@@ -94,6 +95,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public String getLatestId() {
-        return null;
+        Session session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("SELECT id FROM EmployeeEntity ORDER BY id DESC LIMIT 1");
+        String id = (String) query.uniqueResult();
+        session.close();
+        return id;
     }
 }

@@ -5,6 +5,7 @@ import entity.EmployeeEntity;
 import model.Employee;
 import org.modelmapper.ModelMapper;
 import repository.DaoFactory;
+import repository.custom.CustomerDao;
 import repository.custom.EmployeeDao;
 import service.custom.EmployeeService;
 import util.DaoType;
@@ -56,5 +57,17 @@ public class EmployeeServiceImpl implements EmployeeService {
             employees.add(employee);
         }
         return employees;
+    }
+
+    @Override
+    public String generateEmployeeId() {
+        EmployeeDao employeeDao = DaoFactory.getInstance().getDaoType(DaoType.EMPLOYEE);
+        String lastEmployeeId = employeeDao.getLatestId();
+        if (lastEmployeeId == null) {
+            return "E0001";
+        }
+        int number = Integer.parseInt(lastEmployeeId.split("E")[1]);
+        number++;
+        return String.format("E%04d", number);
     }
 }
