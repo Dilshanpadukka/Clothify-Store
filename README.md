@@ -18,8 +18,8 @@ Clothify Store is a modern retail management system developed using JavaFX and H
 
 - JavaFX
 - Hibernate
-- MySQL (or any database you are using)
-- Maven (if applicable)
+- MySQL
+- Maven
 
 ## Installation
 
