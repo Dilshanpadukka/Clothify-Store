@@ -2,6 +2,7 @@ package repository.custom.impl;
 
 import entity.OrderEntity;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import repository.custom.OrderDao;
 import util.HibernateUtil;
 
@@ -41,6 +42,11 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public String getLatestId() {
-        return null;
+        Session session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("SELECT orderId FROM OrderEntity ORDER BY orderId DESC LIMIT 1");
+        String id = (String) query.uniqueResult();
+        session.close();
+        return id;
     }
 }

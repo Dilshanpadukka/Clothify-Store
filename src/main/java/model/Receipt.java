@@ -15,6 +15,7 @@ import java.util.List;
 public class Receipt {
     private String orderId;
     private String customerName;
+    private String customerContact;
     private String customerAddress;
     private List<CartTM> items;
     private Double discount;

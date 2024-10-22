@@ -12,6 +12,8 @@ import lombok.ToString;
 public class CartTM {
     private String itemId;
     private String name;
+    private String category;
+    private String size;
     private int qty;
     private double price;
     private double total;

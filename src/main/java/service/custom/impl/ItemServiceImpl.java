@@ -35,7 +35,7 @@ public class ItemServiceImpl implements ItemService {
     public Item searchItem(String itemCode) {
         ItemDao itemDao =  DaoFactory.getInstance().getDaoType(DaoType.ITEM);
         ItemEntity itemEntity = itemDao.search(itemCode);
-        Item items = new ObjectMapper().convertValue(itemEntity, Item.class);
+        Item items = new ModelMapper().map(itemEntity, Item.class);
         return items;
     }
 

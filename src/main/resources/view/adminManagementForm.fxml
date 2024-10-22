@@ -578,17 +578,18 @@
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#28ad609a" height="290.0" layoutX="23.0" layoutY="389.0" stroke="BLACK" strokeType="INSIDE" width="840.0" />
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#33485cd5" height="683.0" layoutX="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="879.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000086" height="295.0" layoutX="21.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" width="844.0" />
                         <ImageView fitHeight="53.0" fitWidth="346.0" layoutX="30.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../image/placeorderform.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="txtOrderCustContact" layoutX="459.0" layoutY="191.0" prefHeight="31.0" prefWidth="180.0" promptText="Contact Number">
+                        <TextField fx:id="txtOrderCustContact" editable="false" layoutX="459.0" layoutY="191.0" prefHeight="31.0" prefWidth="180.0" promptText="Contact Number">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="txtOrderCustName" layoutX="203.0" layoutY="191.0" prefHeight="31.0" prefWidth="222.0" promptText="Name">
+                        <TextField fx:id="txtOrderCustName" editable="false" layoutX="203.0" layoutY="191.0" prefHeight="31.0" prefWidth="222.0" promptText="Name">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -611,7 +612,7 @@
                                     <Image url="@../image/Calendar.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="450.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="441.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../image/OrderID.png" />
                                  </image>
@@ -626,19 +627,19 @@
                                     <Font name="Calibri Bold" size="22.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="txtOrderId" layoutX="487.0" layoutY="7.0" prefHeight="30.0" prefWidth="105.0" text="OR#001" textFill="WHITE">
+                              <Label fx:id="lblOrderId" layoutX="477.0" layoutY="6.0" prefHeight="30.0" prefWidth="125.0" text="OR#0001" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Black" size="20.0" />
                                  </font>
                               </Label>
                            </children>
                         </AnchorPane>
-                        <TextField fx:id="txtOrderCustAddress" layoutX="669.0" layoutY="191.0" prefHeight="31.0" prefWidth="169.0" promptText="Address">
+                        <TextField fx:id="txtOrderCustAddress" editable="false" layoutX="669.0" layoutY="191.0" prefHeight="31.0" prefWidth="169.0" promptText="Address">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TableView layoutX="43.0" layoutY="395.0" prefHeight="218.0" prefWidth="800.0">
+                        <TableView fx:id="tblOrderDetails" layoutX="43.0" layoutY="395.0" prefHeight="218.0" prefWidth="800.0">
                            <columns>
                               <TableColumn fx:id="colOrderItemCode" prefWidth="98.0" text="Item Code" />
                               <TableColumn fx:id="colOrderItemName" prefWidth="167.0" text="Item" />
@@ -650,27 +651,27 @@
                            </columns>
                         </TableView>
                         <Separator layoutX="21.0" layoutY="378.0" prefHeight="17.0" prefWidth="839.0" />
-                        <TextField fx:id="txtOrderItemName" layoutX="203.0" layoutY="257.0" prefHeight="31.0" prefWidth="221.0" promptText="Item Name">
+                        <TextField fx:id="txtOrderItemName" editable="false" layoutX="203.0" layoutY="257.0" prefHeight="31.0" prefWidth="221.0" promptText="Item Name">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="txtOrderItemUnitPrice" layoutX="716.0" layoutY="257.0" prefHeight="31.0" prefWidth="122.0" promptText="Unit Price">
+                        <TextField fx:id="txtOrderItemUnitPrice" editable="false" layoutX="716.0" layoutY="257.0" prefHeight="31.0" prefWidth="122.0" promptText="Unit Price">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="txtOrderItemCate" layoutX="562.0" layoutY="257.0" prefHeight="31.0" prefWidth="136.0" promptText="Category">
+                        <TextField fx:id="txtOrderItemCate" editable="false" layoutX="562.0" layoutY="257.0" prefHeight="31.0" prefWidth="136.0" promptText="Category">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="txtOrderItemSize" layoutX="458.0" layoutY="257.0" prefHeight="31.0" prefWidth="84.0" promptText="Size">
+                        <TextField fx:id="txtOrderItemSize" editable="false" layoutX="458.0" layoutY="257.0" prefHeight="31.0" prefWidth="84.0" promptText="Size">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="txtOrderItemQty" layoutX="491.0" layoutY="325.0" prefHeight="31.0" prefWidth="123.0" promptText="Enter QTY">
+                        <TextField fx:id="txtOrderItemQty" layoutX="330.0" layoutY="325.0" prefHeight="31.0" prefWidth="123.0" promptText="Enter QTY">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -691,17 +692,17 @@
                            </image>
                         </ImageView>
                         <ComboBox fx:id="cmbItemCode" layoutX="46.0" layoutY="260.0" prefHeight="25.0" prefWidth="122.0" promptText="Item Code" style="-fx-background-color: #ecf0f1;" />
-                        <Label fx:id="lblNetTotal" layoutX="168.0" layoutY="632.0" prefHeight="26.0" prefWidth="111.0" text="50,000/=" textFill="#51ff00">
+                        <Label fx:id="lblNetTotal" layoutX="168.0" layoutY="632.0" prefHeight="32.0" prefWidth="155.0" text="0/=" textFill="#51ff00">
                            <font>
                               <Font name="Calibri Bold" size="28.0" />
                            </font>
                         </Label>
-                        <JFXButton layoutX="497.0" layoutY="631.0" onAction="#btnPlaceOrderOnAction" prefHeight="34.0" prefWidth="181.0" style="-fx-background-color: #4cd137;" text="Place Order">
+                        <JFXButton layoutX="497.0" layoutY="631.0" onAction="#btnPlaceOrderCartOnAction" prefHeight="34.0" prefWidth="181.0" style="-fx-background-color: #4cd137;" text="Place Order">
                            <font>
                               <Font name="Arial Bold" size="15.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton layoutX="718.0" layoutY="631.0" onAction="#btnRemoveOnAction" prefHeight="34.0" prefWidth="125.0" style="-fx-background-color: #0652DD;" text="Remove" textFill="WHITE">
+                        <JFXButton layoutX="718.0" layoutY="631.0" onAction="#btnRemoveOnAction" prefHeight="34.0" prefWidth="125.0" style="-fx-background-color: #e74c3c;" text="Remove" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="15.0" />
                            </font>
@@ -741,7 +742,7 @@
                               <Font name="Calibri Bold" size="15.0" />
                            </font>
                         </Label>
-                        <Label layoutX="493.0" layoutY="306.0" prefHeight="18.0" prefWidth="44.0" text="QTY" textAlignment="CENTER" textFill="WHITE">
+                        <Label layoutX="332.0" layoutY="306.0" prefHeight="18.0" prefWidth="44.0" text="QTY" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Calibri Bold" size="15.0" />
                            </font>
@@ -762,6 +763,26 @@
                            </font>
                         </TextField>
                         <Label layoutX="242.0" layoutY="91.0" prefHeight="18.0" prefWidth="105.0" text="Employee Email" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Calibri Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtOrderItemStockLev" editable="false" layoutX="186.0" layoutY="325.0" prefHeight="31.0" prefWidth="123.0" promptText="Stock">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="186.0" layoutY="306.0" prefHeight="18.0" prefWidth="79.0" text="Stock Level" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Calibri Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtOrderItemDiscount" layoutX="481.0" layoutY="325.0" prefHeight="31.0" prefWidth="123.0" promptText="Discount" text="0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="483.0" layoutY="306.0" prefHeight="18.0" prefWidth="63.0" text="Discount" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Calibri Bold" size="15.0" />
                            </font>
