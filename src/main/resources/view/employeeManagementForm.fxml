@@ -16,34 +16,39 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="682.0" prefWidth="1185.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="icet.edu.drm.controller.employeeController.EmployeeManagementFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="1185.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.employeeController.EmployeeManagementFormController">
     <children>
-        <BorderPane prefHeight="692.0" prefWidth="1184.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ImageView fitHeight="810.0" fitWidth="1200.0" layoutY="-128.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../image/LogIn%20page.png" />
+            </image>
+        </ImageView>
+        <BorderPane prefHeight="683.0" prefWidth="1184.0">
             <left>
                 <AnchorPane BorderPane.alignment="CENTER">
                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffffc0" height="694.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="308.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffffc0" height="683.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="308.0" />
                         <ImageView fitHeight="168.0" fitWidth="161.0" layoutX="74.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../image/Group%202.png" />
                             </image>
                         </ImageView>
-                        <JFXButton layoutX="32.0" layoutY="205.0" onAction="#btnCustomerManagementOnAction" prefHeight="39.0" prefWidth="245.0" style="-fx-background-color: #2c3e50;" text="Customer Management" textAlignment="CENTER" textFill="WHITE">
+                        <JFXButton layoutX="32.0" layoutY="220.0" onAction="#btnCustomerManagementOnAction" prefHeight="39.0" prefWidth="245.0" style="-fx-background-color: #2c3e50;" text="Customer Management" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="Impact" size="19.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton layoutX="32.0" layoutY="275.0" onAction="#btnOrderManagementOnAction" prefHeight="39.0" prefWidth="245.0" style="-fx-background-color: #2c3e50;" text="Order Management" textAlignment="CENTER" textFill="WHITE">
+                        <JFXButton layoutX="32.0" layoutY="303.0" onAction="#btnOrderManagementOnAction" prefHeight="39.0" prefWidth="245.0" style="-fx-background-color: #2c3e50;" text="Order Management" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="Impact" size="19.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton layoutX="32.0" layoutY="345.0" onAction="#btnSupplierManagementOnAction" prefHeight="39.0" prefWidth="245.0" style="-fx-background-color: #2c3e50;" text="Supplier Management" textAlignment="CENTER" textFill="WHITE">
+                        <JFXButton layoutX="32.0" layoutY="383.0" onAction="#btnSupplierManagementOnAction" prefHeight="39.0" prefWidth="245.0" style="-fx-background-color: #2c3e50;" text="Supplier Management" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="Impact" size="19.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton layoutX="32.0" layoutY="413.0" onAction="#btnProductManagementOnAction" prefHeight="39.0" prefWidth="245.0" style="-fx-background-color: #2c3e50;" text="Product Management" textAlignment="CENTER" textFill="WHITE">
+                        <JFXButton layoutX="32.0" layoutY="465.0" onAction="#btnProductManagementOnAction" prefHeight="39.0" prefWidth="245.0" style="-fx-background-color: #2c3e50;" text="Item Management" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="Impact" size="19.0" />
                             </font>
@@ -68,14 +73,9 @@
                 </AnchorPane>
             </left>
             <center>
-                <AnchorPane prefHeight="674.0" prefWidth="893.0" BorderPane.alignment="CENTER">
+                <AnchorPane BorderPane.alignment="CENTER">
                     <children>
-                    <ImageView fitHeight="694.0" fitWidth="1013.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../image/LogIn%20page.png" />
-                        </image>
-                    </ImageView>
-                        <AnchorPane fx:id="pageCustomer" prefHeight="648.0" prefWidth="838.0" visible="false">
+                        <AnchorPane fx:id="pageCustomer" visible="false">
                             <children>
                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#33485cd5" height="683.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="879.0" />
                                 <ImageView fitHeight="53.0" fitWidth="346.0" layoutX="30.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -83,74 +83,128 @@
                                         <Image url="@../image/Customer.png" />
                                     </image>
                                 </ImageView>
-                                <TableView layoutX="26.0" layoutY="369.0" prefHeight="293.0" prefWidth="831.0">
+                                <TableView fx:id="tblCustomer" layoutX="26.0" layoutY="369.0" prefHeight="293.0" prefWidth="831.0">
                                     <columns>
-                                        <TableColumn prefWidth="72.0" text="CustID" />
-                                        <TableColumn prefWidth="53.0" text="Title" />
-                                        <TableColumn prefWidth="163.0" text="Name" />
-                                        <TableColumn prefWidth="193.0" text="Address" />
-                                        <TableColumn prefWidth="132.0" text="City" />
-                                        <TableColumn prefWidth="123.0" text="Province" />
-                                        <TableColumn prefWidth="94.0" text="PostalCode" />
-                                        <TableColumn prefWidth="94.0" text="Email" />
+                                        <TableColumn fx:id="colCustId" prefWidth="72.0" text="CustID" />
+                                        <TableColumn fx:id="colCustTitle" prefWidth="53.0" text="Title" />
+                                        <TableColumn fx:id="colCustName" prefWidth="163.0" text="Name" />
+                                        <TableColumn fx:id="colCustAddress" prefWidth="193.0" text="Address" />
+                                        <TableColumn fx:id="colCustCity" prefWidth="132.0" text="City" />
+                                        <TableColumn fx:id="colCustProvince" prefWidth="123.0" text="Province" />
+                                        <TableColumn fx:id="colCustPostalCode" prefWidth="94.0" text="PostalCode" />
+                                        <TableColumn fx:id="colCustEmail" prefWidth="94.0" text="Email" />
+                                        <TableColumn fx:id="colCustContact" prefWidth="94.0" text="Contact" />
                                     </columns>
                                 </TableView>
                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000076" height="289.0" layoutX="26.0" layoutY="75.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="831.0" />
-                                <TextField layoutX="56.0" layoutY="156.0" prefHeight="31.0" prefWidth="185.0" promptText="City">
+                                <TextField fx:id="txtCustCity" layoutX="56.0" layoutY="171.0" prefHeight="31.0" prefWidth="185.0" promptText="City">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField layoutX="296.0" layoutY="96.0" prefHeight="31.0" prefWidth="225.0" promptText="Enter Name">
+                                <TextField fx:id="txtCustName" layoutX="300.0" layoutY="104.0" prefHeight="31.0" prefWidth="225.0" promptText="Enter Name">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField layoutX="267.0" layoutY="211.0" prefHeight="31.0" prefWidth="254.0" promptText="Email">
+                                <TextField fx:id="txtCustEmail" layoutX="269.0" layoutY="234.0" prefHeight="31.0" prefWidth="254.0" promptText="Email">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField layoutX="269.0" layoutY="156.0" prefHeight="31.0" prefWidth="252.0" promptText="Province">
+                                <TextField fx:id="txtCustProvince" layoutX="271.0" layoutY="171.0" prefHeight="31.0" prefWidth="252.0" promptText="Province">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField layoutX="57.0" layoutY="211.0" prefHeight="31.0" prefWidth="184.0" promptText="PostalCode">
+                                <TextField fx:id="txtCustPostalCode" layoutX="57.0" layoutY="234.0" prefHeight="31.0" prefWidth="184.0" promptText="PostalCode">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <Label alignment="CENTER" layoutX="40.0" layoutY="95.0" prefHeight="33.0" prefWidth="102.0" style="-fx-background-color: #7f8c8d;" text="C001" textFill="WHITE">
+                                <ComboBox fx:id="cmbCustTitle" layoutX="187.0" layoutY="107.0" prefHeight="25.0" prefWidth="90.0" promptText="Set Title" style="-fx-background-color: #ecf0f1;" />
+                                <TextArea fx:id="txtCustAddress" layoutX="553.0" layoutY="170.0" prefHeight="94.0" prefWidth="226.0" promptText="Address">
                                     <font>
-                                        <Font name="System Bold" size="22.0" />
+                                        <Font size="15.0" />
+                                    </font></TextArea>
+                                <JFXButton layoutX="58.0" layoutY="289.0" onAction="#btnAddCustomerOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #2ecc71;" text="Add Customer">
+                                    <font>
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                </JFXButton>
+                                <JFXButton layoutX="239.0" layoutY="289.0" onAction="#btnUpdateCustomerOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #f1c40f;" text="Update Customer">
+                                    <font>
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                </JFXButton>
+                                <JFXButton layoutX="419.0" layoutY="289.0" onAction="#btnSearchCustomerOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Customer">
+                                    <font>
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                </JFXButton>
+                                <JFXButton layoutX="601.0" layoutY="289.0" onAction="#btnDeleteCustomerOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #e74c3c;" text="Delete Customer">
+                                    <font>
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                </JFXButton>
+                                <TextField fx:id="txtCustContact" layoutX="553.0" layoutY="104.0" prefHeight="31.0" prefWidth="225.0" promptText="Contact">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </TextField>
+                                <TextField fx:id="txtCustId" layoutX="56.0" layoutY="104.0" prefHeight="31.0" prefWidth="109.0" promptText="CustomerID">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </TextField>
+                                <Label layoutX="58.0" layoutY="80.0" prefHeight="17.0" prefWidth="94.0" text="Customer ID" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
                                 </Label>
-                                <ComboBox layoutX="174.0" layoutY="99.0" prefHeight="25.0" prefWidth="90.0" promptText="Set Title" style="-fx-background-color: #ecf0f1;" />
-                                <TextArea layoutX="553.0" layoutY="95.0" prefHeight="149.0" prefWidth="226.0" promptText="Address" />
-                                <JFXButton layoutX="58.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #2ecc71;" text="Add Customer">
+                                <Label layoutX="299.0" layoutY="80.0" prefHeight="18.0" prefWidth="105.0" text="Customer Name" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font name="Arial Bold" size="14.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </JFXButton>
-                                <JFXButton layoutX="257.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #f1c40f;" text="Update Customer">
+                                </Label>
+                                <Label layoutX="553.0" layoutY="80.0" prefHeight="18.0" prefWidth="116.0" text="Customer Contact" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font name="Arial Bold" size="14.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </JFXButton>
-                                <JFXButton layoutX="451.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Customer">
+                                </Label>
+                                <Label layoutX="56.0" layoutY="146.0" prefHeight="17.0" prefWidth="94.0" text="City" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font name="Arial Bold" size="14.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </JFXButton>
-                                <JFXButton layoutX="642.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #e74c3c;" text="Delete Customer">
+                                </Label>
+                                <Label layoutX="269.0" layoutY="146.0" prefHeight="17.0" prefWidth="94.0" text="Province" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font name="Arial Bold" size="14.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </JFXButton>
+                                </Label>
+                                <Label layoutX="553.0" layoutY="146.0" prefHeight="17.0" prefWidth="94.0" text="Address" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="56.0" layoutY="211.0" prefHeight="17.0" prefWidth="94.0" text="PostalCode" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="269.0" layoutY="211.0" prefHeight="17.0" prefWidth="94.0" text="Email" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <ImageView fitHeight="45.0" fitWidth="44.0" layoutX="778.0" layoutY="284.0" onMouseClicked="#btnCustomerClearOnAction" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../image/clearbtn.png" />
+                                    </image>
+                                </ImageView>
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pageSupplier" layoutX="-10.0" layoutY="-6.0" visible="false">
+                        <AnchorPane fx:id="pageSupplier" layoutX="-10.0" layoutY="-6.0" prefHeight="689.0" prefWidth="889.0" visible="false">
                             <children>
                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#33485cd5" height="691.0" layoutX="7.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="895.0" />
                                 <ImageView fitHeight="53.0" fitWidth="346.0" layoutX="40.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
@@ -158,71 +212,125 @@
                                         <Image url="@../image/Supplier.png" />
                                     </image>
                                 </ImageView>
-                                <TableView layoutX="36.0" layoutY="379.0" prefHeight="293.0" prefWidth="831.0">
+                                <TableView fx:id="tblSupplier" layoutX="36.0" layoutY="379.0" prefHeight="293.0" prefWidth="831.0">
                                     <columns>
-                                        <TableColumn prefWidth="77.0" text="SupID" />
-                                        <TableColumn prefWidth="152.0" text="Supplier Name" />
-                                        <TableColumn prefWidth="178.0" text="Company Name" />
-                                        <TableColumn prefWidth="175.0" text="Company Address" />
-                                        <TableColumn prefWidth="98.0" text="PostalCode" />
-                                        <TableColumn prefWidth="150.0" text="Company Email" />
+                                        <TableColumn fx:id="colSupId" prefWidth="77.0" text="SupID" />
+                                        <TableColumn fx:id="colSupName" prefWidth="152.0" text="Supplier Name" />
+                                        <TableColumn fx:id="colSupCompany" prefWidth="178.0" text="Company Name" />
+                                        <TableColumn fx:id="colSupAddress" prefWidth="175.0" text="Company Address" />
+                                        <TableColumn fx:id="colSupEmail" prefWidth="150.0" text="Company Email" />
+                                        <TableColumn fx:id="colSupContact" prefWidth="150.0" text="Contact" />
+                                        <TableColumn fx:id="colSupPostalCode" prefWidth="98.0" text="PostalCode" />
                                     </columns>
                                 </TableView>
                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000076" height="289.0" layoutX="36.0" layoutY="85.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="831.0" />
-                                <TextField layoutX="347.0" layoutY="164.0" prefHeight="31.0" prefWidth="185.0" promptText="City">
+                                <TextField fx:id="txtSupItemDesc" layoutX="336.0" layoutY="236.0" prefHeight="31.0" prefWidth="191.0" promptText="Item Desc">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField layoutX="184.0" layoutY="106.0" prefHeight="31.0" prefWidth="346.0" promptText="Supplier Name">
+                                <TextField fx:id="txtSupName" layoutX="215.0" layoutY="121.0" prefHeight="31.0" prefWidth="315.0" promptText="Supplier Name">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField layoutX="277.0" layoutY="221.0" prefHeight="31.0" prefWidth="254.0" promptText="Company Email">
+                                <TextField fx:id="txtSupCompanyEmail" layoutX="66.0" layoutY="237.0" prefHeight="31.0" prefWidth="254.0" promptText="Company Email">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField layoutX="67.0" layoutY="164.0" prefHeight="31.0" prefWidth="252.0" promptText="Company Name">
+                                <TextField fx:id="txtSupCompany" layoutX="67.0" layoutY="178.0" prefHeight="31.0" prefWidth="252.0" promptText="Company Name">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField layoutX="67.0" layoutY="221.0" prefHeight="31.0" prefWidth="184.0" promptText="PostalCode">
+                                <TextField fx:id="txtSupPostalCode" layoutX="336.0" layoutY="178.0" prefHeight="31.0" prefWidth="191.0" promptText="PostalCode">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <Label alignment="CENTER" layoutX="50.0" layoutY="105.0" prefHeight="33.0" prefWidth="102.0" style="-fx-background-color: #7f8c8d;" text="S001" textFill="WHITE">
+                                <TextArea fx:id="txtSupCompanyAddress" layoutX="563.0" layoutY="180.0" prefHeight="91.0" prefWidth="258.0" promptText="Company Address">
                                     <font>
-                                        <Font name="System Bold" size="22.0" />
+                                        <Font size="15.0" />
+                                    </font></TextArea>
+                                <JFXButton layoutX="68.0" layoutY="299.0" onAction="#btnAddSupplierOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #2ecc71;" text="Add Supplier">
+                                    <font>
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                </JFXButton>
+                                <JFXButton layoutX="246.0" layoutY="299.0" onAction="#btnUpdateSupplierOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #f1c40f;" text="Update Supplier">
+                                    <font>
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                </JFXButton>
+                                <JFXButton layoutX="425.0" layoutY="299.0" onAction="#btnSerachSupplierOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Supplier">
+                                    <font>
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                </JFXButton>
+                                <JFXButton layoutX="604.0" layoutY="299.0" onAction="#btnDeleteSupplierOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #e74c3c;" text="Delete Supplier">
+                                    <font>
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                </JFXButton>
+                                <TextField fx:id="txtSupContact" layoutX="563.0" layoutY="121.0" prefHeight="31.0" prefWidth="252.0" promptText="Contact">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </TextField>
+                                <TextField fx:id="txtSupId" layoutX="67.0" layoutY="121.0" prefHeight="31.0" prefWidth="112.0" promptText="Supplier ID">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </TextField>
+                                <Label layoutX="68.0" layoutY="101.0" prefHeight="18.0" prefWidth="116.0" text="Supplier ID" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
                                 </Label>
-                                <TextArea layoutX="563.0" layoutY="105.0" prefHeight="149.0" prefWidth="226.0" promptText="Company Address" />
-                                <JFXButton layoutX="68.0" layoutY="299.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #2ecc71;" text="Add Supplier">
+                                <Label layoutX="215.0" layoutY="101.0" prefHeight="18.0" prefWidth="116.0" text="Supplier Name" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font name="Arial Bold" size="14.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </JFXButton>
-                                <JFXButton layoutX="267.0" layoutY="299.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #f1c40f;" text="Update Supplier">
+                                </Label>
+                                <Label layoutX="563.0" layoutY="101.0" prefHeight="18.0" prefWidth="116.0" text="Supplier Contact" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font name="Arial Bold" size="14.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </JFXButton>
-                                <JFXButton layoutX="461.0" layoutY="299.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Supplier">
+                                </Label>
+                                <Label layoutX="68.0" layoutY="159.0" prefHeight="18.0" prefWidth="116.0" text="Company Name" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font name="Arial Bold" size="14.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </JFXButton>
-                                <JFXButton layoutX="652.0" layoutY="299.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #e74c3c;" text="Delete Supplier">
+                                </Label>
+                                <Label layoutX="335.0" layoutY="159.0" prefHeight="18.0" prefWidth="116.0" text="Postal Code" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font name="Arial Bold" size="14.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </JFXButton>
+                                </Label>
+                                <Label layoutX="68.0" layoutY="220.0" prefHeight="18.0" prefWidth="116.0" text="Company Email" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="336.0" layoutY="218.0" prefHeight="18.0" prefWidth="116.0" text="Item Desc" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="563.0" layoutY="160.0" prefHeight="18.0" prefWidth="116.0" text="Company Address" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <ImageView fitHeight="45.0" fitWidth="44.0" layoutX="772.0" layoutY="297.0" onMouseClicked="#btnSupplierClearOnAction" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../image/clearbtn.png" />
+                                    </image>
+                                </ImageView>
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pageProduct" layoutY="5.0" visible="false">
+                        <AnchorPane fx:id="pageProduct" layoutY="5.0" prefHeight="682.0" prefWidth="886.0" visible="false">
                             <children>
                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#33485cd5" height="693.0" layoutY="-10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="879.0" />
                                 <ImageView fitHeight="53.0" fitWidth="346.0" layoutX="30.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -230,62 +338,100 @@
                                         <Image url="@../image/product%20management.png" />
                                     </image>
                                 </ImageView>
-                                <TableView layoutX="26.0" layoutY="369.0" prefHeight="293.0" prefWidth="831.0">
+                                <TableView fx:id="tblItem" layoutX="26.0" layoutY="369.0" prefHeight="293.0" prefWidth="831.0">
                                     <columns>
-                                        <TableColumn prefWidth="77.0" text="ProductID" />
-                                        <TableColumn prefWidth="95.0" text="Category" />
-                                        <TableColumn prefWidth="186.0" text="Product Name" />
-                                        <TableColumn prefWidth="82.0" text="Product Size" />
-                                        <TableColumn prefWidth="91.0" text="Qty" />
-                                        <TableColumn prefWidth="114.0" text="Unit Price" />
-                                        <TableColumn prefWidth="185.0" text="Description" />
+                                        <TableColumn fx:id="colItemtId" prefWidth="94.0" text="Item ID" />
+                                        <TableColumn fx:id="colItemCategory" prefWidth="126.0" text="Category" />
+                                        <TableColumn fx:id="colItemName" prefWidth="192.0" text="Product Name" />
+                                        <TableColumn fx:id="colItemSize" prefWidth="126.0" text="Product Size" />
+                                        <TableColumn fx:id="colItemQty" prefWidth="138.0" text="Qty" />
+                                        <TableColumn fx:id="colItemUnitPrice" prefWidth="154.0" text="Unit Price" />
                                     </columns>
                                 </TableView>
                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000076" height="289.0" layoutX="26.0" layoutY="75.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="831.0" />
-                                <TextField layoutX="296.0" layoutY="96.0" prefHeight="31.0" prefWidth="225.0" promptText="Product Name">
+                                <TextField fx:id="txtItemName" layoutX="232.0" layoutY="125.0" prefHeight="31.0" prefWidth="207.0" promptText="Item Name">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField layoutX="57.0" layoutY="211.0" prefHeight="31.0" prefWidth="184.0" promptText="Unit Price">
+                                <TextField fx:id="txtItemUnitPrice" layoutX="329.0" layoutY="203.0" prefHeight="31.0" prefWidth="184.0" promptText="Unit Price">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <Label alignment="CENTER" layoutX="40.0" layoutY="95.0" prefHeight="33.0" prefWidth="102.0" style="-fx-background-color: #7f8c8d;" text="P001" textFill="WHITE">
+                                <ComboBox fx:id="cmbItemCategory" layoutX="478.0" layoutY="126.0" prefHeight="28.0" prefWidth="140.0" promptText="Category" style="-fx-background-color: #ecf0f1;" />
+                                <JFXButton layoutX="58.0" layoutY="289.0" onAction="#btnAddItemOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #2ecc71;" text="Add Item">
                                     <font>
-                                        <Font name="System Bold" size="22.0" />
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                </JFXButton>
+                                <JFXButton layoutX="237.0" layoutY="289.0" onAction="#btnUpdateItemOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #f1c40f;" text="Update Item">
+                                    <font>
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                </JFXButton>
+                                <JFXButton layoutX="417.0" layoutY="289.0" onAction="#btnSearchItemOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Item">
+                                    <font>
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                </JFXButton>
+                                <JFXButton layoutX="596.0" layoutY="289.0" onAction="#btnDeleteItemOnAction" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #e74c3c;" text="Delete Item">
+                                    <font>
+                                        <Font name="Arial Bold" size="14.0" />
+                                    </font>
+                                </JFXButton>
+                                <ComboBox fx:id="cmbItemSize" layoutX="660.0" layoutY="126.0" prefHeight="30.0" prefWidth="127.0" promptText="Item Size" style="-fx-background-color: #ecf0f1;" />
+                                <TextField fx:id="txtItemQty" layoutX="579.0" layoutY="203.0" prefHeight="31.0" prefWidth="141.0" promptText="Qty">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </TextField>
+                                <ComboBox fx:id="cmbSupplierId" layoutX="110.0" layoutY="204.0" prefHeight="30.0" prefWidth="146.0" promptText="Supplier ID" style="-fx-background-color: #ecf0f1;" />
+                                <TextField fx:id="txtItemId" layoutX="57.0" layoutY="125.0" prefHeight="31.0" prefWidth="133.0" promptText="Item ID">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </TextField>
+                                <Label layoutX="58.0" layoutY="105.0" prefHeight="18.0" prefWidth="116.0" text="Item ID" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
                                 </Label>
-                                <ComboBox layoutX="174.0" layoutY="99.0" prefHeight="25.0" prefWidth="90.0" promptText="Category" style="-fx-background-color: #ecf0f1;" />
-                                <TextArea layoutX="553.0" layoutY="95.0" prefHeight="149.0" prefWidth="226.0" promptText="Description" />
-                                <JFXButton layoutX="58.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #2ecc71;" text="Add Product">
+                                <Label layoutX="232.0" layoutY="105.0" prefHeight="18.0" prefWidth="116.0" text="Item Name" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font name="Arial Bold" size="14.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </JFXButton>
-                                <JFXButton layoutX="257.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #f1c40f;" text="Update Product">
+                                </Label>
+                                <Label layoutX="478.0" layoutY="105.0" prefHeight="18.0" prefWidth="116.0" text="Item Category" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font name="Arial Bold" size="14.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </JFXButton>
-                                <JFXButton layoutX="451.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #9b59b6;" text="Search Product">
+                                </Label>
+                                <Label layoutX="662.0" layoutY="105.0" prefHeight="18.0" prefWidth="116.0" text="Item Size" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font name="Arial Bold" size="14.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </JFXButton>
-                                <JFXButton layoutX="642.0" layoutY="289.0" prefHeight="34.0" prefWidth="136.0" style="-fx-background-color: #e74c3c;" text="Delete Product">
+                                </Label>
+                                <Label layoutX="110.0" layoutY="185.0" prefHeight="18.0" prefWidth="116.0" text="Supplier ID" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font name="Arial Bold" size="14.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </JFXButton>
-                                <ComboBox layoutX="58.0" layoutY="159.0" prefHeight="25.0" prefWidth="118.0" promptText="Product Size" style="-fx-background-color: #ecf0f1;" />
-                                <TextField layoutX="213.0" layoutY="154.0" prefHeight="31.0" prefWidth="108.0" promptText="Qty">
+                                </Label>
+                                <Label layoutX="329.0" layoutY="184.0" prefHeight="18.0" prefWidth="116.0" text="Unit Price" textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                        <Font size="15.0" />
+                                        <Font name="Calibri Bold" size="15.0" />
                                     </font>
-                                </TextField>
-                                <ComboBox layoutX="341.0" layoutY="157.0" prefHeight="25.0" prefWidth="175.0" promptText="Supplier ID" style="-fx-background-color: #ecf0f1;" />
+                                </Label>
+                                <Label layoutX="579.0" layoutY="185.0" prefHeight="18.0" prefWidth="116.0" text="QTY" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <ImageView fitHeight="45.0" fitWidth="44.0" layoutX="763.0" layoutY="287.0" onMouseClicked="#btnItemClearOnAction" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../image/clearbtn.png" />
+                                    </image>
+                                </ImageView>
                             </children>
                         </AnchorPane>
                         <AnchorPane fx:id="pageOrderManage" visible="false">
@@ -316,26 +462,25 @@
                         </AnchorPane>
                         <AnchorPane fx:id="pagePlaceOrder" visible="false">
                             <children>
-                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#44bd32" height="185.0" layoutX="24.0" layoutY="196.0" stroke="BLACK" strokeType="INSIDE" width="413.0" />
                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#28ad609a" height="290.0" layoutX="23.0" layoutY="389.0" stroke="BLACK" strokeType="INSIDE" width="840.0" />
                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#33485cd5" height="683.0" layoutX="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="879.0" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000086" height="295.0" layoutX="21.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" width="844.0" />
                                 <ImageView fitHeight="53.0" fitWidth="346.0" layoutX="30.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../image/placeorderform.png" />
                                     </image>
                                 </ImageView>
-                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f1c40f75" height="117.0" layoutX="26.0" layoutY="70.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="414.0" />
-                                <TextField editable="false" layoutX="46.0" layoutY="140.0" prefHeight="31.0" prefWidth="180.0" promptText="Contact Number">
+                                <TextField fx:id="txtOrderCustContact" editable="false" layoutX="459.0" layoutY="191.0" prefHeight="31.0" prefWidth="180.0" promptText="Contact Number">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField editable="false" layoutX="194.0" layoutY="92.0" prefHeight="31.0" prefWidth="222.0" promptText="Name">
+                                <TextField fx:id="txtOrderCustName" editable="false" layoutX="203.0" layoutY="191.0" prefHeight="31.0" prefWidth="222.0" promptText="Name">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <ComboBox layoutX="46.0" layoutY="93.0" prefHeight="25.0" prefWidth="122.0" promptText="Customer ID" style="-fx-background-color: #ecf0f1;" />
+                                <ComboBox fx:id="cmbCustId" layoutX="46.0" layoutY="194.0" prefHeight="25.0" prefWidth="122.0" promptText="Customer ID" style="-fx-background-color: #ecf0f1;" />
                                 <AnchorPane layoutX="249.0" layoutY="17.0">
                                     <children>
                                         <ImageView fitHeight="45.0" fitWidth="606.0" pickOnBounds="true" preserveRatio="true">
@@ -353,87 +498,76 @@
                                                 <Image url="@../image/Calendar.png" />
                                             </image>
                                         </ImageView>
-                                        <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="450.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="441.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../image/OrderID.png" />
                                             </image>
                                         </ImageView>
-                                        <Label layoutX="57.0" layoutY="7.0" prefHeight="30.0" prefWidth="105.0" text="00 : 00 : 00">
+                                        <Label fx:id="lblTime" layoutX="57.0" layoutY="7.0" prefHeight="30.0" prefWidth="105.0" text="00 : 00 : 00">
                                             <font>
                                                 <Font name="System Bold" size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label layoutX="267.0" layoutY="7.0" prefHeight="30.0" prefWidth="134.0" text="2024-10-12">
+                                        <Label fx:id="lblDate" layoutX="267.0" layoutY="7.0" prefHeight="30.0" prefWidth="134.0" text="2024-10-12">
                                             <font>
                                                 <Font name="Calibri Bold" size="22.0" />
                                             </font>
                                         </Label>
-                                        <Label layoutX="487.0" layoutY="7.0" prefHeight="30.0" prefWidth="105.0" text="OR#001" textFill="WHITE">
+                                        <Label fx:id="lblOrderId" layoutX="477.0" layoutY="6.0" prefHeight="30.0" prefWidth="125.0" text="OR#0001" textFill="WHITE">
                                             <font>
                                                 <Font name="Arial Black" size="20.0" />
                                             </font>
                                         </Label>
                                     </children>
                                 </AnchorPane>
-                                <TextField editable="false" layoutX="246.0" layoutY="140.0" prefHeight="31.0" prefWidth="169.0" promptText="Address">
+                                <TextField fx:id="txtOrderCustAddress" editable="false" layoutX="669.0" layoutY="191.0" prefHeight="31.0" prefWidth="169.0" promptText="Address">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <Separator layoutX="434.0" layoutY="81.0" orientation="VERTICAL" prefHeight="300.0" prefWidth="12.0" />
-                                <TableView layoutX="43.0" layoutY="395.0" prefHeight="218.0" prefWidth="800.0">
+                                <TableView fx:id="tblOrderDetails" layoutX="43.0" layoutY="395.0" prefHeight="218.0" prefWidth="800.0">
                                     <columns>
-                                        <TableColumn prefWidth="98.0" text="Item Code" />
-                                        <TableColumn prefWidth="167.0" text="Item" />
-                                        <TableColumn prefWidth="97.0" text="Item Category" />
-                                        <TableColumn prefWidth="75.0" text="Item Size" />
-                                        <TableColumn prefWidth="99.0" text="Qty" />
-                                        <TableColumn prefWidth="126.0" text="Unit Price" />
-                                        <TableColumn prefWidth="137.0" text="Total" />
-                                    </columns>
-                                </TableView>
-                                <TableView layoutX="41.0" layoutY="198.0" prefHeight="178.0" prefWidth="380.0">
-                                    <columns>
-                                        <TableColumn prefWidth="67.0" text="Item Code" />
-                                        <TableColumn prefWidth="143.0" text="Item" />
-                                        <TableColumn prefWidth="105.0" text="Item Category" />
-                                        <TableColumn prefWidth="61.0" text="Size" />
+                                        <TableColumn fx:id="colOrderItemCode" prefWidth="98.0" text="Item Code" />
+                                        <TableColumn fx:id="colOrderItemName" prefWidth="167.0" text="Item" />
+                                        <TableColumn fx:id="colOrderItemCategory" prefWidth="97.0" text="Item Category" />
+                                        <TableColumn fx:id="colOrderItemSize" prefWidth="75.0" text="Item Size" />
+                                        <TableColumn fx:id="colOrderItemQty" prefWidth="99.0" text="Qty" />
+                                        <TableColumn fx:id="colOrderItemUnitPrice" prefWidth="126.0" text="Unit Price" />
+                                        <TableColumn fx:id="colOrderItemTotal" prefWidth="137.0" text="Total" />
                                     </columns>
                                 </TableView>
                                 <Separator layoutX="21.0" layoutY="378.0" prefHeight="17.0" prefWidth="839.0" />
-                                <Separator layoutX="28.0" layoutY="180.0" prefHeight="18.0" prefWidth="406.0" />
-                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e44ad75" height="296.0" layoutX="447.0" layoutY="73.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="414.0" />
-                                <TextField editable="false" layoutX="621.0" layoutY="81.0" prefHeight="31.0" prefWidth="214.0" promptText="Item Name">
+                                <TextField fx:id="txtOrderItemName" editable="false" layoutX="203.0" layoutY="257.0" prefHeight="31.0" prefWidth="221.0" promptText="Item Name">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField editable="false" layoutX="473.0" layoutY="236.0" prefHeight="31.0" prefWidth="122.0" promptText="Unit Price">
+                                <TextField fx:id="txtOrderItemUnitPrice" editable="false" layoutX="716.0" layoutY="257.0" prefHeight="31.0" prefWidth="122.0" promptText="Unit Price">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField editable="false" layoutX="473.0" layoutY="131.0" prefHeight="31.0" prefWidth="125.0" promptText="Category">
+                                <TextField fx:id="txtOrderItemCate" editable="false" layoutX="562.0" layoutY="257.0" prefHeight="31.0" prefWidth="136.0" promptText="Category">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField editable="false" layoutX="473.0" layoutY="183.0" prefHeight="31.0" prefWidth="123.0" promptText="Size">
+                                <TextField fx:id="txtOrderItemSize" editable="false" layoutX="458.0" layoutY="257.0" prefHeight="31.0" prefWidth="84.0" promptText="Size">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <TextField layoutX="715.0" layoutY="236.0" prefHeight="31.0" prefWidth="123.0" promptText="Enter QTY">
+                                <TextField fx:id="txtOrderItemQty" layoutX="330.0" layoutY="325.0" prefHeight="31.0" prefWidth="123.0" promptText="Enter QTY">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </TextField>
-                                <JFXButton layoutX="710.0" layoutY="290.0" prefHeight="34.0" prefWidth="125.0" style="-fx-background-color: #f1c40f;" text="Add to Cart">
+                                <JFXButton layoutX="715.0" layoutY="323.0" onAction="#btnAddtoCartOnAction" prefHeight="34.0" prefWidth="125.0" style="-fx-background-color: #f1c40f;" text="Add to Cart">
                                     <font>
                                         <Font name="Arial Bold" size="15.0" />
                                     </font>
                                 </JFXButton>
-                                <JFXButton layoutX="621.0" layoutY="290.0" prefHeight="34.0" prefWidth="65.0" style="-fx-background-color: #e74c3c;" text="Clear">
+                                <JFXButton layoutX="633.0" layoutY="324.0" onAction="#btncClearOnAction" prefHeight="34.0" prefWidth="65.0" style="-fx-background-color: #e74c3c;" text="Clear">
                                     <font>
                                         <Font name="Arial Bold" size="15.0" />
                                     </font>
@@ -443,22 +577,102 @@
                                         <Image url="@../image/Net%20Amount%20_.png" />
                                     </image>
                                 </ImageView>
-                                <ComboBox layoutX="473.0" layoutY="84.0" prefHeight="25.0" prefWidth="122.0" promptText="Item Code" style="-fx-background-color: #ecf0f1;" />
-                                <Label layoutX="168.0" layoutY="632.0" prefHeight="26.0" prefWidth="111.0" text="50,000/=" textFill="#51ff00">
+                                <ComboBox fx:id="cmbItemCode" layoutX="46.0" layoutY="260.0" prefHeight="25.0" prefWidth="122.0" promptText="Item Code" style="-fx-background-color: #ecf0f1;" />
+                                <Label fx:id="lblNetTotal" layoutX="168.0" layoutY="632.0" prefHeight="32.0" prefWidth="155.0" text="0/=" textFill="#51ff00">
                                     <font>
                                         <Font name="Calibri Bold" size="28.0" />
                                     </font>
                                 </Label>
-                                <JFXButton layoutX="497.0" layoutY="631.0" prefHeight="34.0" prefWidth="181.0" style="-fx-background-color: #4cd137;" text="Place Order">
+                                <JFXButton layoutX="497.0" layoutY="631.0" onAction="#btnPlaceOrderCartOnAction" prefHeight="34.0" prefWidth="181.0" style="-fx-background-color: #4cd137;" text="Place Order">
                                     <font>
                                         <Font name="Arial Bold" size="15.0" />
                                     </font>
                                 </JFXButton>
-                                <JFXButton layoutX="718.0" layoutY="631.0" prefHeight="34.0" prefWidth="125.0" style="-fx-background-color: #0652DD;" text="Print Bill" textFill="WHITE">
+                                <JFXButton layoutX="718.0" layoutY="631.0" onAction="#btnRemoveOnAction" prefHeight="34.0" prefWidth="125.0" style="-fx-background-color: #e74c3c;" text="Remove" textFill="WHITE">
                                     <font>
                                         <Font name="Arial Bold" size="15.0" />
                                     </font>
                                 </JFXButton>
+                                <Label layoutX="203.0" layoutY="172.0" prefHeight="18.0" prefWidth="105.0" text="Customer Name" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="203.0" layoutY="239.0" prefHeight="18.0" prefWidth="105.0" text="Item Name" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="459.0" layoutY="239.0" prefHeight="18.0" prefWidth="44.0" text="Size" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="562.0" layoutY="239.0" prefHeight="18.0" prefWidth="67.0" text="Category" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="715.0" layoutY="239.0" prefHeight="18.0" prefWidth="67.0" text="Unit Price" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="459.0" layoutY="172.0" prefHeight="18.0" prefWidth="105.0" text="Contact Number" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="669.0" layoutY="172.0" prefHeight="18.0" prefWidth="105.0" text="Address" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="332.0" layoutY="306.0" prefHeight="18.0" prefWidth="44.0" text="QTY" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtOrderEmpId" layoutX="46.0" layoutY="110.0" prefHeight="31.0" prefWidth="174.0" promptText="Enter Your Employee ID">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </TextField>
+                                <Label layoutX="46.0" layoutY="91.0" prefHeight="18.0" prefWidth="105.0" text="Employee ID" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtOrderEmpEmali" layoutX="242.0" layoutY="110.0" prefHeight="31.0" prefWidth="234.0" promptText="Enter Your Email">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </TextField>
+                                <Label layoutX="242.0" layoutY="91.0" prefHeight="18.0" prefWidth="105.0" text="Employee Email" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtOrderItemStockLev" editable="false" layoutX="186.0" layoutY="325.0" prefHeight="31.0" prefWidth="123.0" promptText="Stock">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </TextField>
+                                <Label layoutX="186.0" layoutY="306.0" prefHeight="18.0" prefWidth="79.0" text="Stock Level" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtOrderItemDiscount" layoutX="481.0" layoutY="325.0" prefHeight="31.0" prefWidth="123.0" promptText="Discount" text="0">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </TextField>
+                                <Label layoutX="483.0" layoutY="306.0" prefHeight="18.0" prefWidth="63.0" text="Discount" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Calibri Bold" size="15.0" />
+                                    </font>
+                                </Label>
                             </children>
                         </AnchorPane>
                         <AnchorPane fx:id="pageViewOrders" visible="false">
@@ -520,5 +734,4 @@
             </center>
         </BorderPane>
     </children>
-
 </AnchorPane>

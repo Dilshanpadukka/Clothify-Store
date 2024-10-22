@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="533.0" prefWidth="803.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="icet.edu.drm.controller.logInController.LogInFormController">
+<AnchorPane prefHeight="533.0" prefWidth="803.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.logInController.LogInFormController">
    <children>
       <ImageView fitHeight="553.0" fitWidth="417.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -22,38 +23,267 @@
             <Image url="@../image/Group%206.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="533.0" layoutX="417.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="387.0" />
-      <ImageView fitHeight="49.0" fitWidth="120.0" layoutX="547.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../image/LogIn.png" />
-         </image>
-      </ImageView>
-      <JFXTextField fx:id="txtEmail" alignment="TOP_LEFT" focusColor="#34495e" layoutX="498.0" layoutY="191.0" prefHeight="35.0" prefWidth="246.0" promptText="Enter your Email">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </JFXTextField>
-      <JFXPasswordField fx:id="txtPassword" alignment="TOP_LEFT" focusColor="#34495e" layoutX="498.0" layoutY="263.0" prefHeight="25.0" prefWidth="246.0" promptText="Enter your password">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </JFXPasswordField>
-      <JFXButton fx:id="btnLogin" layoutX="543.0" layoutY="386.0" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
-         <font>
-            <Font name="Arial Bold" size="18.0" />
-         </font>
-      </JFXButton>
-      <Label layoutX="644.0" layoutY="313.0" text="Forgot password?" textFill="#0070ff" />
-      <Label layoutX="545.0" layoutY="492.0" text="\@2024 DilshanPadukka" />
-      <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="461.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../image/Letter.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="461.0" layoutY="272.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../image/Eye.png" />
-         </image>
-      </ImageView>
+      <AnchorPane layoutX="417.0">
+         <children>
+            <AnchorPane fx:id="pageEmployeeLogIn" layoutX="2.0" layoutY="3.0" visible="false">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="533.0" layoutX="-6.0" layoutY="-1.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="394.0" />
+                  <ImageView fitHeight="49.0" fitWidth="120.0" layoutX="130.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/LogIn.png" />
+                     </image>
+                  </ImageView>
+                  <JFXTextField fx:id="txtEmployeeEmail" alignment="TOP_LEFT" focusColor="#34495e" layoutX="81.0" layoutY="191.0" prefHeight="35.0" prefWidth="246.0" promptText="Enter your Email">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXPasswordField fx:id="txtEmployeePassword" alignment="TOP_LEFT" focusColor="#34495e" layoutX="81.0" layoutY="263.0" prefHeight="25.0" prefWidth="246.0" promptText="Enter your password">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <JFXButton layoutX="126.0" layoutY="355.0" onAction="#btnEmployeeLoginOnAction" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <Label layoutX="227.0" layoutY="313.0" onMouseClicked="#btnEmployeeForgetPwOnAction" text="Forgot password?" textFill="#0070ff">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Label>
+                  <Label layoutX="128.0" layoutY="492.0" text="\@2024 DilshanPadukka" />
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="44.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Letter.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="44.0" layoutY="272.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Eye.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="102.0" layoutY="417.0" text="Don't have an account?" />
+                  <Label layoutX="230.0" layoutY="417.0" onMouseClicked="#btnEmployeeSignUpOnAction" text="Register " textFill="#0070ff">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Label>
+                  <Label layoutX="247.0" layoutY="14.0" text="Are you Admin?" />
+                  <Label layoutX="339.0" layoutY="14.0" onMouseClicked="#btnAdminSigninOnAction" text="SignIn" textFill="#0070ff">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="pageAdminLogIn" layoutX="3.0" layoutY="5.0" visible="false">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="541.0" layoutX="-7.0" layoutY="-14.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="394.0" />
+                  <ImageView fitHeight="49.0" fitWidth="120.0" layoutX="130.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/LogIn.png" />
+                     </image>
+                  </ImageView>
+                  <JFXTextField fx:id="txtAdminEmail" alignment="TOP_LEFT" focusColor="#34495e" layoutX="81.0" layoutY="191.0" prefHeight="35.0" prefWidth="246.0" promptText="Enter your Email">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXPasswordField fx:id="txtAdminPassword" alignment="TOP_LEFT" focusColor="#34495e" layoutX="81.0" layoutY="263.0" prefHeight="25.0" prefWidth="246.0" promptText="Enter your password">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <JFXButton layoutX="126.0" layoutY="355.0" onAction="#btnAdminLoginOnAction" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <Label layoutX="227.0" layoutY="313.0" onMouseClicked="#btnAdminForgetPwOnAction" text="Forgot password?" textFill="#0070ff">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <Label layoutX="128.0" layoutY="492.0" text="\@2024 DilshanPadukka" />
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="44.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Letter.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="44.0" layoutY="272.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Eye.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="102.0" layoutY="417.0" text="Don't have an account?" />
+                  <Label layoutX="230.0" layoutY="417.0" onMouseClicked="#btnAdminSignUpOnAction" text="Register " textFill="#0070ff">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <Label layoutX="229.0" layoutY="14.0" text="Are you Employee?" />
+                  <Label layoutX="336.0" layoutY="14.0" onMouseClicked="#btnEmployeeSigninOnAction" text="SignIn" textFill="#0070ff">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="pageSignUp" layoutX="1.0" visible="false">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="533.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="387.0" />
+                  <ImageView fitHeight="49.0" fitWidth="120.0" layoutX="130.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/SignUp.png" />
+                     </image>
+                  </ImageView>
+                  <JFXTextField fx:id="txtSignUpEmail" alignment="TOP_LEFT" focusColor="#34495e" layoutX="59.0" layoutY="207.0" prefHeight="35.0" prefWidth="246.0" promptText="Enter your Email">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXPasswordField fx:id="txtSignUpPassword" alignment="TOP_LEFT" focusColor="#34495e" layoutX="59.0" layoutY="265.0" prefHeight="25.0" prefWidth="246.0" promptText="Enter your password">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <JFXButton layoutX="126.0" layoutY="390.0" onAction="#btnRegisterOnAction" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: black;" text="Register" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <Label layoutX="128.0" layoutY="492.0" text="\@2024 DilshanPadukka" />
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="22.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Letter.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="22.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Eye.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="102.0" layoutY="449.0" text="Already have an account?" />
+                  <Label layoutX="241.0" layoutY="449.0" onMouseClicked="#btnBackToSigninOnAction" text="SignIn" textFill="#0070ff">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Label>
+                  <JFXTextField fx:id="txtSignUpFirstName" alignment="TOP_LEFT" focusColor="#34495e" layoutX="59.0" layoutY="144.0" prefHeight="35.0" prefWidth="144.0" promptText="First Name">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXTextField>
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="22.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/User.png" />
+                     </image>
+                  </ImageView>
+                  <JFXTextField fx:id="txtSignUpLastName" alignment="TOP_LEFT" focusColor="#34495e" layoutX="223.0" layoutY="144.0" prefHeight="35.0" prefWidth="144.0" promptText="Last Name">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXPasswordField fx:id="txtSignUpConfirmPassword" alignment="TOP_LEFT" focusColor="#34495e" layoutX="59.0" layoutY="323.0" prefHeight="25.0" prefWidth="246.0" promptText="confirm passsword">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="22.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Checkmark.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="pageForgotPassword" layoutX="4.0" layoutY="7.0" visible="false">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="532.0" layoutX="-4.0" layoutY="-7.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="398.0" />
+                  <ImageView fitHeight="79.0" fitWidth="238.0" layoutX="80.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Forgot%20Password.png" />
+                     </image>
+                  </ImageView>
+                  <JFXTextField fx:id="txtForgotPwEmail" alignment="TOP_LEFT" focusColor="#34495e" layoutX="57.0" layoutY="247.0" prefHeight="35.0" prefWidth="303.0" promptText="Enter your Email">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXButton layoutX="126.0" layoutY="337.0" onAction="#btnSendOTPOnAction" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: black;" text="Send OTP" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <Label layoutX="128.0" layoutY="490.0" text="\@2024 DilshanPadukka" />
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="20.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Letter.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="140.0" layoutY="414.0" text="Back to -&gt;" />
+                  <Label layoutX="200.0" layoutY="414.0" onMouseClicked="#btnForgotBackSignInOnAction" text="SignIn" textFill="#0070ff">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <Label layoutX="20.0" layoutY="131.0" prefHeight="30.0" prefWidth="340.0" text="Enter your email and we'll send you a OTP code to ">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="127.0" layoutY="158.0" prefHeight="30.0" prefWidth="144.0" text="reset your password">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="pageResetPassword" layoutX="11.0" layoutY="10.0" visible="false">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="533.0" layoutX="-12.0" layoutY="-10.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="398.0" />
+                  <ImageView fitHeight="35.0" fitWidth="269.0" layoutX="56.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Password%20Reset.png" />
+                     </image>
+                  </ImageView>
+                  <JFXTextField fx:id="txtOTP" alignment="TOP_LEFT" focusColor="#34495e" layoutX="64.0" layoutY="196.0" prefHeight="35.0" prefWidth="246.0" promptText="Enter OTP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXPasswordField fx:id="txtResetPassword" alignment="TOP_LEFT" focusColor="#34495e" layoutX="64.0" layoutY="265.0" prefHeight="25.0" prefWidth="246.0" promptText="Enter New password">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <JFXButton layoutX="118.0" layoutY="361.0" onAction="#btnResetPasswordOnAction" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: black;" text="Reset" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <Label layoutX="120.0" layoutY="491.0" text="\@2024 DilshanPadukka" />
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="27.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/One%20Time%20Password.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="27.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Eye.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="64.0" layoutY="135.0" prefHeight="21.0" prefWidth="254.0" text="Enter your new password to continue">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="134.0" layoutY="424.0" text="Back to -&gt;" />
+                  <Label layoutX="194.0" layoutY="424.0" onMouseClicked="#btnResetBackSignInOnAction" text="SignIn" textFill="#0070ff">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
