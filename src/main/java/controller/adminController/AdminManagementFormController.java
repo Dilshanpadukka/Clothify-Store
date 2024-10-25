@@ -27,13 +27,11 @@ import util.ServiceType;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AdminManagementFormController implements Initializable {
 
@@ -48,11 +46,7 @@ public class AdminManagementFormController implements Initializable {
     public TextField txtEmployeePassword;
     public TextField txtEmployeeEmail;
     public TextArea txtEmployeeAddress;
-    public DatePicker txtEmployeeDOB;
-    public TextField txtEmployeeSalary;
-    public TextField txtContact;
     public TextField txtEmployeeNic;
-    public Label lblEmployeeId;
     public TableColumn colEmpId;
     public TableColumn colEmpName;
     public TableColumn colEmpNic;
@@ -145,9 +139,18 @@ public class AdminManagementFormController implements Initializable {
     public TextField txtItemId;
     public TextField txtOrderItemStockLev;
     public TextField txtOrderItemDiscount;
-    public TableView<CartTM>  tblOrderDetails;
-    //public TextField txtOrderId;
+    public TableView<CartTM> tblOrderDetails;
     public Label lblOrderId;
+    public PasswordField txtEmployeeConfirmPassword;
+    public Label lblOrderDetailTime;
+    public Label lblOrderDetailDate;
+    public TableColumn colOrderId;
+    public TableColumn colViewEmpId;
+    public TableColumn colViewCustId;
+    public TableColumn colViewDate;
+    public TableColumn colViewTime;
+    public TableColumn colViewNetTotal;
+    public TableView tblViewOrder;
 
     private AnchorPane currentPage;
     private Timeline timeline;
@@ -202,7 +205,6 @@ public class AdminManagementFormController implements Initializable {
                 alert.setTitle("Pie Chart Info");
                 alert.setContentText("Type : " + slice.getName() + "\nValue: " + slice.getPieValue());
                 alert.showAndWait();
-
             });
         }
     }
@@ -268,79 +270,121 @@ public class AdminManagementFormController implements Initializable {
     }
 
     public void btnAddCustomerOnAction(ActionEvent event) {
-        Customer customer = new Customer(
-                txtCustId.getText(),
-                cmbCustTitle.getValue().toString(),
-                txtCustName.getText(),
-                txtCustContact.getText(),
-                txtCustEmail.getText(),
-                txtCustAddress.getText(),
-                txtCustCity.getText(),
-                txtCustProvince.getText(),
-                txtCustPostalCode.getText()
-        );
-        if (customerService.addCustomer(customer)) {
-            loadCustomerTable();
-            clearFieldsCustomer();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Customer Added Successfully...");
-            alert.show();
+        if (txtCustId.getText() != null && !txtCustId.getText().isEmpty() &&
+                cmbCustTitle.getValue() != null &&
+                txtCustName.getText() != null && !txtCustName.getText().isEmpty() &&
+                txtCustContact.getText() != null && !txtCustContact.getText().isEmpty() &&
+                txtCustEmail.getText() != null && !txtCustEmail.getText().isEmpty() &&
+                txtCustAddress.getText() != null && !txtCustAddress.getText().isEmpty() &&
+                txtCustCity.getText() != null && !txtCustCity.getText().isEmpty() &&
+                txtCustProvince.getText() != null && !txtCustProvince.getText().isEmpty() &&
+                txtCustPostalCode.getText() != null && !txtCustPostalCode.getText().isEmpty()) {
+
+            Customer customer = new Customer(
+                    txtCustId.getText(),
+                    cmbCustTitle.getValue().toString(),
+                    txtCustName.getText(),
+                    txtCustContact.getText(),
+                    txtCustEmail.getText(),
+                    txtCustAddress.getText(),
+                    txtCustCity.getText(),
+                    txtCustProvince.getText(),
+                    txtCustPostalCode.getText()
+            );
+            System.out.println(customer);
+            if (customerService.addCustomer(customer)) {
+                loadCustomerTable();
+                clearFieldsCustomer();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Customer Added Successfully...");
+                alert.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Customer Didn't added....");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Customer Didn't added....");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Fill all fields...");
             alert.show();
         }
     }
 
     public void btnUpdateCustomerOnAction(ActionEvent event) {
-        Customer customer = new Customer(
-                txtCustId.getText(),
-                cmbCustTitle.getValue().toString(),
-                txtCustName.getText(),
-                txtCustContact.getText(),
-                txtCustEmail.getText(),
-                txtCustAddress.getText(),
-                txtCustCity.getText(),
-                txtCustProvince.getText(),
-                txtCustPostalCode.getText()
-        );
-        if (customerService.updateCustomer(customer)) {
-            loadCustomerTable();
-            clearFieldsCustomer();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Customer Updated Successfully..");
-            alert.show();
+        if (txtCustId.getText() != null && !txtCustId.getText().isEmpty() &&
+                cmbCustTitle.getValue() != null &&
+                txtCustName.getText() != null && !txtCustName.getText().isEmpty() &&
+                txtCustContact.getText() != null && !txtCustContact.getText().isEmpty() &&
+                txtCustEmail.getText() != null && !txtCustEmail.getText().isEmpty() &&
+                txtCustAddress.getText() != null && !txtCustAddress.getText().isEmpty() &&
+                txtCustCity.getText() != null && !txtCustCity.getText().isEmpty() &&
+                txtCustProvince.getText() != null && !txtCustProvince.getText().isEmpty() &&
+                txtCustPostalCode.getText() != null && !txtCustPostalCode.getText().isEmpty()) {
+            Customer customer = new Customer(
+                    txtCustId.getText(),
+                    cmbCustTitle.getValue().toString(),
+                    txtCustName.getText(),
+                    txtCustContact.getText(),
+                    txtCustEmail.getText(),
+                    txtCustAddress.getText(),
+                    txtCustCity.getText(),
+                    txtCustProvince.getText(),
+                    txtCustPostalCode.getText()
+            );
+            if (customerService.updateCustomer(customer)) {
+                loadCustomerTable();
+                clearFieldsCustomer();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Customer Updated Successfully..");
+                alert.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Customer didn't Updated ...");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Customer didn't Updated ...");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Fill all fields...");
             alert.show();
         }
     }
 
     public void btnSearchCustomerOnAction(ActionEvent event) {
-        try {
-            Customer customer = customerService.searchCustomer(txtCustId.getText());
-            if (customer != null) {
-                setTextToValues(customer);
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Customer not found").showAndWait();
+        if (txtCustId.getText() != null && !txtCustId.getText().isEmpty()) {
+            try {
+                Customer customer = customerService.searchCustomer(txtCustId.getText());
+                if (customer != null) {
+                    setTextToValues(customer);
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Customer not found").showAndWait();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Enter Customer ID...");
+            alert.show();
         }
 
     }
 
     public void btnDeleteCustomerOnAction(ActionEvent event) {
-        if (customerService.deleteCustomer(txtCustId.getText())) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Customer Deleted SuccessFully");
-            alert.show();
-            loadCustomerTable();
-            clearFieldsCustomer();
+        if (txtCustId.getText() != null && !txtCustId.getText().isEmpty()) {
+            if (customerService.deleteCustomer(txtCustId.getText())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Customer Deleted SuccessFully");
+                alert.show();
+                loadCustomerTable();
+                clearFieldsCustomer();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Customer Didn't Found");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Customer Didn't Found");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Enter Customer ID...");
             alert.show();
         }
     }
@@ -351,6 +395,9 @@ public class AdminManagementFormController implements Initializable {
 
     //====================================================================EMPLOYEE MANAGEMENT==========================================================================
     final EmployeeService employeeService = ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
+    //private Map<String, String> temporaryPasswords = new HashMap<>();
+    //private String currentEmployeeId;
+    private  Employee currentEmployee;
 
     public void btnEmployeeManagementOnAction(ActionEvent event) {
         currentPage.setVisible(false);
@@ -364,15 +411,19 @@ public class AdminManagementFormController implements Initializable {
     }
 
     private void setTextToValues(Employee newValue) {
+        currentEmployee = newValue;
         txtEmployeeId.setText(newValue.getEmployeeId());
         txtEmployeeName.setText(newValue.getEmployeeName());
         txtEmployeeContact.setText(newValue.getContactNumber());
         txtEmployeeNic.setText(newValue.getEmployeeNic());
         txtEmployeeEmail.setText(newValue.getEmployeeEmailAddress());
         txtEmployeeAddress.setText(newValue.getEmployeeAddress());
+        txtEmployeePassword.setText("");
+        txtEmployeeConfirmPassword.setText("");
     }
 
     public void clearFieldsEmployee() {
+        currentEmployee = null;
         txtEmployeeId.setText(employeeService.generateEmployeeId());
         txtEmployeeAddress.setText("");
         txtEmployeeName.setText("");
@@ -382,37 +433,59 @@ public class AdminManagementFormController implements Initializable {
     }
 
     public void btnAddEmployeeOnAction(ActionEvent event) {
-        Employee employee = new Employee(
-                txtEmployeeId.getText(),
-                txtEmployeeName.getText(),
-                txtEmployeeNic.getText(),
-                txtEmployeeAddress.getText(),
-                txtEmployeeEmail.getText(),
-                txtEmployeeContact.getText()
-        );
-        if (employeeService.addEmployee(employee)) {
-            loadEmployeeTable();
-            clearFieldsEmployee();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Employee Added Successfully...");
-            alert.show();
+        if (txtEmployeeId.getText() != null && !txtEmployeeId.getText().isEmpty() &&
+                txtEmployeeName.getText() != null && !txtEmployeeName.getText().isEmpty() &&
+                txtEmployeeNic.getText() != null && !txtEmployeeNic.getText().isEmpty() &&
+                txtEmployeeContact.getText() != null && !txtEmployeeContact.getText().isEmpty() &&
+                txtEmployeeAddress.getText() != null && !txtEmployeeAddress.getText().isEmpty() &&
+                txtEmployeeEmail.getText() != null && !txtEmployeeEmail.getText().isEmpty() &&
+                txtEmployeePassword.getText() != null && !txtEmployeePassword.getText().isEmpty()) {
+            if (employeeService.addEmployee(txtEmployeeId.getText(),
+                    txtEmployeeName.getText(),
+                    txtEmployeeNic.getText(),
+                    txtEmployeeContact.getText(),
+                    txtEmployeeAddress.getText(),
+                    txtEmployeeEmail.getText(),
+                    txtEmployeePassword.getText())) {
+                loadEmployeeTable();
+                clearFieldsEmployee();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Employee Added Successfully...");
+                alert.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Employee Didn't added....");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Employee Didn't added....");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Fill all fields...");
             alert.show();
         }
     }
 
     public void btnUpdateEmployeeOnAction(ActionEvent event) {
-        Employee employee = new Employee(
+        if (!txtEmployeePassword.getText().equals(txtEmployeeConfirmPassword.getText())) {
+            new Alert(Alert.AlertType.ERROR, "Passwords do not match!").show();
+            return;
+        }
+
+        String password;
+        if (txtEmployeePassword.getText().isEmpty()) {
+            password = currentEmployee.getPassword();
+        } else {
+            password = txtEmployeePassword.getText();
+        }
+        if (employeeService.updateEmployee(
                 txtEmployeeId.getText(),
                 txtEmployeeName.getText(),
                 txtEmployeeNic.getText(),
+                txtEmployeeContact.getText(),
                 txtEmployeeAddress.getText(),
                 txtEmployeeEmail.getText(),
-                txtEmployeeContact.getText()
-        );
-        if (employeeService.updateEmployee(employee)) {
+                password)) {
+
+            //temporaryPasswords.remove(currentEmployeeId);
             loadEmployeeTable();
             clearFieldsEmployee();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -427,29 +500,41 @@ public class AdminManagementFormController implements Initializable {
     }
 
     public void btnSearchEmployeeOnAction(ActionEvent event) {
-        Employee employee = employeeService.searchEmployee(txtEmployeeId.getText());
-        if (employee != null) {
-            setTextToValues(employee);
+        if (txtEmployeeId.getText() != null && !txtEmployeeId.getText().isEmpty()) {
+            Employee employee = employeeService.searchEmployee(txtEmployeeId.getText());
+            if (employee != null) {
+                setTextToValues(employee);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Employee Not Found");
+                alert.setHeaderText(null);
+                alert.setContentText("No employee found with ID: " + txtEmployeeId.getText());
+                alert.showAndWait();
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Employee Not Found");
-            alert.setHeaderText(null);
-            alert.setContentText("No employee found with ID: " + txtEmployeeId.getText());
-            alert.showAndWait();
+            alert.setContentText("Please Enter Employee ID...");
+            alert.show();
         }
     }
 
     public void btnDeleteEmployeeOnAction(ActionEvent event) {
-        if (employeeService.deleteEmployee(txtEmployeeId.getText())) {
-            loadEmployeeTable();
-            clearFieldsEmployee();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Employee Deleted SuccessFully");
-            alert.show();
+        if (txtEmployeeId.getText() != null && !txtEmployeeId.getText().isEmpty()) {
+            if (employeeService.deleteEmployee(txtEmployeeId.getText())) {
+                loadEmployeeTable();
+                clearFieldsEmployee();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Employee Deleted SuccessFully");
+                alert.show();
 
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Employee Didn't Found");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Employee Didn't Found");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Enter Employee ID...");
             alert.show();
         }
     }
@@ -494,77 +579,115 @@ public class AdminManagementFormController implements Initializable {
     }
 
     public void btnAddSupplierOnAction(ActionEvent event) {
-        Supplier supplier = new Supplier(
-                txtSupId.getText(),
-                txtSupName.getText(),
-                txtSupContact.getText(),
-                txtSupItemDesc.getText(),
-                txtSupCompany.getText(),
-                txtSupCompanyAddress.getText(),
-                txtSupCompanyEmail.getText(),
-                txtSupPostalCode.getText()
-        );
-        if (supplierService.addSupplier(supplier)) {
-            loadSupplierTable();
-            clearFieldsSupplier();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Supplier Added Successfully...");
-            alert.show();
+        if (txtSupId.getText() != null && !txtSupId.getText().isEmpty() &&
+                txtSupName.getText() != null && !txtSupName.getText().isEmpty() &&
+                txtSupContact.getText() != null && !txtSupContact.getText().isEmpty() &&
+                txtSupItemDesc.getText() != null && !txtSupItemDesc.getText().isEmpty() &&
+                txtSupCompany.getText() != null && !txtSupCompany.getText().isEmpty() &&
+                txtSupCompanyAddress.getText() != null && !txtSupCompanyAddress.getText().isEmpty() &&
+                txtSupCompanyEmail.getText() != null && !txtSupCompanyEmail.getText().isEmpty() &&
+                txtSupPostalCode.getText() != null && !txtSupPostalCode.getText().isEmpty()) {
+            Supplier supplier = new Supplier(
+                    txtSupId.getText(),
+                    txtSupName.getText(),
+                    txtSupContact.getText(),
+                    txtSupItemDesc.getText(),
+                    txtSupCompany.getText(),
+                    txtSupCompanyAddress.getText(),
+                    txtSupCompanyEmail.getText(),
+                    txtSupPostalCode.getText()
+            );
+            if (supplierService.addSupplier(supplier)) {
+                loadSupplierTable();
+                clearFieldsSupplier();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Supplier Added Successfully...");
+                alert.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Supplier Didn't added....");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Supplier Didn't added....");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Fill all fields...");
             alert.show();
         }
     }
 
     public void btnUpdateSupplierOnAction(ActionEvent event) {
-        Supplier supplier = new Supplier(
-                txtSupId.getText(),
-                txtSupName.getText(),
-                txtSupContact.getText(),
-                txtSupItemDesc.getText(),
-                txtSupCompany.getText(),
-                txtSupCompanyAddress.getText(),
-                txtSupCompanyEmail.getText(),
-                txtSupPostalCode.getText()
-        );
-        if (supplierService.updateSupplier(supplier)) {
-            loadSupplierTable();
-            clearFieldsSupplier();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Supplier Updated Successfully..");
-            alert.show();
+        if (txtSupId.getText() != null && !txtSupId.getText().isEmpty() &&
+                txtSupName.getText() != null && !txtSupName.getText().isEmpty() &&
+                txtSupContact.getText() != null && !txtSupContact.getText().isEmpty() &&
+                txtSupItemDesc.getText() != null && !txtSupItemDesc.getText().isEmpty() &&
+                txtSupCompany.getText() != null && !txtSupCompany.getText().isEmpty() &&
+                txtSupCompanyAddress.getText() != null && !txtSupCompanyAddress.getText().isEmpty() &&
+                txtSupCompanyEmail.getText() != null && !txtSupCompanyEmail.getText().isEmpty() &&
+                txtSupPostalCode.getText() != null && !txtSupPostalCode.getText().isEmpty()) {
+            Supplier supplier = new Supplier(
+                    txtSupId.getText(),
+                    txtSupName.getText(),
+                    txtSupContact.getText(),
+                    txtSupItemDesc.getText(),
+                    txtSupCompany.getText(),
+                    txtSupCompanyAddress.getText(),
+                    txtSupCompanyEmail.getText(),
+                    txtSupPostalCode.getText()
+            );
+            if (supplierService.updateSupplier(supplier)) {
+                loadSupplierTable();
+                clearFieldsSupplier();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Supplier Updated Successfully..");
+                alert.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Supplier didn't Updated ...");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Supplier didn't Updated ...");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Fill all fields...");
             alert.show();
         }
     }
 
     public void btnSerachSupplierOnAction(ActionEvent event) {
-        Supplier supplier = supplierService.searchSupplier(txtSupId.getText());
-        if (supplier != null) {
-            setTextToValues(supplier);
+        if (txtSupId.getText() != null && !txtSupId.getText().isEmpty()) {
+            Supplier supplier = supplierService.searchSupplier(txtSupId.getText());
+            if (supplier != null) {
+                setTextToValues(supplier);
+            } else {
+                // Show an alert if no customer is found
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Supplier Not Found");
+                alert.setHeaderText(null);
+                alert.setContentText("No employee found with ID: " + txtSupId.getText());
+                alert.showAndWait();
+            }
         } else {
-            // Show an alert if no customer is found
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Supplier Not Found");
-            alert.setHeaderText(null);
-            alert.setContentText("No employee found with ID: " + txtSupId.getText());
-            alert.showAndWait();
+            alert.setContentText("Please Enter Supplier ID...");
+            alert.show();
         }
     }
 
     public void btnDeleteSupplierOnAction(ActionEvent event) {
-        if (supplierService.deleteSupplier(txtSupId.getText())) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Supplier Deleted SuccessFully");
-            alert.show();
-            loadSupplierTable();
-            clearFieldsSupplier();
+        if (txtSupId.getText() != null && !txtSupId.getText().isEmpty()) {
+            if (supplierService.deleteSupplier(txtSupId.getText())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Supplier Deleted SuccessFully");
+                alert.show();
+                loadSupplierTable();
+                clearFieldsSupplier();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Supplier Didn't Found");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Supplier Didn't Found");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Enter Supplier ID...");
             alert.show();
         }
     }
@@ -636,31 +759,50 @@ public class AdminManagementFormController implements Initializable {
     }
 
     public void btnAddItemOnAction(ActionEvent event) {
-        Item item = new Item(
-                txtItemId.getText(),
-                txtItemName.getText(),
-                cmbItemCategory.getValue().toString(),
-                cmbItemSize.getValue().toString(),
-                cmbSupplierId.getValue().toString(),
-                Double.parseDouble(txtItemUnitPrice.getText()),
-                Integer.parseInt(txtItemQty.getText())
-        );
-        ItemService itemService = ServiceFactory.getInstance().getServiceType(ServiceType.ITEM);
-        if (itemService.addItem(item)) {
-            loadItemTable();
-            clearFieldsItem();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Item Added Successfully...");
-            alert.show();
+        if (txtItemId.getText() != null && !txtItemId.getText().isEmpty() &&
+                txtItemName.getText() != null && !txtItemName.getText().isEmpty() &&
+                cmbItemCategory.getValue() != null &&
+                cmbItemSize.getValue() != null &&
+                cmbSupplierId.getValue() != null &&
+                txtItemUnitPrice.getText() != null && !txtItemUnitPrice.getText().isEmpty() &&
+                txtItemQty.getText() != null && !txtItemQty.getText().isEmpty()) {
+            Item item = new Item(
+                    txtItemId.getText(),
+                    txtItemName.getText(),
+                    cmbItemCategory.getValue().toString(),
+                    cmbItemSize.getValue().toString(),
+                    cmbSupplierId.getValue().toString(),
+                    Double.parseDouble(txtItemUnitPrice.getText()),
+                    Integer.parseInt(txtItemQty.getText())
+            );
+            ItemService itemService = ServiceFactory.getInstance().getServiceType(ServiceType.ITEM);
+            if (itemService.addItem(item)) {
+                loadItemTable();
+                clearFieldsItem();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Item Added Successfully...");
+                alert.show();
 
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Failed to add the item.");
+                alert.show();
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Failed to add the item.");
+            alert.setContentText("Please Fill all fields...");
             alert.show();
         }
     }
 
     public void btnUpdateItemOnAction(ActionEvent event) {
+        if (txtItemId.getText() != null && !txtItemId.getText().isEmpty() &&
+                txtItemName.getText() != null && !txtItemName.getText().isEmpty() &&
+                cmbItemCategory.getValue() != null &&
+                cmbItemSize.getValue() != null &&
+                cmbSupplierId.getValue() != null &&
+                txtItemUnitPrice.getText() != null && !txtItemUnitPrice.getText().isEmpty() &&
+                txtItemQty.getText() != null && !txtItemQty.getText().isEmpty()) {
         Item item = new Item(
                 txtItemId.getText(),
                 txtItemName.getText(),
@@ -681,22 +823,34 @@ public class AdminManagementFormController implements Initializable {
             alert.setContentText("Item didn't Updated ...");
             alert.show();
         }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Fill all fields...");
+            alert.show();
+        }
     }
 
     public void btnSearchItemOnAction(ActionEvent event) {
-        Item item = itemService.searchItem(txtItemId.getText());
-        if (item != null) {
-            setTextToValues(item);
-        } else {
+        if (txtItemId.getText() != null && !txtItemId.getText().isEmpty()) {
+            Item item = itemService.searchItem(txtItemId.getText());
+            if (item != null) {
+                setTextToValues(item);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Item Not Found");
+                alert.setHeaderText(null);
+                alert.setContentText("No Item found with ID: " + txtItemId.getText());
+                alert.showAndWait();
+            }
+        }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Item Not Found");
-            alert.setHeaderText(null);
-            alert.setContentText("No Item found with ID: " + txtItemId.getText());
-            alert.showAndWait();
+            alert.setContentText("Please Enter Item ID...");
+            alert.show();
         }
     }
 
     public void btnDeleteItemOnAction(ActionEvent event) {
+        if (txtItemId.getText() != null && !txtItemId.getText().isEmpty()) {
         if (itemService.deleteItem(txtItemId.getText())) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Item Deleted SuccessFully");
@@ -708,18 +862,272 @@ public class AdminManagementFormController implements Initializable {
             alert.setContentText("Item Didn't Found");
             alert.show();
         }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Enter Item ID...");
+            alert.show();
+        }
     }
 
     public void btnItemClearOnAction(MouseEvent mouseEvent) {
         clearFieldsItem();
     }
+    //====================================PLACE ORDER MANAGEMENT==============================================================
+    final OrderService orderService = ServiceFactory.getInstance().getServiceType(ServiceType.ORDER);
 
-    //====================================DASHBOARD MANAGEMENT==============================================================
+    public void btnOrderManagementOnAction(ActionEvent event) {
+        currentPage.setVisible(false);
+        currentPage = pageOrderManage;
+        currentPage.setVisible(true);
+    }
+
+    public void btnPlaceOrderOnAction(MouseEvent mouseEvent) {
+        lblOrderId.setText(orderService.generateOrderId());
+        loadCustomerId();
+        loadItemId();
+        currentPage.setVisible(false);
+        currentPage = pagePlaceOrder;
+        currentPage.setVisible(true);
+    }
+
+    public void btnViewOrderOnAction(MouseEvent mouseEvent) {
+        loadViewOrderTable();
+        currentPage.setVisible(false);
+        currentPage = pageViewOrders;
+        currentPage.setVisible(true);
+    }
+
+    private void loadDateAndTime() {
+        Date date = new Date();
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        String dateNow = f.format(date);
+        lblDate.setText(dateNow);
+        lblOrderDetailDate.setText(dateNow);
+
+
+        timeline = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            LocalTime currentTime = LocalTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+            lblTime.setText(currentTime.format(formatter));
+            lblOrderDetailTime.setText(currentTime.format(formatter));
+
+        }), new KeyFrame(Duration.seconds(1)));
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+    public void loadCustomerId() {
+        ObservableList<String> customerIds = customerService.getCustomerIds();
+        cmbCustId.setItems(customerIds);
+    }
+
+    public void loadItemId() {
+        ObservableList<String> itemIds = itemService.getItemIds();
+        for (String itemId : itemIds) {
+            System.out.println(itemId);
+        }
+        cmbItemCode.setItems(itemIds);
+    }
+
+    private void searchItemCode(String newValue) {
+        Item item = itemService.searchItem(newValue);
+        txtOrderItemName.setText(item.getName());
+        txtOrderItemSize.setText(item.getSize());
+        txtOrderItemCate.setText(item.getCategory());
+        txtOrderItemStockLev.setText(String.valueOf(item.getQty()));
+        txtOrderItemUnitPrice.setText(String.valueOf(item.getPrice()));
+    }
+
+    private void searchCustomer(String newValue) {
+        Customer customer = customerService.searchCustomer(newValue);
+        txtOrderCustName.setText(customer.getCustName());
+        txtOrderCustAddress.setText(customer.getCustAddress());
+        txtOrderCustContact.setText(customer.getCustContact());
+    }
+
+    public static Double discount = 0.0;
+
+    private void calcNetTotal() {
+        Double total = 0.0;
+        for (CartTM cartTM : cartTMS) {
+            total += cartTM.getTotal();
+        }
+        if (total < 0) {
+            total = 0.0;
+        }
+        lblNetTotal.setText(total.toString() + " /=");
+    }
+
+    public void btnAddtoCartOnAction(ActionEvent event) {
+        String itemId = cmbItemCode.getValue().toString();
+        String name = txtOrderItemName.getText();
+        String category = txtOrderItemCate.getText();
+        String size = txtOrderItemSize.getText();
+        double unitPrice = Double.parseDouble(txtOrderItemUnitPrice.getText());
+        int qty = Integer.parseInt(txtOrderItemQty.getText());
+        int currentStock = Integer.parseInt(txtOrderItemStockLev.getText());
+
+        if (currentStock < qty) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Invalid QTY. Stock available: " + currentStock);
+            alert.show();
+        } else {
+            double itemDiscount = Double.parseDouble(txtOrderItemDiscount.getText());
+            double total = (unitPrice * qty) - itemDiscount;
+            cartTMS.add(new CartTM(itemId, name, category, size, qty, unitPrice, total));
+            calcNetTotal();
+            updateStockRemove(itemId, qty);
+            refreshStockDisplay(itemId);
+            tblOrderDetails.setItems(cartTMS);
+            discount += itemDiscount;
+        }
+    }
+
+    private int updateStockRemove(String itemId, int qtyToAdd) {
+        Item item = itemService.searchItem(itemId);
+        int updatedStock = item.getQty();
+        try {
+            if (item != null) {
+                int currentStock = item.getQty();
+                updatedStock = currentStock - qtyToAdd;
+                item.setQty(updatedStock);
+                itemService.updateItem(item);
+                loadItemTable();
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error updating stock: " + e.getMessage());
+            alert.show();
+        }
+        return updatedStock;
+    }
+
+    private int updateStock(String itemId, int qtyToRemove) {
+        Item item = itemService.searchItem(itemId);
+        int updatedStock = item.getQty();
+        try {
+            if (item != null) {
+                int currentStock = item.getQty();
+                updatedStock = currentStock + qtyToRemove;
+                item.setQty(updatedStock);
+                itemService.updateItem(item);
+                loadItemTable();
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error updating stock: " + e.getMessage());
+            alert.show();
+        }
+        return updatedStock;
+    }
+
+    private void refreshStockDisplay(String itemId) {
+        Item item = itemService.searchItem(itemId);
+        if (item != null) {
+            txtOrderItemStockLev.setText(String.valueOf(item.getQty()));
+        }
+    }
+
+    ObservableList<CartTM> cartTMS = FXCollections.observableArrayList();
+
+    public void clearFieldsOrder() {
+        btncClearOnAction(new ActionEvent());
+        txtOrderEmpId.setText("");
+        txtOrderEmpEmali.setText("");
+        cmbCustId.setValue(null);
+        txtOrderCustName.setText("");
+        txtOrderCustAddress.setText("");
+        txtOrderCustContact.setText("");
+        lblOrderId.setText(orderService.generateOrderId());
+    }
+
+    public void btncClearOnAction(ActionEvent event) {
+        cmbItemCode.setValue(null);
+        txtOrderItemName.setText("");
+        txtOrderItemCate.setText("");
+        txtOrderItemStockLev.setText("");
+        txtOrderItemQty.setText("");
+        txtOrderItemSize.setText("");
+        txtOrderItemDiscount.setText("");
+        txtOrderItemDiscount.setText("");
+        txtOrderItemUnitPrice.setText("");
+
+    }
+
+    public void btnRemoveOnAction(ActionEvent event) {
+        CartTM selectedItem = tblOrderDetails.getSelectionModel().getSelectedItem();
+
+        if (selectedItem != null) {
+            String itemId = selectedItem.getItemId();
+            int qtyToRemove = selectedItem.getQty();
+            cartTMS.remove(selectedItem);
+            updateStock(itemId, qtyToRemove);
+            refreshStockDisplay(itemId);
+            int qty = selectedItem.getQty();
+            double unitPrice = selectedItem.getPrice();
+            double total = selectedItem.getTotal();
+            double removeDiscount = (qty * unitPrice) - total;
+            discount -= removeDiscount;
+            calcNetTotal();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Select a table row to delete");
+            alert.show();
+        }
+    }
+
+    public void btnPlaceOrderCartOnAction(ActionEvent event) {
+        if (cartTMS.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "No items in the cart to place an order.");
+            alert.show();
+        } else {
+
+            List<OrderDetails> orderDetailsList = new ArrayList<>();
+
+            cartTMS.forEach(obj -> {
+                orderDetailsList.add(new OrderDetails(lblOrderId.getText(), obj.getItemId(), obj.getQty(), obj.getPrice()));
+            });
+            Order order = new Order(lblOrderId.getText(),txtOrderEmpId.getText(),cmbCustId.getValue().toString(), LocalDate.now(), LocalTime.now(),lblNetTotal.getText(),orderDetailsList);
+            orderService.placeOrder(order);
+
+            Receipt receipt = new Receipt(
+                    lblOrderId.getText(),
+                    txtOrderCustName.getText(),
+                    txtOrderCustContact.getText(),
+                    txtOrderCustAddress.getText(),
+                    new ArrayList<>(cartTMS),
+                    discount,
+                    Double.parseDouble(lblNetTotal.getText().split(" ")[0]),
+                    LocalDateTime.now()
+            );
+
+            cartTMS.clear();
+            lblNetTotal.setText("0/=");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Order placed successfully!");
+            alert.show();
+            showReceipt(receipt);
+            clearFieldsOrder();
+        }
+    }
+
+    private void showReceipt(Receipt receipt) {
+        Stage receiptStage = new Stage();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/receiptForm.fxml"));
+            Parent root = loader.load();
+
+            ReceiptFormController controller = loader.getController();
+            controller.initializeReceipt(receipt);
+
+            receiptStage.setScene(new Scene(root));
+            receiptStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        currentPage = pageCustomer;
+        currentPage = pageViewOrders;
         currentPage.setVisible(true);
 /////////////////////////////////////////////REPORT GEN/////////////////////////////////////////////////////////////////
         StackedBarChart<String, Number> stackedBarChart = createStackedBarChart();
@@ -793,6 +1201,7 @@ public class AdminManagementFormController implements Initializable {
         loadSizeMenu();
         loadSupplierId();
         loadDateAndTime();
+        loadViewOrderTable();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //lblOrderId.setText(orderService.generateOrderId());
         colOrderItemCode.setCellValueFactory(new PropertyValueFactory<>("itemId"));
@@ -805,251 +1214,25 @@ public class AdminManagementFormController implements Initializable {
         loadCustomerId();
         loadItemId();
         cmbCustId.getSelectionModel().selectedItemProperty().addListener((observableValue, s, newValue) -> {
-            if (newValue!=null){
+            if (newValue != null) {
                 searchCustomer((String) newValue);
             }
         });
         cmbItemCode.getSelectionModel().selectedItemProperty().addListener((observableValue, s, newValue) -> {
-            if (newValue!=null){
+            if (newValue != null) {
                 searchItemCode((String) newValue);
             }
         });
-    }
-final OrderService orderService = ServiceFactory.getInstance().getServiceType(ServiceType.ORDER);
-    public void btnOrderManagementOnAction(ActionEvent event) {
-        currentPage.setVisible(false);
-        currentPage = pageOrderManage;
-        currentPage.setVisible(true);
-    }
 
-    public void btnPlaceOrderOnAction(MouseEvent mouseEvent) {
-        lblOrderId.setText(orderService.generateOrderId());
-        loadCustomerId();
-        loadItemId();
-        currentPage.setVisible(false);
-        currentPage = pagePlaceOrder;
-        currentPage.setVisible(true);
-    }
-
-    public void btnViewOrderOnAction(MouseEvent mouseEvent) {
-        currentPage.setVisible(false);
-        currentPage = pageViewOrders;
-        currentPage.setVisible(true);
-    }
-
-    private void loadDateAndTime() {
-        Date date = new Date();
-        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-        String dateNow = f.format(date);
-        lblDate.setText(dateNow);
-
-        timeline = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            LocalTime currentTime = LocalTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            lblTime.setText(currentTime.format(formatter));
-        }), new KeyFrame(Duration.seconds(1)));
-
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-    }
-
-    public void loadCustomerId() {
-        ObservableList<String> customerIds = customerService.getCustomerIds();
-        cmbCustId.setItems(customerIds);
-    }
-
-    public void loadItemId() {
-        ObservableList<String> itemIds = itemService.getItemIds();
-        for (String itemId : itemIds) {
-            System.out.println(itemId);
-        }
-        cmbItemCode.setItems(itemIds);
-    }
-
-    private void searchItemCode(String newValue) {
-        Item item = itemService.searchItem(newValue);
-        txtOrderItemName.setText(item.getName());
-        txtOrderItemSize.setText(item.getSize());
-        txtOrderItemCate.setText(item.getCategory());
-        txtOrderItemStockLev.setText(String.valueOf(item.getQty()));
-        txtOrderItemUnitPrice.setText(String.valueOf(item.getPrice()));
-    }
-
-    private void searchCustomer(String newValue) {
-        Customer customer = customerService.searchCustomer(newValue);
-        txtOrderCustName.setText(customer.getCustName());
-        txtOrderCustAddress.setText(customer.getCustAddress());
-        txtOrderCustContact.setText(customer.getCustContact());
-    }
-    public static Double discount = 0.0;
-    private void calcNetTotal() {
-        Double total = 0.0;
-        for (CartTM cartTM : cartTMS) {
-            total += cartTM.getTotal();
-        }
-        if (total < 0) {
-            total = 0.0;
-        }
-        lblNetTotal.setText(total.toString() + " /=");
-    }
-    public void btnAddtoCartOnAction(ActionEvent event) {
-        String itemId = cmbItemCode.getValue().toString();
-        String name = txtOrderItemName.getText();
-        String category = txtOrderItemCate.getText();
-        String size = txtOrderItemSize.getText();
-        double unitPrice = Double.parseDouble(txtOrderItemUnitPrice.getText());
-        int qty = Integer.parseInt(txtOrderItemQty.getText());
-        int currentStock = Integer.parseInt(txtOrderItemStockLev.getText());
-
-        if (currentStock < qty) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Invalid QTY. Stock available: " + currentStock);
-            alert.show();
-        } else {
-            double itemDiscount = Double.parseDouble(txtOrderItemDiscount.getText());
-            double total = (unitPrice * qty) - itemDiscount;
-            cartTMS.add(new CartTM(itemId, name,category,size, qty, unitPrice, total));
-            calcNetTotal();
-            updateStockRemove(itemId, qty);
-            refreshStockDisplay(itemId);
-            tblOrderDetails.setItems(cartTMS);
-            discount+= itemDiscount;
-        }
-    }
-
-    private int updateStockRemove(String itemId, int qtyToAdd) {
-        Item item = itemService.searchItem(itemId);
-        int updatedStock =  item.getQty();
-        try {
-            if (item != null) {
-                int currentStock = item.getQty();
-                updatedStock = currentStock - qtyToAdd;
-                item.setQty(updatedStock);
-                itemService.updateItem(item);
-                loadItemTable();
-            }
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error updating stock: " + e.getMessage());
-            alert.show();
-        }
-        return updatedStock;
-    }
-    private int updateStock(String itemId, int qtyToRemove) {
-        Item item = itemService.searchItem(itemId);
-        int updatedStock =  item.getQty();
-        try {
-            if (item != null) {
-                int currentStock = item.getQty();
-                updatedStock = currentStock + qtyToRemove;
-                item.setQty(updatedStock);
-                itemService.updateItem(item);
-                loadItemTable();
-            }
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error updating stock: " + e.getMessage());
-            alert.show();
-        }
-        return updatedStock;
-    }
-    private void refreshStockDisplay(String itemId) {
-        Item item = itemService.searchItem(itemId);
-        if (item != null) {
-            txtOrderItemStockLev.setText(String.valueOf(item.getQty()));
-        }
-    }
-    ObservableList<CartTM> cartTMS = FXCollections.observableArrayList();
-
-public void clearFieldsOrder(){
-    btncClearOnAction(new ActionEvent());
-    txtOrderEmpId.setText("");
-    txtOrderEmpEmali.setText("");
-    cmbCustId.setValue(null);
-    txtOrderCustName.setText("");
-    txtOrderCustAddress.setText("");
-    txtOrderCustContact.setText("");
-    lblOrderId.setText(orderService.generateOrderId());
-}
-    public void btncClearOnAction(ActionEvent event) {
-        cmbItemCode.setValue(null);
-        txtOrderItemName.setText("");
-        txtOrderItemCate.setText("");
-        txtOrderItemStockLev.setText("");
-        txtOrderItemQty.setText("");
-        txtOrderItemSize.setText("");
-        txtOrderItemDiscount.setText("");
-        txtOrderItemDiscount.setText("");
-        txtOrderItemUnitPrice.setText("");
+        colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        colViewEmpId.setCellValueFactory(new PropertyValueFactory<>("empId"));
+        colViewCustId.setCellValueFactory(new PropertyValueFactory<>("custId"));
+        colViewDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colViewTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+        colViewNetTotal.setCellValueFactory(new PropertyValueFactory<>("netTotal"));
 
     }
-
-    public void btnRemoveOnAction(ActionEvent event) {
-        CartTM selectedItem = tblOrderDetails.getSelectionModel().getSelectedItem();
-
-        if (selectedItem != null) {
-            String itemId = selectedItem.getItemId();
-            int qtyToRemove = selectedItem.getQty();
-            cartTMS.remove(selectedItem);
-            updateStock(itemId, qtyToRemove);
-            refreshStockDisplay(itemId);
-            int qty = selectedItem.getQty();
-            double unitPrice = selectedItem.getPrice();
-            double total = selectedItem.getTotal();
-            double removeDiscount = (qty*unitPrice)-total;
-            discount-= removeDiscount;
-            calcNetTotal();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Select a table row to delete");
-            alert.show();
-        }
-    }
-
-    public void btnPlaceOrderCartOnAction(ActionEvent event) {
-        if(cartTMS.isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.WARNING, "No items in the cart to place an order.");
-            alert.show();
-        }else {
-
-            List<OrderDetails> orderDetailsList=new ArrayList<>();
-
-            cartTMS.forEach(obj->{
-                orderDetailsList.add(new OrderDetails(lblOrderId.getText(),obj.getItemId(),obj.getQty(),obj.getPrice()));
-            });
-
-            Order order = new Order(lblOrderId.getText(), LocalDateTime.now(), txtOrderEmpId.getText(),txtOrderEmpEmali.getText(), orderDetailsList);
-            orderService.placeOrder(order);
-
-            Receipt receipt = new Receipt(
-                    lblOrderId.getText(),
-                    txtOrderCustName.getText(),
-                    txtOrderCustContact.getText(),
-                    txtOrderCustAddress.getText(),
-                    new ArrayList<>(cartTMS),
-                    discount,
-                    Double.parseDouble(lblNetTotal.getText().split(" ")[0]),
-                    LocalDateTime.now()
-            );
-
-            cartTMS.clear();
-            lblNetTotal.setText("0/=");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Order placed successfully!");
-            alert.show();
-            showReceipt(receipt);
-            clearFieldsOrder();
-        }
-    }
-    private void showReceipt(Receipt receipt) {
-        Stage receiptStage = new Stage();
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/receiptForm.fxml"));
-            Parent root = loader.load();
-
-            ReceiptFormController controller = loader.getController();
-            controller.initializeReceipt(receipt);
-
-            receiptStage.setScene(new Scene(root));
-            receiptStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void loadViewOrderTable() {
+        tblViewOrder.setItems(FXCollections.observableArrayList(orderService.getAll()));
     }
 }

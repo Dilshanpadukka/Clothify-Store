@@ -18,7 +18,6 @@ public class CustomerDaoImpl implements CustomerDao {
         session.persist(customer);
         session.getTransaction().commit();
         session.close();
-
         return true;
     }
 

@@ -2,15 +2,20 @@ package service.custom.impl;
 
 import entity.OrderDetailsEntity;
 import entity.OrderEntity;
+import entity.SupplierEntity;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Order;
+import model.Supplier;
 import org.modelmapper.ModelMapper;
 import repository.DaoFactory;
 import repository.custom.CustomerDao;
 import repository.custom.OrderDao;
+import repository.custom.SupplierDao;
 import service.custom.OrderService;
 import util.DaoType;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,7 +39,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ObservableList<Order> getAll() {
-        return null;
+        OrderDao orderDao = DaoFactory.getInstance().getDaoType(DaoType.ORDER);
+        List<OrderEntity> all = orderDao.getAll();
+        ModelMapper modelMapper = new ModelMapper();
+        ObservableList<Order> orders = FXCollections.observableArrayList();
+        for (OrderEntity entity : all) {
+            Order order = modelMapper.map(entity, Order.class);
+            orders.add(order);
+        }
+        return orders;
     }
     @Override
     public String generateOrderId() {

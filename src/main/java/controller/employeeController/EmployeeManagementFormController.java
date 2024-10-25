@@ -1,5 +1,6 @@
 package controller.employeeController;
 
+import com.jfoenix.controls.JFXButton;
 import controller.ReceiptController.ReceiptFormController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -10,40 +11,48 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.*;
 import service.ServiceFactory;
-import service.custom.CustomerService;
-import service.custom.ItemService;
-import service.custom.OrderService;
-import service.custom.SupplierService;
+import service.custom.*;
 import util.ServiceType;
 
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class EmployeeManagementFormController implements Initializable {
 
     public AnchorPane pageCustomer;
     public AnchorPane pageSupplier;
     public AnchorPane pageProduct;
-
+    public AnchorPane pageEmployee;
     public AnchorPane pageOrderManage;
     public AnchorPane pagePlaceOrder;
     public AnchorPane pageViewOrders;
+    public TextField txtEmployeeName;
+    public TextField txtEmployeePassword;
+    public TextField txtEmployeeEmail;
+    public TextArea txtEmployeeAddress;
+    public TextField txtEmployeeNic;
+    public TableColumn colEmpId;
+    public TableColumn colEmpName;
+    public TableColumn colEmpNic;
+    public TableColumn colEmpAddress;
+    public TableColumn colEmpEmail;
+    public TableView tblEmployee;
     public TableColumn colCustId;
     public TableColumn colCustTitle;
     public TableColumn colCustName;
@@ -115,18 +124,36 @@ public class EmployeeManagementFormController implements Initializable {
     public TextField txtCustId;
     public TextField txtSupItemDesc;
     public TextField txtSupId;
+    public TableColumn colEmpContact;
+    public TextField txtEmployeeContact;
+    public TextField txtEmployeeId;
     public Label lblNetTotal;
     public TextField txtOrderEmpId;
     public TextField txtOrderEmpEmali;
+    public AnchorPane pageReportGen;
+    public JFXButton btnPrint01OnAction;
+    public PieChart pieChart;
+    public VBox chartContainer;
+    public JFXButton btnPrint02OnAction;
+    public JFXButton btnPrint03OnAction;
     public TextField txtItemId;
     public TextField txtOrderItemStockLev;
     public TextField txtOrderItemDiscount;
     public TableView<CartTM> tblOrderDetails;
     public Label lblOrderId;
+    public PasswordField txtEmployeeConfirmPassword;
+    public Label lblOrderDetailTime;
+    public Label lblOrderDetailDate;
+    public TableColumn colOrderId;
+    public TableColumn colViewEmpId;
+    public TableColumn colViewCustId;
+    public TableColumn colViewDate;
+    public TableColumn colViewTime;
+    public TableColumn colViewNetTotal;
+    public TableView tblViewOrder;
 
     private AnchorPane currentPage;
     private Timeline timeline;
-
 
     //=======================================================================LOG OUT BUTTON==========================================================================
     public void btnLogOutOnAction(MouseEvent mouseEvent) {
@@ -140,7 +167,6 @@ public class EmployeeManagementFormController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
     //====================================================================CUSTOMER MANAGEMENT==========================================================================
     final CustomerService customerService = ServiceFactory.getInstance().getServiceType(ServiceType.CUSTOMER);
 
@@ -189,79 +215,121 @@ public class EmployeeManagementFormController implements Initializable {
     }
 
     public void btnAddCustomerOnAction(ActionEvent event) {
-        Customer customer = new Customer(
-                txtCustId.getText(),
-                cmbCustTitle.getValue().toString(),
-                txtCustName.getText(),
-                txtCustContact.getText(),
-                txtCustEmail.getText(),
-                txtCustAddress.getText(),
-                txtCustCity.getText(),
-                txtCustProvince.getText(),
-                txtCustPostalCode.getText()
-        );
-        if (customerService.addCustomer(customer)) {
-            loadCustomerTable();
-            clearFieldsCustomer();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Customer Added Successfully...");
-            alert.show();
+        if (txtCustId.getText() != null && !txtCustId.getText().isEmpty() &&
+                cmbCustTitle.getValue() != null &&
+                txtCustName.getText() != null && !txtCustName.getText().isEmpty() &&
+                txtCustContact.getText() != null && !txtCustContact.getText().isEmpty() &&
+                txtCustEmail.getText() != null && !txtCustEmail.getText().isEmpty() &&
+                txtCustAddress.getText() != null && !txtCustAddress.getText().isEmpty() &&
+                txtCustCity.getText() != null && !txtCustCity.getText().isEmpty() &&
+                txtCustProvince.getText() != null && !txtCustProvince.getText().isEmpty() &&
+                txtCustPostalCode.getText() != null && !txtCustPostalCode.getText().isEmpty()) {
+
+            Customer customer = new Customer(
+                    txtCustId.getText(),
+                    cmbCustTitle.getValue().toString(),
+                    txtCustName.getText(),
+                    txtCustContact.getText(),
+                    txtCustEmail.getText(),
+                    txtCustAddress.getText(),
+                    txtCustCity.getText(),
+                    txtCustProvince.getText(),
+                    txtCustPostalCode.getText()
+            );
+            System.out.println(customer);
+            if (customerService.addCustomer(customer)) {
+                loadCustomerTable();
+                clearFieldsCustomer();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Customer Added Successfully...");
+                alert.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Customer Didn't added....");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Customer Didn't added....");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Fill all fields...");
             alert.show();
         }
     }
 
     public void btnUpdateCustomerOnAction(ActionEvent event) {
-        Customer customer = new Customer(
-                txtCustId.getText(),
-                cmbCustTitle.getValue().toString(),
-                txtCustName.getText(),
-                txtCustContact.getText(),
-                txtCustEmail.getText(),
-                txtCustAddress.getText(),
-                txtCustCity.getText(),
-                txtCustProvince.getText(),
-                txtCustPostalCode.getText()
-        );
-        if (customerService.updateCustomer(customer)) {
-            loadCustomerTable();
-            clearFieldsCustomer();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Customer Updated Successfully..");
-            alert.show();
+        if (txtCustId.getText() != null && !txtCustId.getText().isEmpty() &&
+                cmbCustTitle.getValue() != null &&
+                txtCustName.getText() != null && !txtCustName.getText().isEmpty() &&
+                txtCustContact.getText() != null && !txtCustContact.getText().isEmpty() &&
+                txtCustEmail.getText() != null && !txtCustEmail.getText().isEmpty() &&
+                txtCustAddress.getText() != null && !txtCustAddress.getText().isEmpty() &&
+                txtCustCity.getText() != null && !txtCustCity.getText().isEmpty() &&
+                txtCustProvince.getText() != null && !txtCustProvince.getText().isEmpty() &&
+                txtCustPostalCode.getText() != null && !txtCustPostalCode.getText().isEmpty()) {
+            Customer customer = new Customer(
+                    txtCustId.getText(),
+                    cmbCustTitle.getValue().toString(),
+                    txtCustName.getText(),
+                    txtCustContact.getText(),
+                    txtCustEmail.getText(),
+                    txtCustAddress.getText(),
+                    txtCustCity.getText(),
+                    txtCustProvince.getText(),
+                    txtCustPostalCode.getText()
+            );
+            if (customerService.updateCustomer(customer)) {
+                loadCustomerTable();
+                clearFieldsCustomer();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Customer Updated Successfully..");
+                alert.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Customer didn't Updated ...");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Customer didn't Updated ...");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Fill all fields...");
             alert.show();
         }
     }
 
     public void btnSearchCustomerOnAction(ActionEvent event) {
-        try {
-            Customer customer = customerService.searchCustomer(txtCustId.getText());
-            if (customer != null) {
-                setTextToValues(customer);
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Customer not found").showAndWait();
+        if (txtCustId.getText() != null && !txtCustId.getText().isEmpty()) {
+            try {
+                Customer customer = customerService.searchCustomer(txtCustId.getText());
+                if (customer != null) {
+                    setTextToValues(customer);
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Customer not found").showAndWait();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Enter Customer ID...");
+            alert.show();
         }
 
     }
 
     public void btnDeleteCustomerOnAction(ActionEvent event) {
-        if (customerService.deleteCustomer(txtCustId.getText())) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Customer Deleted SuccessFully");
-            alert.show();
-            loadCustomerTable();
-            clearFieldsCustomer();
+        if (txtCustId.getText() != null && !txtCustId.getText().isEmpty()) {
+            if (customerService.deleteCustomer(txtCustId.getText())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Customer Deleted SuccessFully");
+                alert.show();
+                loadCustomerTable();
+                clearFieldsCustomer();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Customer Didn't Found");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Customer Didn't Found");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Enter Customer ID...");
             alert.show();
         }
     }
@@ -306,77 +374,115 @@ public class EmployeeManagementFormController implements Initializable {
     }
 
     public void btnAddSupplierOnAction(ActionEvent event) {
-        Supplier supplier = new Supplier(
-                txtSupId.getText(),
-                txtSupName.getText(),
-                txtSupContact.getText(),
-                txtSupItemDesc.getText(),
-                txtSupCompany.getText(),
-                txtSupCompanyAddress.getText(),
-                txtSupCompanyEmail.getText(),
-                txtSupPostalCode.getText()
-        );
-        if (supplierService.addSupplier(supplier)) {
-            loadSupplierTable();
-            clearFieldsSupplier();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Supplier Added Successfully...");
-            alert.show();
+        if (txtSupId.getText() != null && !txtSupId.getText().isEmpty() &&
+                txtSupName.getText() != null && !txtSupName.getText().isEmpty() &&
+                txtSupContact.getText() != null && !txtSupContact.getText().isEmpty() &&
+                txtSupItemDesc.getText() != null && !txtSupItemDesc.getText().isEmpty() &&
+                txtSupCompany.getText() != null && !txtSupCompany.getText().isEmpty() &&
+                txtSupCompanyAddress.getText() != null && !txtSupCompanyAddress.getText().isEmpty() &&
+                txtSupCompanyEmail.getText() != null && !txtSupCompanyEmail.getText().isEmpty() &&
+                txtSupPostalCode.getText() != null && !txtSupPostalCode.getText().isEmpty()) {
+            Supplier supplier = new Supplier(
+                    txtSupId.getText(),
+                    txtSupName.getText(),
+                    txtSupContact.getText(),
+                    txtSupItemDesc.getText(),
+                    txtSupCompany.getText(),
+                    txtSupCompanyAddress.getText(),
+                    txtSupCompanyEmail.getText(),
+                    txtSupPostalCode.getText()
+            );
+            if (supplierService.addSupplier(supplier)) {
+                loadSupplierTable();
+                clearFieldsSupplier();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Supplier Added Successfully...");
+                alert.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Supplier Didn't added....");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Supplier Didn't added....");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Fill all fields...");
             alert.show();
         }
     }
 
     public void btnUpdateSupplierOnAction(ActionEvent event) {
-        Supplier supplier = new Supplier(
-                txtSupId.getText(),
-                txtSupName.getText(),
-                txtSupContact.getText(),
-                txtSupItemDesc.getText(),
-                txtSupCompany.getText(),
-                txtSupCompanyAddress.getText(),
-                txtSupCompanyEmail.getText(),
-                txtSupPostalCode.getText()
-        );
-        if (supplierService.updateSupplier(supplier)) {
-            loadSupplierTable();
-            clearFieldsSupplier();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Supplier Updated Successfully..");
-            alert.show();
+        if (txtSupId.getText() != null && !txtSupId.getText().isEmpty() &&
+                txtSupName.getText() != null && !txtSupName.getText().isEmpty() &&
+                txtSupContact.getText() != null && !txtSupContact.getText().isEmpty() &&
+                txtSupItemDesc.getText() != null && !txtSupItemDesc.getText().isEmpty() &&
+                txtSupCompany.getText() != null && !txtSupCompany.getText().isEmpty() &&
+                txtSupCompanyAddress.getText() != null && !txtSupCompanyAddress.getText().isEmpty() &&
+                txtSupCompanyEmail.getText() != null && !txtSupCompanyEmail.getText().isEmpty() &&
+                txtSupPostalCode.getText() != null && !txtSupPostalCode.getText().isEmpty()) {
+            Supplier supplier = new Supplier(
+                    txtSupId.getText(),
+                    txtSupName.getText(),
+                    txtSupContact.getText(),
+                    txtSupItemDesc.getText(),
+                    txtSupCompany.getText(),
+                    txtSupCompanyAddress.getText(),
+                    txtSupCompanyEmail.getText(),
+                    txtSupPostalCode.getText()
+            );
+            if (supplierService.updateSupplier(supplier)) {
+                loadSupplierTable();
+                clearFieldsSupplier();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Supplier Updated Successfully..");
+                alert.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Supplier didn't Updated ...");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Supplier didn't Updated ...");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Fill all fields...");
             alert.show();
         }
     }
 
     public void btnSerachSupplierOnAction(ActionEvent event) {
-        Supplier supplier = supplierService.searchSupplier(txtSupId.getText());
-        if (supplier != null) {
-            setTextToValues(supplier);
+        if (txtSupId.getText() != null && !txtSupId.getText().isEmpty()) {
+            Supplier supplier = supplierService.searchSupplier(txtSupId.getText());
+            if (supplier != null) {
+                setTextToValues(supplier);
+            } else {
+                // Show an alert if no customer is found
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Supplier Not Found");
+                alert.setHeaderText(null);
+                alert.setContentText("No employee found with ID: " + txtSupId.getText());
+                alert.showAndWait();
+            }
         } else {
-            // Show an alert if no customer is found
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Supplier Not Found");
-            alert.setHeaderText(null);
-            alert.setContentText("No Supplier found with ID: " + txtSupId.getText());
-            alert.showAndWait();
+            alert.setContentText("Please Enter Supplier ID...");
+            alert.show();
         }
     }
 
     public void btnDeleteSupplierOnAction(ActionEvent event) {
-        if (supplierService.deleteSupplier(txtSupId.getText())) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Supplier Deleted SuccessFully");
-            alert.show();
-            loadSupplierTable();
-            clearFieldsSupplier();
+        if (txtSupId.getText() != null && !txtSupId.getText().isEmpty()) {
+            if (supplierService.deleteSupplier(txtSupId.getText())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Supplier Deleted SuccessFully");
+                alert.show();
+                loadSupplierTable();
+                clearFieldsSupplier();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Supplier Didn't Found");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Supplier Didn't Found");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Enter Supplier ID...");
             alert.show();
         }
     }
@@ -448,76 +554,112 @@ public class EmployeeManagementFormController implements Initializable {
     }
 
     public void btnAddItemOnAction(ActionEvent event) {
-        Item item = new Item(
-                txtItemId.getText(),
-                txtItemName.getText(),
-                cmbItemCategory.getValue().toString(),
-                cmbItemSize.getValue().toString(),
-                cmbSupplierId.getValue().toString(),
-                Double.parseDouble(txtItemUnitPrice.getText()),
-                Integer.parseInt(txtItemQty.getText())
-        );
-        ItemService itemService = ServiceFactory.getInstance().getServiceType(ServiceType.ITEM);
-        if (itemService.addItem(item)) {
-            loadItemTable();
-            clearFieldsItem();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Item Added Successfully...");
-            alert.show();
+        if (txtItemId.getText() != null && !txtItemId.getText().isEmpty() &&
+                txtItemName.getText() != null && !txtItemName.getText().isEmpty() &&
+                cmbItemCategory.getValue() != null &&
+                cmbItemSize.getValue() != null &&
+                cmbSupplierId.getValue() != null &&
+                txtItemUnitPrice.getText() != null && !txtItemUnitPrice.getText().isEmpty() &&
+                txtItemQty.getText() != null && !txtItemQty.getText().isEmpty()) {
+            Item item = new Item(
+                    txtItemId.getText(),
+                    txtItemName.getText(),
+                    cmbItemCategory.getValue().toString(),
+                    cmbItemSize.getValue().toString(),
+                    cmbSupplierId.getValue().toString(),
+                    Double.parseDouble(txtItemUnitPrice.getText()),
+                    Integer.parseInt(txtItemQty.getText())
+            );
+            ItemService itemService = ServiceFactory.getInstance().getServiceType(ServiceType.ITEM);
+            if (itemService.addItem(item)) {
+                loadItemTable();
+                clearFieldsItem();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Item Added Successfully...");
+                alert.show();
 
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Failed to add the item.");
+                alert.show();
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Failed to add the item.");
+            alert.setContentText("Please Fill all fields...");
             alert.show();
         }
     }
 
     public void btnUpdateItemOnAction(ActionEvent event) {
-        Item item = new Item(
-                txtItemId.getText(),
-                txtItemName.getText(),
-                cmbItemCategory.getValue().toString(),
-                cmbItemSize.getValue().toString(),
-                cmbSupplierId.getValue().toString(),
-                Double.parseDouble(txtItemUnitPrice.getText()),
-                Integer.parseInt(txtItemQty.getText())
-        );
-        if (itemService.updateItem(item)) {
-            loadItemTable();
-            clearFieldsItem();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Item Updated Successfully..");
-            alert.show();
+        if (txtItemId.getText() != null && !txtItemId.getText().isEmpty() &&
+                txtItemName.getText() != null && !txtItemName.getText().isEmpty() &&
+                cmbItemCategory.getValue() != null &&
+                cmbItemSize.getValue() != null &&
+                cmbSupplierId.getValue() != null &&
+                txtItemUnitPrice.getText() != null && !txtItemUnitPrice.getText().isEmpty() &&
+                txtItemQty.getText() != null && !txtItemQty.getText().isEmpty()) {
+            Item item = new Item(
+                    txtItemId.getText(),
+                    txtItemName.getText(),
+                    cmbItemCategory.getValue().toString(),
+                    cmbItemSize.getValue().toString(),
+                    cmbSupplierId.getValue().toString(),
+                    Double.parseDouble(txtItemUnitPrice.getText()),
+                    Integer.parseInt(txtItemQty.getText())
+            );
+            if (itemService.updateItem(item)) {
+                loadItemTable();
+                clearFieldsItem();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Item Updated Successfully..");
+                alert.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Item didn't Updated ...");
+                alert.show();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Item didn't Updated ...");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please Fill all fields...");
             alert.show();
         }
     }
 
     public void btnSearchItemOnAction(ActionEvent event) {
-        Item item = itemService.searchItem(txtItemId.getText());
-        if (item != null) {
-            setTextToValues(item);
-        } else {
+        if (txtItemId.getText() != null && !txtItemId.getText().isEmpty()) {
+            Item item = itemService.searchItem(txtItemId.getText());
+            if (item != null) {
+                setTextToValues(item);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Item Not Found");
+                alert.setHeaderText(null);
+                alert.setContentText("No Item found with ID: " + txtItemId.getText());
+                alert.showAndWait();
+            }
+        }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Item Not Found");
-            alert.setHeaderText(null);
-            alert.setContentText("No Item found with ID: " + txtItemId.getText());
-            alert.showAndWait();
+            alert.setContentText("Please Enter Item ID...");
+            alert.show();
         }
     }
 
     public void btnDeleteItemOnAction(ActionEvent event) {
-        if (itemService.deleteItem(txtItemId.getText())) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Item Deleted SuccessFully");
-            alert.show();
-            loadItemTable();
-            clearFieldsItem();
-        } else {
+        if (txtItemId.getText() != null && !txtItemId.getText().isEmpty()) {
+            if (itemService.deleteItem(txtItemId.getText())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Item Deleted SuccessFully");
+                alert.show();
+                loadItemTable();
+                clearFieldsItem();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Item Didn't Found");
+                alert.show();
+            }
+        }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Item Didn't Found");
+            alert.setContentText("Please Enter Item ID...");
             alert.show();
         }
     }
@@ -525,90 +667,7 @@ public class EmployeeManagementFormController implements Initializable {
     public void btnItemClearOnAction(MouseEvent mouseEvent) {
         clearFieldsItem();
     }
-
-    //====================================DASHBOARD MANAGEMENT==============================================================
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        currentPage = pageOrderManage;
-        currentPage.setVisible(true);
-/////////////////////////////////////////////CUSTOMER///////////////////////////////////////////////////////////////////
-        txtCustId.setText(customerService.generateCustomerId());
-        loadTitleMenu();
-        colCustId.setCellValueFactory(new PropertyValueFactory<>("custId"));
-        colCustTitle.setCellValueFactory(new PropertyValueFactory<>("custTitle"));
-        colCustName.setCellValueFactory(new PropertyValueFactory<>("custName"));
-        colCustContact.setCellValueFactory(new PropertyValueFactory<>("custContact"));
-        colCustEmail.setCellValueFactory(new PropertyValueFactory<>("custEmail"));
-        colCustAddress.setCellValueFactory(new PropertyValueFactory<>("custAddress"));
-        colCustCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-        colCustProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
-        colCustPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-
-        tblCustomer.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
-            if (newValue != null) {
-                setTextToValues((Customer) newValue);
-            }
-        }));
-        loadCustomerTable();
-/////////////////////////////////////////////SUPPLIER///////////////////////////////////////////////////////////////////
-        txtSupId.setText(supplierService.generateSupplierId());
-        colSupId.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
-        colSupName.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
-        colSupCompany.setCellValueFactory(new PropertyValueFactory<>("supplierCompany"));
-        colSupAddress.setCellValueFactory(new PropertyValueFactory<>("supplierAddress"));
-        colSupEmail.setCellValueFactory(new PropertyValueFactory<>("supplierEmailAddress"));
-        colSupContact.setCellValueFactory(new PropertyValueFactory<>("supplierContactNumber"));
-        colSupPostalCode.setCellValueFactory(new PropertyValueFactory<>("supplierPostalCode"));
-
-        tblSupplier.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
-            if (newValue != null) {
-                setTextToValues((Supplier) newValue);
-            }
-        }));
-        loadSupplierTable();
-///////////////////////////////////////////////ITEM/////////////////////////////////////////////////////////////////////
-        txtItemId.setText(itemService.generateItemId());
-        colItemtId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
-        colItemCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-        colItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colItemSize.setCellValueFactory(new PropertyValueFactory<>("size"));
-        colItemQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-        colItemUnitPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        tblItem.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
-            if (newValue != null) {
-                setTextToValues((Item) newValue);
-            }
-        }));
-        loadItemTable();
-        loadCategoryMenu();
-        loadSizeMenu();
-        loadSupplierId();
-        loadDateAndTime();
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //lblOrderId.setText(orderService.generateOrderId());
-        colOrderItemCode.setCellValueFactory(new PropertyValueFactory<>("itemId"));
-        colOrderItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colOrderItemCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-        colOrderItemSize.setCellValueFactory(new PropertyValueFactory<>("size"));
-        colOrderItemQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-        colOrderItemUnitPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        colOrderItemTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
-        loadCustomerId();
-        loadItemId();
-        cmbCustId.getSelectionModel().selectedItemProperty().addListener((observableValue, s, newValue) -> {
-            if (newValue != null) {
-                searchCustomer((String) newValue);
-            }
-        });
-        cmbItemCode.getSelectionModel().selectedItemProperty().addListener((observableValue, s, newValue) -> {
-            if (newValue != null) {
-                searchItemCode((String) newValue);
-            }
-        });
-    }
-
+    //====================================PLACE ORDER MANAGEMENT==============================================================
     final OrderService orderService = ServiceFactory.getInstance().getServiceType(ServiceType.ORDER);
 
     public void btnOrderManagementOnAction(ActionEvent event) {
@@ -627,6 +686,7 @@ public class EmployeeManagementFormController implements Initializable {
     }
 
     public void btnViewOrderOnAction(MouseEvent mouseEvent) {
+        loadViewOrderTable();
         currentPage.setVisible(false);
         currentPage = pageViewOrders;
         currentPage.setVisible(true);
@@ -637,11 +697,15 @@ public class EmployeeManagementFormController implements Initializable {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         String dateNow = f.format(date);
         lblDate.setText(dateNow);
+        lblOrderDetailDate.setText(dateNow);
+
 
         timeline = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             LocalTime currentTime = LocalTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
             lblTime.setText(currentTime.format(formatter));
+            lblOrderDetailTime.setText(currentTime.format(formatter));
+
         }), new KeyFrame(Duration.seconds(1)));
 
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -817,7 +881,7 @@ public class EmployeeManagementFormController implements Initializable {
                 orderDetailsList.add(new OrderDetails(lblOrderId.getText(), obj.getItemId(), obj.getQty(), obj.getPrice()));
             });
 
-            Order order = new Order(lblOrderId.getText(), LocalDateTime.now(), txtOrderEmpId.getText(), txtOrderEmpEmali.getText(), orderDetailsList);
+            Order order = new Order(lblOrderId.getText(),txtOrderEmpId.getText(),cmbCustId.getValue().toString(), LocalDate.now(), LocalTime.now(),lblNetTotal.getText(),orderDetailsList);
             orderService.placeOrder(order);
 
             Receipt receipt = new Receipt(
@@ -854,5 +918,98 @@ public class EmployeeManagementFormController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        currentPage = pagePlaceOrder;
+        currentPage.setVisible(true);
+/////////////////////////////////////////////CUSTOMER///////////////////////////////////////////////////////////////////
+        txtCustId.setText(customerService.generateCustomerId());
+        loadTitleMenu();
+        colCustId.setCellValueFactory(new PropertyValueFactory<>("custId"));
+        colCustTitle.setCellValueFactory(new PropertyValueFactory<>("custTitle"));
+        colCustName.setCellValueFactory(new PropertyValueFactory<>("custName"));
+        colCustContact.setCellValueFactory(new PropertyValueFactory<>("custContact"));
+        colCustEmail.setCellValueFactory(new PropertyValueFactory<>("custEmail"));
+        colCustAddress.setCellValueFactory(new PropertyValueFactory<>("custAddress"));
+        colCustCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colCustProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+        colCustPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+
+        tblCustomer.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if (newValue != null) {
+                setTextToValues((Customer) newValue);
+            }
+        }));
+        loadCustomerTable();
+/////////////////////////////////////////////SUPPLIER///////////////////////////////////////////////////////////////////
+        txtSupId.setText(supplierService.generateSupplierId());
+        colSupId.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
+        colSupName.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
+        colSupCompany.setCellValueFactory(new PropertyValueFactory<>("supplierCompany"));
+        colSupAddress.setCellValueFactory(new PropertyValueFactory<>("supplierAddress"));
+        colSupEmail.setCellValueFactory(new PropertyValueFactory<>("supplierEmailAddress"));
+        colSupContact.setCellValueFactory(new PropertyValueFactory<>("supplierContactNumber"));
+        colSupPostalCode.setCellValueFactory(new PropertyValueFactory<>("supplierPostalCode"));
+
+        tblSupplier.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if (newValue != null) {
+                setTextToValues((Supplier) newValue);
+            }
+        }));
+        loadSupplierTable();
+///////////////////////////////////////////////ITEM/////////////////////////////////////////////////////////////////////
+        txtItemId.setText(itemService.generateItemId());
+        colItemtId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+        colItemCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colItemSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+        colItemQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colItemUnitPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        tblItem.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if (newValue != null) {
+                setTextToValues((Item) newValue);
+            }
+        }));
+        loadItemTable();
+        loadCategoryMenu();
+        loadSizeMenu();
+        loadSupplierId();
+        loadDateAndTime();
+        loadViewOrderTable();
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //lblOrderId.setText(orderService.generateOrderId());
+        colOrderItemCode.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+        colOrderItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colOrderItemCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colOrderItemSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+        colOrderItemQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colOrderItemUnitPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colOrderItemTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+        loadCustomerId();
+        loadItemId();
+        cmbCustId.getSelectionModel().selectedItemProperty().addListener((observableValue, s, newValue) -> {
+            if (newValue != null) {
+                searchCustomer((String) newValue);
+            }
+        });
+        cmbItemCode.getSelectionModel().selectedItemProperty().addListener((observableValue, s, newValue) -> {
+            if (newValue != null) {
+                searchItemCode((String) newValue);
+            }
+        });
+
+        colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        colViewEmpId.setCellValueFactory(new PropertyValueFactory<>("empId"));
+        colViewCustId.setCellValueFactory(new PropertyValueFactory<>("custId"));
+        colViewDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colViewTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+        colViewNetTotal.setCellValueFactory(new PropertyValueFactory<>("netTotal"));
+
+    }
+    private void loadViewOrderTable() {
+        tblViewOrder.setItems(FXCollections.observableArrayList(orderService.getAll()));
     }
 }

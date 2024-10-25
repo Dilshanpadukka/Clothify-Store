@@ -16,5 +16,6 @@ public class Employee {
     private String employeeAddress;
     private String employeeEmailAddress;
     private String contactNumber;
+    private String password;
 }
 

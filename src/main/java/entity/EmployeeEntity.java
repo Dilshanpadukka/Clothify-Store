@@ -20,4 +20,5 @@ public class EmployeeEntity {
     private String employeeAddress;
     private String employeeEmailAddress;
     private String contactNumber;
+    private String password;
 }

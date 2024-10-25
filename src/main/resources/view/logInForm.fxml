@@ -25,12 +25,12 @@
       </ImageView>
       <AnchorPane layoutX="417.0">
          <children>
-            <AnchorPane fx:id="pageEmployeeLogIn" layoutX="2.0" layoutY="3.0" visible="false">
+            <AnchorPane fx:id="pageEmployeeLogIn" layoutX="2.0" layoutY="3.0" prefWidth="398.0" visible="false">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="533.0" layoutX="-6.0" layoutY="-1.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="394.0" />
-                  <ImageView fitHeight="49.0" fitWidth="120.0" layoutX="130.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="533.0" layoutX="-6.0" layoutY="-1.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="401.0" />
+                  <ImageView fitHeight="79.0" fitWidth="124.0" layoutX="130.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../image/LogIn.png" />
+                        <Image url="@../image/Login%20Employee.png" />
                      </image>
                   </ImageView>
                   <JFXTextField fx:id="txtEmployeeEmail" alignment="TOP_LEFT" focusColor="#34495e" layoutX="81.0" layoutY="191.0" prefHeight="35.0" prefWidth="246.0" promptText="Enter your Email">
@@ -77,10 +77,10 @@
             </AnchorPane>
             <AnchorPane fx:id="pageAdminLogIn" layoutX="3.0" layoutY="5.0" visible="false">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="541.0" layoutX="-7.0" layoutY="-14.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="394.0" />
-                  <ImageView fitHeight="49.0" fitWidth="120.0" layoutX="130.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="541.0" layoutX="-7.0" layoutY="-14.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="398.0" />
+                  <ImageView fitHeight="79.0" fitWidth="124.0" layoutX="130.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../image/LogIn.png" />
+                        <Image url="@../image/Login%20Admin.png" />
                      </image>
                   </ImageView>
                   <JFXTextField fx:id="txtAdminEmail" alignment="TOP_LEFT" focusColor="#34495e" layoutX="81.0" layoutY="191.0" prefHeight="35.0" prefWidth="246.0" promptText="Enter your Email">
@@ -98,11 +98,6 @@
                         <Font name="Arial Bold" size="18.0" />
                      </font>
                   </JFXButton>
-                  <Label layoutX="227.0" layoutY="313.0" onMouseClicked="#btnAdminForgetPwOnAction" text="Forgot password?" textFill="#0070ff">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Label>
                   <Label layoutX="128.0" layoutY="492.0" text="\@2024 DilshanPadukka" />
                   <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="44.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -114,12 +109,6 @@
                         <Image url="@../image/Eye.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="102.0" layoutY="417.0" text="Don't have an account?" />
-                  <Label layoutX="230.0" layoutY="417.0" onMouseClicked="#btnAdminSignUpOnAction" text="Register " textFill="#0070ff">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Label>
                   <Label layoutX="229.0" layoutY="14.0" text="Are you Employee?" />
                   <Label layoutX="336.0" layoutY="14.0" onMouseClicked="#btnEmployeeSigninOnAction" text="SignIn" textFill="#0070ff">
                      <cursor>
@@ -130,66 +119,101 @@
             </AnchorPane>
             <AnchorPane fx:id="pageSignUp" layoutX="1.0" visible="false">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="533.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="387.0" />
-                  <ImageView fitHeight="49.0" fitWidth="120.0" layoutX="130.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e3e3" height="533.0" stroke="#e5e3e3" strokeType="OUTSIDE" strokeWidth="0.0" width="394.0" />
+                  <ImageView fitHeight="28.0" fitWidth="285.0" layoutX="70.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../image/SignUp.png" />
+                        <Image url="@../image/Employee%20Register.png" />
                      </image>
                   </ImageView>
-                  <JFXTextField fx:id="txtSignUpEmail" alignment="TOP_LEFT" focusColor="#34495e" layoutX="59.0" layoutY="207.0" prefHeight="35.0" prefWidth="246.0" promptText="Enter your Email">
+                  <JFXTextField fx:id="txtRegisterEmpEmail" alignment="TOP_LEFT" focusColor="#34495e" layoutX="59.0" layoutY="280.0" prefHeight="35.0" prefWidth="246.0" promptText="Enter your Email">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </JFXTextField>
-                  <JFXPasswordField fx:id="txtSignUpPassword" alignment="TOP_LEFT" focusColor="#34495e" layoutX="59.0" layoutY="265.0" prefHeight="25.0" prefWidth="246.0" promptText="Enter your password">
+                  <JFXPasswordField fx:id="txtRegisterEmpPassword" alignment="TOP_LEFT" focusColor="#34495e" layoutX="59.0" layoutY="324.0" prefHeight="25.0" prefWidth="246.0" promptText="Enter your password">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </JFXPasswordField>
-                  <JFXButton layoutX="126.0" layoutY="390.0" onAction="#btnRegisterOnAction" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: black;" text="Register" textFill="WHITE">
+                  <JFXButton layoutX="126.0" layoutY="426.0" onAction="#btnRegisterOnAction" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: black;" text="Register" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="18.0" />
                      </font>
                   </JFXButton>
-                  <Label layoutX="128.0" layoutY="492.0" text="\@2024 DilshanPadukka" />
-                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="22.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
+                  <Label layoutX="128.0" layoutY="502.0" text="\@2024 DilshanPadukka" />
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="22.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/Letter.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="22.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="22.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/Eye.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="102.0" layoutY="449.0" text="Already have an account?" />
-                  <Label layoutX="241.0" layoutY="449.0" onMouseClicked="#btnBackToSigninOnAction" text="SignIn" textFill="#0070ff">
+                  <Label layoutX="102.0" layoutY="477.0" text="Already have an account?" />
+                  <Label layoutX="241.0" layoutY="477.0" onMouseClicked="#btnBackToSigninOnAction" text="SignIn" textFill="#0070ff">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Label>
-                  <JFXTextField fx:id="txtSignUpFirstName" alignment="TOP_LEFT" focusColor="#34495e" layoutX="59.0" layoutY="144.0" prefHeight="35.0" prefWidth="144.0" promptText="First Name">
+                  <JFXTextField fx:id="txtRegisterEmpName" alignment="TOP_LEFT" focusColor="#34495e" layoutX="59.0" layoutY="103.0" prefHeight="35.0" prefWidth="144.0" promptText="Employee Name">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </JFXTextField>
-                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="22.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="22.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/User.png" />
                      </image>
                   </ImageView>
-                  <JFXTextField fx:id="txtSignUpLastName" alignment="TOP_LEFT" focusColor="#34495e" layoutX="223.0" layoutY="144.0" prefHeight="35.0" prefWidth="144.0" promptText="Last Name">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXPasswordField fx:id="txtSignUpConfirmPassword" alignment="TOP_LEFT" focusColor="#34495e" layoutX="59.0" layoutY="323.0" prefHeight="25.0" prefWidth="246.0" promptText="confirm passsword">
+                  <JFXPasswordField fx:id="txtRegisterEmpConfirmPassword" alignment="TOP_LEFT" focusColor="#34495e" layoutX="59.0" layoutY="368.0" prefHeight="25.0" prefWidth="246.0" promptText="confirm passsword">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </JFXPasswordField>
-                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="22.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="22.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/Checkmark.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="lblRegisterEmpID" layoutX="164.0" layoutY="60.0" prefHeight="28.0" prefWidth="102.0" text="E0001">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="29.0" layoutY="60.0" prefHeight="30.0" prefWidth="135.0" text="Employee ID :">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="txtRegisterEmpNIC" alignment="TOP_LEFT" focusColor="#34495e" layoutX="58.0" layoutY="148.0" prefHeight="35.0" prefWidth="144.0" promptText="Employee NIC">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXTextField>
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="21.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Identity%20Theft.png" />
+                     </image>
+                  </ImageView>
+                  <JFXTextField fx:id="txtRegisterEmpContact" alignment="TOP_LEFT" focusColor="#34495e" layoutX="57.0" layoutY="192.0" prefHeight="37.0" prefWidth="160.0" promptText="Employee Contact No.">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXTextField>
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="20.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Phone.png" />
+                     </image>
+                  </ImageView>
+                  <JFXTextField fx:id="txtRegisterEmpAddress" alignment="TOP_LEFT" focusColor="#34495e" layoutX="57.0" layoutY="237.0" prefHeight="37.0" prefWidth="160.0" promptText="Employee Address">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXTextField>
+                  <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="20.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Address.png" />
                      </image>
                   </ImageView>
                </children>

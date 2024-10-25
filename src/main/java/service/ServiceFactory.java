@@ -5,7 +5,6 @@ import util.ServiceType;
 
 public class ServiceFactory {
     private static ServiceFactory instance;
-    private UserServiceImpl userServiceImpl;
 
     private ServiceFactory(){}
 
@@ -15,18 +14,20 @@ public class ServiceFactory {
 
     public <T extends SuperService> T getServiceType(ServiceType type) {
         switch (type) {
-            case CUSTOMER: return (T) new CustomerServiceImpl();
-            case EMPLOYEE: return (T) new EmployeeServiceImpl();
-            case SUPPLIER: return (T) new SupplierServiceImpl();
-            case ITEM: return (T) new ItemServiceImpl();
-            case ORDER: return (T) new OrderServiceImpl();
-            case ORDERDETAILS: return (T) new OrderDetailsServiceImpl();
-            case USER:
-                if (userServiceImpl == null) {
-                    userServiceImpl = new UserServiceImpl();
-                }
-                return (T) userServiceImpl;
+            case CUSTOMER:
+                return (T) new CustomerServiceImpl();
+            case EMPLOYEE:
+                return (T) new EmployeeServiceImpl();
+            case SUPPLIER:
+                return (T) new SupplierServiceImpl();
+            case ITEM:
+                return (T) new ItemServiceImpl();
+            case ORDER:
+                return (T) new OrderServiceImpl();
+            case ORDERDETAILS:
+                return (T) new OrderDetailsServiceImpl();
         }
         return null;
+
     }
 }

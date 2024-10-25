@@ -1,7 +1,9 @@
 package repository.custom.impl;
 
 import entity.EmployeeEntity;
+import model.Employee;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import repository.custom.EmployeeDao;
 import util.HibernateUtil;
@@ -16,16 +18,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
         session.persist(employee);
         session.getTransaction().commit();
         session.close();
-
         return true;
     }
-
     @Override
     public boolean update(EmployeeEntity employee) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         EmployeeEntity employeeToUpdate = session.get(EmployeeEntity.class, employee.getEmployeeId());
-
         if (employeeToUpdate != null) {
             employeeToUpdate.setEmployeeId(employee.getEmployeeId());
             employeeToUpdate.setEmployeeName(employee.getEmployeeName());
@@ -33,6 +32,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             employeeToUpdate.setEmployeeAddress(employee.getEmployeeAddress());
             employeeToUpdate.setEmployeeEmailAddress(employee.getEmployeeEmailAddress());
             employeeToUpdate.setContactNumber(employee.getContactNumber());
+            employeeToUpdate.setPassword(employee.getPassword());
             session.update(employeeToUpdate);
             session.getTransaction().commit();
             session.close();
@@ -101,5 +101,43 @@ public class EmployeeDaoImpl implements EmployeeDao {
         String id = (String) query.uniqueResult();
         session.close();
         return id;
+    }
+
+    public Employee  getEmployeeByEmail(String employeeEmailAddress) {
+        Transaction transaction = null;
+        Employee employee = null;
+
+        try (Session session = HibernateUtil.getSession()) {
+            transaction = session.beginTransaction();
+
+            jakarta.persistence.Query query = session.createQuery("FROM EmployeeEntity WHERE employeeEmailAddress = :employeeEmailAddress", EmployeeEntity.class);
+            query.setParameter("employeeEmailAddress", employeeEmailAddress);
+
+            EmployeeEntity employeeEntity = (EmployeeEntity) ((org.hibernate.query.Query<?>) query).uniqueResult();
+
+            if (employeeEntity != null) {
+                employee = convertToEmployee(employeeEntity);
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        return employee;
+    }
+
+    private Employee convertToEmployee(EmployeeEntity employeeEntity){
+        Employee employee = new Employee();
+        employee.setEmployeeId(employeeEntity.getEmployeeId());
+        employee.setEmployeeName(employeeEntity.getEmployeeName());
+        employee.setEmployeeNic(employeeEntity.getEmployeeNic());
+        employee.setContactNumber(employeeEntity.getContactNumber());
+        employee.setEmployeeEmailAddress(employeeEntity.getEmployeeEmailAddress());
+        employee.setPassword(employeeEntity.getPassword());
+        return employee;
     }
 }
