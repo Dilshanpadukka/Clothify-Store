@@ -1085,13 +1085,6 @@ public class AdminManagementFormController implements Initializable {
             cartTMS.forEach(obj -> {
                 orderDetailsList.add(new OrderDetails(lblOrderId.getText(), obj.getItemId(), obj.getQty(), obj.getPrice()));
             });
-//
-//            private String orderId;
-//            private String empId;
-//            private String custName;
-//            private LocalDate date;
-//            private LocalTime time;
-//            private Double netTotal;
             Order order = new Order(lblOrderId.getText(),txtOrderEmpId.getText(),cmbCustId.getValue().toString(), LocalDate.now(), LocalTime.now(),lblNetTotal.getText(),orderDetailsList);
             orderService.placeOrder(order);
 
