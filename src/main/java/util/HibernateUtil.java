@@ -24,7 +24,6 @@ public class HibernateUtil {
                 .addAnnotatedClass(ItemEntity.class)
                 .addAnnotatedClass(OrderEntity.class)
                 .addAnnotatedClass(OrderDetailsEntity.class)
-                .addAnnotatedClass(UserEntity.class)
                 .getMetadataBuilder()
                 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
                 .build();

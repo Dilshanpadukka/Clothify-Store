@@ -1,6 +1,9 @@
 package repository.custom.impl;
 
+import entity.ItemEntity;
 import entity.OrderEntity;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import repository.custom.OrderDao;
@@ -37,7 +40,12 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<OrderEntity> getAll() {
-        return List.of();
+        ObservableList<OrderEntity> orderList = FXCollections.observableArrayList();
+
+        try (Session session = HibernateUtil.getSession()) {
+            orderList.addAll(session.createQuery("FROM OrderEntity", OrderEntity.class).list());
+        }
+        return orderList;
     }
 
     @Override

@@ -9,12 +9,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.User;
+import model.Employee;
 import service.ServiceFactory;
-import service.custom.UserService;
+import service.custom.EmployeeService;
 import util.OTPUtil;
 import util.ServiceType;
 
@@ -23,9 +24,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LogInFormController implements Initializable {
-    public JFXTextField txtEmail;
-    public JFXPasswordField txtPassword;
-    public JFXButton btnLogin;
     public AnchorPane pageEmployeeLogIn;
     public JFXTextField txtEmployeeEmail;
     public JFXPasswordField txtEmployeePassword;
@@ -33,53 +31,27 @@ public class LogInFormController implements Initializable {
     public JFXTextField txtAdminEmail;
     public JFXPasswordField txtAdminPassword;
     public AnchorPane pageSignUp;
-    public JFXTextField txtSignUpEmail;
-    public JFXPasswordField txtSignUpPassword;
-    public JFXTextField txtSignUpFirstName;
-    public JFXTextField txtSignUpLastName;
-    public JFXPasswordField txtSignUpConfirmPassword;
     public AnchorPane pageForgotPassword;
     public JFXTextField txtForgotPwEmail;
     public AnchorPane pageResetPassword;
     public JFXTextField txtOTP;
     public JFXPasswordField txtResetPassword;
+    public JFXTextField txtRegisterEmpEmail;
+    public JFXPasswordField txtRegisterEmpPassword;
+    public JFXTextField txtRegisterEmpName;
+    public JFXPasswordField txtRegisterEmpConfirmPassword;
+    public Label lblRegisterEmpID;
+    public JFXTextField txtRegisterEmpNIC;
+    public JFXTextField txtRegisterEmpContact;
+    public JFXTextField txtRegisterEmpAddress;
 
     private AnchorPane currentPage;
-
-//    public void btnLoginOnAction(ActionEvent event) {
-//        String email = txtEmail.getText();
-//        String password = txtPassword.getText();
-//        Stage stage=new Stage();
-//        if (email.equals("Admin") && password.equals("Admin")){
-//            try {
-//                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/adminManagementForm.fxml"))));
-//                stage.setTitle("Clothify Shop Management System | Admin DashBoard");
-//                new Alert(Alert.AlertType.INFORMATION,"Log In Successfully").showAndWait();
-//                btnLogin.getScene().getWindow().hide();
-//                stage.show();
-//            } catch (IOException e) {
-//                new Alert(Alert.AlertType.ERROR,"LogIn Failed");
-//            }
-//        }else if (email.equals("Employee") && password.equals("Employee")) {
-//            try {
-//                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/employeeManagementForm.fxml"))));
-//                stage.setTitle("Clothify Shop Management System | Employee DashBoard");
-//                stage.setHeight(720);
-//                stage.setWidth(1200);
-//                stage.setResizable(false);
-//                new Alert(Alert.AlertType.INFORMATION, "Log In Successfully").showAndWait();
-//                btnLogin.getScene().getWindow().hide();
-//                stage.show();
-//            } catch (IOException e) {
-//                new Alert(Alert.AlertType.ERROR, "Login Failed");
-//            }
-//        }
-//    }
 
     public void btnEmployeeSignUpOnAction(MouseEvent mouseEvent) {
         currentPage.setVisible(false);
         currentPage = pageSignUp;
         currentPage.setVisible(true);
+        lblRegisterEmpID.setText(employeeService.generateEmployeeId());
     }
     public void btnAdminSigninOnAction(MouseEvent mouseEvent) {
         currentPage.setVisible(false);
@@ -99,22 +71,21 @@ public class LogInFormController implements Initializable {
         currentPage.setVisible(true);
     }
 
-    final UserService userService = ServiceFactory.getInstance().getServiceType(ServiceType.USER);
+    final EmployeeService employeeService = ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         currentPage = pageEmployeeLogIn;
         currentPage.setVisible(true);
-
     }
 
     public void btnAdminLoginOnAction(ActionEvent event) {
+        String systemAdmin = "admin";
+        String systemPassword = "admin12345";
         String email = txtAdminEmail.getText();
         String password = txtAdminPassword.getText();
 
 
-        User user = userService.loginUser(email, password);
-
-        if (user != null) {
+        if (systemAdmin.equals(email) && systemPassword.equals(password)) {
             Stage newStage = new Stage();
             try {
                 newStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/adminManagementForm.fxml"))));
@@ -130,27 +101,21 @@ public class LogInFormController implements Initializable {
         }
     }
 
-    public void btnAdminForgetPwOnAction(MouseEvent mouseEvent) {
-
-    }
-
-    public void btnAdminSignUpOnAction(MouseEvent mouseEvent) {
-        currentPage.setVisible(false);
-        currentPage = pageSignUp;
-        currentPage.setVisible(true);
-    }
 
     public void btnRegisterOnAction(ActionEvent event) {
-        String firstName = txtSignUpFirstName.getText();
-        String lastName = txtSignUpLastName.getText();
-        String emailAddress = txtSignUpEmail.getText();
-        String password = txtSignUpPassword.getText();
-        String confirmPassword = txtSignUpConfirmPassword.getText();
+        String empId = lblRegisterEmpID.getText();
+        String name = txtRegisterEmpName.getText();
+        String nic = txtRegisterEmpNIC.getText();
+        String contact = txtRegisterEmpContact.getText();
+        String address = txtRegisterEmpAddress.getText();
+        String emailAddress = txtRegisterEmpEmail.getText();
+        String password = txtRegisterEmpPassword.getText();
+        String confirmPassword = txtRegisterEmpConfirmPassword.getText();
 
         if (!password.equals(confirmPassword)) {
             new Alert(Alert.AlertType.INFORMATION, "Your passwords do not match, please re-enter.").show();
         } else {
-            if (userService.registerUser(firstName, lastName, emailAddress, password, confirmPassword)) {
+            if (employeeService.addEmployee(empId,name, nic,contact,address, emailAddress, password)) {
                 new Alert(Alert.AlertType.INFORMATION, "You are registered successfully!").show();
                 currentPage.setVisible(false);
                 currentPage = pageEmployeeLogIn;
@@ -167,9 +132,9 @@ public class LogInFormController implements Initializable {
         String password = txtEmployeePassword.getText();
 
 
-        User user = userService.loginUser(email, password);
+        Employee employee = employeeService.loginEmployee(email, password);
 
-        if (user != null) {
+        if (employee != null) {
             Stage newStage = new Stage();
             try {
                 newStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/employeeManagementForm.fxml"))));
@@ -177,11 +142,10 @@ public class LogInFormController implements Initializable {
                 throw new RuntimeException(e);
             }
             newStage.show();
-
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
         } else {
-            new Alert(Alert.AlertType.WARNING, "Invalid User Name Or Password.").show();
+            new Alert(Alert.AlertType.WARNING, "Invalid Employee Name Or Password.").show();
         }
     }
 
@@ -198,18 +162,17 @@ public class LogInFormController implements Initializable {
             new Alert(Alert.AlertType.WARNING, "Please enter your email address.").show();
             return;
         }
-
-        User user = userService.findUserByEmail(email);
-        if (user == null) {
-            new Alert(Alert.AlertType.WARNING, "No user found with this email address.").show();
+        Employee employee = employeeService.findEmployeeByEmail(email);
+        if (employee == null) {
+            new Alert(Alert.AlertType.WARNING, "No Employee found with this email address.").show();
             return;
         }
 
         String otp = OTPUtil.generateOTP();
-        userService.storeOTP(email, otp);
+        employeeService.storeOTP(email, otp);
         System.out.println("Generated OTP: " + otp);
 
-        boolean emailSent = userService.sendOTPEmail(email, otp);
+        boolean emailSent = employeeService.sendOTPEmail(email, otp);
         if (emailSent) {
             new Alert(Alert.AlertType.INFORMATION, "OTP has been sent to your email.").show();
             // Get the controller and set the email address
@@ -233,8 +196,8 @@ private String emailAddress;
         System.out.println("Entered OTP: " + otp);
         System.out.println("Email Address: " + emailAddress);
 
-        if (userService.validateOTP(emailAddress, otp)) {
-            userService.resetPassword(emailAddress, newPassword);
+        if (employeeService.validateOTP(emailAddress, otp)) {
+            employeeService.resetPassword(emailAddress, newPassword);
             new Alert(Alert.AlertType.INFORMATION, "Password has been reset.").show();
             currentPage.setVisible(false);
             currentPage = pageEmployeeLogIn;
